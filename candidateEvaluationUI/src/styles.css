@@ -1,1 +1,123 @@
 /* You can add global styles to this file, and also import other style files */
+@import "~bootstrap/dist/css/bootstrap.css";
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;1,300&display=swap');
+
+*{
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    letter-spacing: 1px;
+    font-weight: bold;
+}
+.main-logo a{
+    color: black;
+}
+.main-logo a:hover{
+    text-decoration: none;
+}
+.index-head{
+    letter-spacing: 2px;
+    font-weight: bolder;
+}
+.main-bg{
+    background-image:linear-gradient(rgba(0,0,0,0.67),rgba(0,0,0,0.8)),url("./assets/img/background.jpg");
+    height: auto;
+    background-size: cover;
+    max-width: 100%;
+}
+
+.login-or {
+    position: relative;
+    color: #aaa;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.hr-or {
+    height: 1px;
+    margin-top: 0px !important;
+    margin-bottom: 0px !important;
+    }
+.span-or {
+    display: block;
+    position: absolute;
+    left: 50%;
+    top: -2px;
+    margin-left: -25px;
+    background-color: #fff;
+    width: 50px;
+    text-align: center;
+}
+
+.card{
+    opacity: 0.75;
+}
+
+@media(min-width:768px) {
+    .hr-ver{
+        height: 250px;
+        border-left: 2px solid rgba(245, 245, 245, 0.562);
+    }
+}  
+
+.left-col{
+    color: white;
+}
+.left-col h2{
+    font-size: 35px;
+}
+
+.left-col p{
+    font-weight: lighter;
+}
+
+.description{
+    font-size: 30px;
+    border-bottom: 4px solid skyblue;
+}
+
+.how-desc{
+    text-align: justify;
+    font-size: 16px;
+}
+
+.how-container{
+    margin-top: 70px;
+    margin-bottom: 70px;
+}
+
+.mybtn{
+    text-transform: uppercase;
+    font-weight: bolder;
+    letter-spacing: 2px;
+    border-radius: 7px;
+}
+/* Footer CSS */
+
+/*  */
+
+/*  */
+
+.foot{
+    background: linear-gradient(0deg, #fff, 50%, #DEEEFE);
+    background: #000000;
+}
+
+.footer-icons{
+    font-size: 18px;
+    color: white;
+}
+.name{
+    font-size: 14px;
+    color: white;
+    font-weight: lighter;
+}
+
+.name h4{
+    letter-spacing: 5px;
+    font-weight: bolder;
+}
+
+.footer-icons:hover{
+    color: yellow;
+}
