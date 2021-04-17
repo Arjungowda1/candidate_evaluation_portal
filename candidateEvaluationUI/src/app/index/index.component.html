@@ -1,8 +1,21 @@
-<div class="container-fluid mt-4 pl-5 mb-4 ">
+<!-- <div class="container-fluid mt-4 pl-5 mb-4">
     <div class="row align-items-center main-logo">
         <a [routerLink]=""><img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" /></a>
         <div class="justify-content-center">
-            <a [routerLink]=""><h3 class="index-head">Candidate Evaluation</h3></a>
+            <a [routerLink]="">
+                <h3 class="index-head">Candidate Evaluation</h3>
+            </a>
+        </div>
+    </div>
+</div> -->
+
+<div class="container-fluid mt-4 pl-5 mb-4">
+    <div class="row align-items-center main-logo">
+        <div class="col-md-col-4"><img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" /> </div>
+        <div class="col-md-10 col-8 justify-content-center">
+            <a [routerLink]="">
+                <h3 class="index-head">Candidate Evaluation</h3>
+            </a>
         </div>
     </div>
 </div>
@@ -22,33 +35,96 @@
                     <h3 class="card-title text-center pt-4"><i class="fa fa-lock"></i><b> Login</b></h3>
                     <div class="login-or">
                         <hr class="hr-or">
-                    </div>   
+                    </div>
                     <div class="card-body">
                         <form action="" method="post" name="login">
                             <div class="form-group">
-                               <label for="email">Email ID</label>
-                               <input type="email" name="email"  class="form-control" id="email"  placeholder="Enter email">
+                                <label for="email">Email ID</label>
+                                <input type="email" name="email" class="form-control" id="email"
+                                    placeholder="Enter email">
                             </div>
                             <div class="form-group">
-                               <label for="password">Password</label>
-                               <input type="password" name="password" id="password"  class="form-control" placeholder="Enter Password">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" id="password" class="form-control"
+                                    placeholder="Enter Password">
                             </div>
                             <div class="col-md-12 text-center">
-                               <button type="submit" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
+                                <button type="submit" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
                             </div>
                             <div class="col-md-12 ">
-                               <div class="login-or mt-4 mb-4">
-                                  <hr class="hr-or">
-                                  <span class="span-or">or</span>
-                               </div>
+                                <div class="login-or mt-4 mb-4">
+                                    <hr class="hr-or">
+                                    <span class="span-or">or</span>
+                                </div>
                             </div>
                             <div class="form-group">
-                               <p class="text-center">Forgot password? <a href="#" id="signup">Click here</a></p>
+                                <p class="text-center">Forgot password?
+                                    <button type="button" class="modal-btn" data-toggle="modal"
+                                        data-target="#myModal">Click here</button>
+                                </p>
                             </div>
-                         </form>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal" id="myModal">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Password reset</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form action="" method="post" name="keyphrase-form">
+                    <div class="form-group">
+                        <label for="resetemail">Enter registered Email ID</label>
+                        <div class="row">
+                            <div class="col-md-8 pb-2">
+                                <input type="email" name="resetemail" class="form-control" id="resetemail"
+                                    placeholder="Enter email">
+                            </div>
+                            <div class="col-md-4 justify-content-center">
+                                <button type="submit" class="btn btn-warning" data-dismiss="modal">Send key</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyphrase">Enter keyphrase sent to the mail</label>
+                        <div class="row">
+                            <div class="col-md-8 pb-2">
+                                <input type="email" name="keyphrase" class="form-control" id="keyphrase"
+                                    placeholder="Enter keyphrase">
+                            </div>
+                            <div class="col-md-4 justify-content-center">
+                                <button type="button" class="btn btn-success" data-dismiss="modal">Verify</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+                <form action="" method="post" name="reset-form">
+                    <div class="form-group">
+                        <label for="newpassword">Enter new password</label>
+                        <input type="password" name="newpassword" class="form-control" id="newpassword"
+                            placeholder="Enter new password">
+                    </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success " form="reset-form" data-dismiss="modal">Update</button>
+            </div>
+
         </div>
     </div>
 </div>
@@ -58,10 +134,17 @@
         <div class="col">
             <span class="description">How it works?</span>
         </div>
-    </div>  
+    </div>
     <div class="row pt-5">
         <div class="container how-desc">
-            <p>An interview evaluation form is a fantastic way to structure an interview. An interview evaluation form helps the interview process in numerous ways.Hiring great employees is a whole lot simpler than firing employees who end up being poor fits for your company. Having a clear, consistent, and structured interview process can vastly improve your interview and hiring process. Implementing and utilizing a straightforward evaluation process with the help of an interview evaluation form can help you improve the quality of candidates you hire and streamline hiring decisions. This form minimizes the social allure of a candidate and steers the focus back to their skill and ability to perform, ensuring the applicant is the correct fit for your company.</p>
+            <p>An interview evaluation form is a fantastic way to structure an interview. An interview evaluation form
+                helps the interview process in numerous ways.Hiring great employees is a whole lot simpler than firing
+                employees who end up being poor fits for your company. Having a clear, consistent, and structured
+                interview process can vastly improve your interview and hiring process. Implementing and utilizing a
+                straightforward evaluation process with the help of an interview evaluation form can help you improve
+                the quality of candidates you hire and streamline hiring decisions. This form minimizes the social
+                allure of a candidate and steers the focus back to their skill and ability to perform, ensuring the
+                applicant is the correct fit for your company.</p>
         </div>
     </div>
 </div>

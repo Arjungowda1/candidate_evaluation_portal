@@ -8,6 +8,7 @@
     letter-spacing: 1px;
     font-weight: bold;
 }
+
 .main-logo a{
     color: black;
 }
@@ -91,6 +92,12 @@
     font-weight: bolder;
     letter-spacing: 2px;
     border-radius: 7px;
+}
+
+.modal-btn{
+    border: none;
+    background-color: white ;
+    color: blue;
 }
 /* Footer CSS */
 
