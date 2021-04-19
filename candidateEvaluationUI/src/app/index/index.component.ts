@@ -78,9 +78,12 @@ export class IndexComponent implements OnInit {
 
       this.loginService.verifyUser(this.inputData)
       .subscribe(res => {
-        console.log(res);
+        if(res == 0){
+          this.errMess = "Invalid Credentials or User doesn't exist";
+          this.cepLoginForm.reset();
+        }
       })
     }
+  } 
 
-  }
 }

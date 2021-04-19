@@ -41,6 +41,9 @@
                                     placeholder="Enter Password">
                                     <small class="text-danger" *ngIf = "formErrors.email"><b>{{formErrors.password}}</b></small>
                             </div>
+                            <div *ngIf = "errMess" [hidden]="cepLoginForm.dirty">
+                                <small class="text-danger"><b>{{errMess}}</b></small>
+                            </div>
                             <div class="col-md-12 text-center">
                                 <button type="submit" [disabled]="cepLoginForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
                             </div>
