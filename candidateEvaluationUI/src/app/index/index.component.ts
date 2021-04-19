@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from 'src/app/service/auth/authenticate.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from 'src/app/shared/login';
-
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-index',
@@ -31,7 +31,8 @@ export class IndexComponent implements OnInit {
   }
 
   constructor(private loginService: AuthenticateService,
-    public fb:FormBuilder) {
+    public fb:FormBuilder,
+    public route:Router) {
 
       this.createLoginForm();
       this.inputData = new Login;
@@ -81,6 +82,15 @@ export class IndexComponent implements OnInit {
         if(res == 0){
           this.errMess = "Invalid Credentials or User doesn't exist";
           this.cepLoginForm.reset();
+        }
+
+        else{
+          if(res==1){
+            this.route.navigate(['/admin'])
+          }
+          else{
+
+          }
         }
       })
     }

@@ -11,6 +11,8 @@ import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
 import { AdminComponent } from './admin/admin.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
+import { UserComponent } from './user/user.component';
+import { HeaderComponent } from './header/header.component';
 
 
 @NgModule({
@@ -19,7 +21,9 @@ import { InterviewerComponent } from './interviewer/interviewer.component';
     IndexComponent,
     FooterComponent,
     AdminComponent,
-    InterviewerComponent
+    InterviewerComponent,
+    UserComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
