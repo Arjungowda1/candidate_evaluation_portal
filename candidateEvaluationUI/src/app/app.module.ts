@@ -13,6 +13,7 @@ import { AdminComponent } from './admin/admin.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
 import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './header/header.component';
+import { InterviewerHeaderComponent } from './interviewer-header/interviewer-header.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { HeaderComponent } from './header/header.component';
     AdminComponent,
     InterviewerComponent,
     UserComponent,
-    HeaderComponent
+    HeaderComponent,
+    InterviewerHeaderComponent
   ],
   imports: [
     BrowserModule,
