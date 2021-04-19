@@ -14,7 +14,7 @@
 <div class="container-fluid main-bg">
     <div class="container pt-3 pb-5">
         <div class="row align-items-center">
-            <div class="col-md-6 left-col" [ngsReveal]="{ duration: 2000,delay:500,scale: 1.6}" >
+            <div class="col-md-6 left-col" [ngsReveal]="{ duration: 2000,delay:500,scale: 1.3}" >
                 <h2><b>FINDING THE BEST CANDIDATE</b></h2>
                 <p>BRING THE EXPERTISE AND PRECISION IN HIRING THE BEST CANDIDATE</p>
             </div>
@@ -28,20 +28,23 @@
                         <hr class="hr-or">
                     </div>
                     <div class="card-body">
-                        <form action="" method="post" name="login">
+                        <form novalidate [formGroup]="cepLoginForm" (ngSubmit)="onSubmit()">
                             <div class="form-group">
-                                <label for="email">Email ID</label>
-                                <input type="email" name="email" class="form-control" id="email"
+                                <label for="email">Email ID</label> 
+                                <input type="email" formControlName="email" class="form-control" [class.is-invalid] = "cepLoginForm.get('email').invalid && cepLoginForm.get('email').touched"    
                                     placeholder="Enter email">
+                                <small class="text-danger" *ngIf = "formErrors.email"><b>{{formErrors.email}}</b></small>
                             </div>
                             <div class="form-group">
                                 <label for="password">Password</label>
-                                <input type="password" name="password" id="password" class="form-control"
+                                <input type="password" formControlName="password" class="form-control"  [class.is-invalid] = "cepLoginForm.get('password').invalid && cepLoginForm.get('password').touched"
                                     placeholder="Enter Password">
+                                    <small class="text-danger" *ngIf = "formErrors.email"><b>{{formErrors.password}}</b></small>
                             </div>
                             <div class="col-md-12 text-center">
-                                <button type="submit" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
+                                <button type="submit" [disabled]="cepLoginForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
                             </div>
+                        </form>
                             <div class="col-md-12 ">
                                 <div class="login-or mt-4 mb-4">
                                     <hr class="hr-or">
@@ -54,7 +57,7 @@
                                         data-target="#myModal">Click here</button>
                                 </p>
                             </div>
-                        </form>
+                        
                     </div>
                 </div>
             </div>

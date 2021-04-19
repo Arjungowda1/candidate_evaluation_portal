@@ -2,10 +2,14 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
+import { NgsRevealModule } from 'ngx-scrollreveal';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
-import { NgsRevealModule } from 'ngx-scrollreveal';
+
 
 @NgModule({
   declarations: [
@@ -16,7 +20,10 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgsRevealModule
+    NgsRevealModule,
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
