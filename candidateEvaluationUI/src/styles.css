@@ -15,7 +15,11 @@
     } 
     .small-screen-right{
         width: 50%;
-    }  
+    }
+    .hide{
+        display:none;
+    }
+
 }
 .main-logo a{
     color: black;
@@ -136,3 +140,61 @@
 .footer-icons:hover{
     color: yellow;
 }
+
+/**/
+.carousel-item {
+	height: 100vh;
+	min-height: 300px;
+}
+.carousel-caption {
+	bottom: 220px;
+}
+.carousel-caption h5 {
+	font-size: 45px;
+	text-transform: uppercase;
+	letter-spacing: 2px;
+	margin-top: 25px;
+	font-family: merienda;
+}
+.carousel-caption p {
+	width: 60%;
+	margin: auto;
+	font-size: 18px;
+	line-height: 1.9;
+	font-family: poppins;
+}
+.carousel-caption a {
+	text-transform: uppercase;
+	padding: 10px 30px;
+	display: inline-block;
+	margin-top: 15px;
+}
+.navbar-nav a {
+	font-family: poppins;
+	font-size: 18px;
+	text-transform: uppercase;
+	font-weight: bold;
+    color: black;
+}
+.navbar-light .navbar-brand {
+	font-size: 25px;
+	text-transform: uppercase;
+	font-weight: bold;
+	letter-spacing: 2px;
+}
+
+
+@media  (max-width: 767px) {
+    .check{
+        background-color: rgba(128, 128, 128, 0);
+        color: white;
+    }
+
+}
+
+/* .navcolour{
+   background-color: black;
+} */
+
+
+
