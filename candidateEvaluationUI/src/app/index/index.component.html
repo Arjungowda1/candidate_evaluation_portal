@@ -1,36 +1,27 @@
-<!-- <div class="container-fluid mt-4 pl-5 mb-4">
-    <div class="row align-items-center main-logo">
-        <a [routerLink]=""><img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" /></a>
-        <div class="justify-content-center">
-            <a [routerLink]="">
-                <h3 class="index-head">Candidate Evaluation</h3>
-            </a>
-        </div>
-    </div>
-</div> -->
-
 <div class="container-fluid mt-4 pl-5 mb-4">
-    <div class="row align-items-center main-logo">
-        <div class="col-md-col-4"><img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" /> </div>
-        <div class="col-md-10 col-8 justify-content-center">
-            <a [routerLink]="">
-                <h3 class="index-head">Candidate Evaluation</h3>
-            </a>
-        </div>
-    </div>
+            <div class="row align-items-center main-logo">
+                <div class="small-screen-left">
+                    <img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" />
+                </div>
+                <div class="small-screen-right">
+                    <a [routerLink]="">
+                        <h3 class="index-head">Candidate Evaluation</h3>
+                    </a>
+                </div>
+            </div>
 </div>
 
 <div class="container-fluid main-bg">
     <div class="container pt-3 pb-5">
         <div class="row align-items-center">
-            <div class="col-md-6 left-col">
+            <div class="col-md-6 left-col" [ngsReveal]="{ duration: 2000,delay:500,scale: 1.6}" >
                 <h2><b>FINDING THE BEST CANDIDATE</b></h2>
                 <p>BRING THE EXPERTISE AND PRECISION IN HIRING THE BEST CANDIDATE</p>
             </div>
             <div class="col-md-1">
                 <hr class="hr-ver">
             </div>
-            <div class="col-md-5 pt-5">
+            <div class="col-md-5 pt-5" [ngsReveal]="{ duration: 2500,delay:1000}">
                 <div class="card">
                     <h3 class="card-title text-center pt-4"><i class="fa fa-lock"></i><b> Login</b></h3>
                     <div class="login-or">
@@ -71,7 +62,7 @@
     </div>
 </div>
 
-<div class="modal" id="myModal">
+<div class="modal" id="myModal"> 
     <div class="modal-dialog">
         <div class="modal-content">
 
@@ -131,11 +122,11 @@
 
 <div class="container-fluid text-center p-5 how-container">
     <div class="row">
-        <div class="col">
+        <div class="col" [ngsReveal]="{reset:true, delay:500}">
             <span class="description">How it works?</span>
         </div>
     </div>
-    <div class="row pt-5">
+    <div class="row pt-5" [ngsReveal]="{reset:true, delay:1000}">
         <div class="container how-desc">
             <p>An interview evaluation form is a fantastic way to structure an interview. An interview evaluation form
                 helps the interview process in numerous ways.Hiring great employees is a whole lot simpler than firing
@@ -148,4 +139,5 @@
         </div>
     </div>
 </div>
+
 <app-footer></app-footer>

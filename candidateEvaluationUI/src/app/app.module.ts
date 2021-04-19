@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { FooterComponent } from './footer/footer.component';
+import { NgsRevealModule } from 'ngx-scrollreveal';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { FooterComponent } from './footer/footer.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    NgsRevealModule
   ],
   providers: [],
   bootstrap: [AppComponent]

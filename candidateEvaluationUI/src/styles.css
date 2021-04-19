@@ -9,6 +9,14 @@
     font-weight: bold;
 }
 
+@media (max-width:768px) {
+    .small-screen-left{
+        width: 20%;
+    } 
+    .small-screen-right{
+        width: 50%;
+    }  
+}
 .main-logo a{
     color: black;
 }
