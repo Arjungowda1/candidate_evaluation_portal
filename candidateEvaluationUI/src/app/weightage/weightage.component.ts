@@ -12,6 +12,7 @@ export class WeightageComponent implements OnInit {
 
   newWeightage: Weightage;
   sucessMesg: String;
+  exists = true;
 
   existingWeightage: Weightage[];
 
@@ -131,6 +132,12 @@ export class WeightageComponent implements OnInit {
     .subscribe(
       res => {
         this.existingWeightage = <any> res;
+        if(this.existingWeightage.length == 0){
+          this.exists = false;
+        }
+        else{
+          this.exists = true;
+        }
       console.log(res);}
     );
   }

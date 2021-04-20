@@ -42,7 +42,7 @@
 <div class="card bg-light container-fluid mt-4 mb-2" >
     <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:900}"><b>Existing users</b></h4>
 </div>
-<div class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" *ngIf = "allUsers" [ngsReveal]="{ duration: 2000,delay:900}">
+<div class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" *ngIf = "userexists" [ngsReveal]="{ duration: 2000,delay:900}">
     <table class="table">
         <thead class="thead-dark ">
             <tr>
@@ -63,7 +63,7 @@
     </table>
 </div>
 
-<div class="container bg-light mb-4 mt-4" [hidden]="allUsers">
+<div class="container bg-light mb-4 mt-4" [hidden]="userexists">
     <div class="row align-items-center justify-content-center" style="height: 400px;">
         <i class="fa fa-times-circle" style="font-size:40px;"></i>
         <h6 class="text-secondary pl-2"><b>No Users to display</b></h6>

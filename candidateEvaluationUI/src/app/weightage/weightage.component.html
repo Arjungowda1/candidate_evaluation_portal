@@ -82,7 +82,7 @@
 <div class="card bg-light container-fluid mt-4 mb-2" >
     <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:700}"><b>Existing weightage</b></h4>
 </div>
-<div *ngIf="existingWeightage" class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" [ngsReveal]="{ duration: 2000,delay:900}">
+<div *ngIf="exists" class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" [ngsReveal]="{ duration: 2000,delay:900}">
     <table class="table">
         <thead class="thead-dark">
             <tr>
@@ -117,7 +117,7 @@
     </table>
 </div>
 
-<div class="container bg-light mb-4 mt-4" [hidden]="existingWeightage">
+<div class="container bg-light mb-4 mt-4" [hidden]="exists">
     <div class="row align-items-center justify-content-center" style="height: 400px;">
         <i class="fa fa-times-circle" style="font-size:40px;"></i>
         <h6 class="text-secondary pl-2"><b> No weightage created yet</b></h6>

@@ -13,6 +13,8 @@ export class UserComponent implements OnInit {
   newUser: Login;
   sucessMess: String;
 
+  userexists= true;
+
   allUsers:Login[];
 
 
@@ -83,6 +85,12 @@ export class UserComponent implements OnInit {
     this.adminService.extractAllUsers()
     .subscribe( res =>{
       this.allUsers = <any>res;
+      if(this.allUsers.length == 0){
+        this.userexists = false;
+      }
+      else{
+        this.userexists = true;
+      }
     })
   }
 
