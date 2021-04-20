@@ -4,13 +4,15 @@ import { AdminComponent } from './admin/admin.component';
 import { IndexComponent } from './index/index.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
 import { UserComponent } from './user/user.component';
+import { WeightageComponent } from './weightage/weightage.component';
 
 const routes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: '', redirectTo:'/index', pathMatch: 'full' },
   { path: 'admin', component: AdminComponent},
-  { path: 'interviewer', component: InterviewerComponent},
-  { path: 'user', component:UserComponent}
+  { path: 'interviewer/:id', component: InterviewerComponent},
+  { path: 'user', component:UserComponent},
+  { path: 'weightage', component:WeightageComponent}
 ];
 
 @NgModule({

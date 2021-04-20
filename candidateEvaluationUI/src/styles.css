@@ -169,3 +169,15 @@ footer{
 
 }
 
+/* user component */
+
+.my-custom-scrollbar {
+    position: relative;
+    height: 500px;
+    overflow: auto;
+    }
+    
+.delete-btn{
+    border: none;
+    background: none;
+}

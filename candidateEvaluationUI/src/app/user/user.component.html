@@ -3,28 +3,71 @@
     <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Interviewer</b></h4>
 </div>
 <div class="container mt-4 mb-2" [ngsReveal]="{ duration: 2000,delay:500}">
-    <form>
+    <form novalidate [formGroup]="cepSignupUser" (ngSubmit) = "Signup()" >
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 form-group">
                 <label for="firstname">First Name</label>
-                <input type="firstname"  class="form-control" placeholder="Enter email">
+                <input type="text" formControlName="firstname" class="form-control" [class.is-invalid] = "cepSignupUser.get('firstname').invalid && cepSignupUser.get('firstname').touched"
+                 placeholder="Enter First Name" onkeypress="return /[a-z]/i.test(event.key)" >
+                <small class="text-danger" *ngIf = "formErrors.firstname"><b>{{formErrors.firstname}}</b></small>
             </div>
         </div>
         <div class="row">
             <div class="col-md-3"></div>
             <div class="col-md-6 form-group">
                 <label for="lastname">Last Name</label>
-                <input type="lastname"  class="form-control" placeholder="Enter Password">
+                <input type="text" formControlName="lastname" class="form-control" [class.is-invalid] = "cepSignupUser.get('lastname').invalid && cepSignupUser.get('lastname').touched"
+                 placeholder="Enter Last name" onkeypress="return /[a-z]/i.test(event.key)">
+                <small class="text-danger" *ngIf = "formErrors.lastname"><b>{{formErrors.lastname}}</b></small>
             </div>
+        </div>
+        <div class="row" style="height: 10px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-4" *ngIf = "sucessMess" [hidden]="cepSignupUser.dirty">
+                <small class="text-success"><b>{{sucessMess}}</b></small>
+            </div>
+            <div class="col-md-2"></div>
         </div>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
-                <button type="submit" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create User</button>
+                <button type="submit" [disabled]="cepSignupUser.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create User</button>
             </div>
             <div class="col-md-4"></div>
         </div>
     </form>
 </div>
+
+<div class="card bg-light container-fluid mt-4 mb-2" >
+    <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:900}"><b>Existing users</b></h4>
+</div>
+<div class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" *ngIf = "allUsers" [ngsReveal]="{ duration: 2000,delay:900}">
+    <table class="table">
+        <thead class="thead-dark ">
+            <tr>
+              <th scope="col">First Name</th>
+              <th scope="col">Last Name</th>
+              <th scope="col">Email</th>
+              <!-- <th scope="col">Modify</th> -->
+            </tr>
+          </thead>
+        <tbody *ngFor="let user of allUsers" >
+          <tr>
+            <td>{{ user.firstname }}</td>
+            <td>{{ user.lastname }}</td>
+            <td>{{ user.email }}</td>
+            <!-- <td><button class="delete-btn" (click)="deleteuser()"><i class="fa fa-user-times text-danger"></i></button></td> -->
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container bg-light mb-4 mt-4" [hidden]="allUsers">
+    <div class="row align-items-center justify-content-center" style="height: 400px;">
+        <i class="fa fa-times-circle" style="font-size:40px;"></i>
+        <h6 class="text-secondary pl-2"><b>No Users to display</b></h6>
+    </div>
+</div>
+
 <app-footer></app-footer>

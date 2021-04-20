@@ -14,6 +14,7 @@ import { InterviewerComponent } from './interviewer/interviewer.component';
 import { UserComponent } from './user/user.component';
 import { HeaderComponent } from './header/header.component';
 import { InterviewerHeaderComponent } from './interviewer-header/interviewer-header.component';
+import { WeightageComponent } from './weightage/weightage.component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { InterviewerHeaderComponent } from './interviewer-header/interviewer-hea
     InterviewerComponent,
     UserComponent,
     HeaderComponent,
-    InterviewerHeaderComponent
+    InterviewerHeaderComponent,
+    WeightageComponent
   ],
   imports: [
     BrowserModule,

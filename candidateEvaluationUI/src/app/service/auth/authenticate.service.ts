@@ -15,13 +15,6 @@ export class AuthenticateService {
   ) { }
 
   verifyUser(login: Login){
-    
-    // const httpOptions = {
-    //   headers: new HttpHeaders({
-    //     'Content-Type': 'application/json'
-    //   })
-    // }
-
     return this.http.post(this.baseURL + 'user',login);
   }
 }

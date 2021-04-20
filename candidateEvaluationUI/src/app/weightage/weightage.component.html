@@ -1,0 +1,126 @@
+<app-header></app-header>
+<div class="card bg-light container-fluid mt-2 mb-2" >
+    <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation form fields</b></h4>
+</div>
+<div class="container mt-4 mb-4" [ngsReveal]="{ duration: 2000,delay:500}">
+    <form novalidate  [formGroup]="cepWeightageForm" (ngSubmit) = "createWeight()">
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="education">Education</label>
+                <input type="number" class="form-control" formControlName = "education"
+                  [class.is-invalid] = "cepWeightageForm.get('education').invalid && cepWeightageForm.get('education').touched"
+                placeholder="Enter the weightage for education">
+                <small class="text-danger" *ngIf = "formErrors.education"><b>{{formErrors.education}}</b></small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="programming">Programming skills</label>
+                <input type="number" class="form-control" formControlName = "programming"
+                [class.is-invalid] = "cepWeightageForm.get('programming').invalid && cepWeightageForm.get('programming').touched"
+                 placeholder="Enter the weightage for programming skills"  >
+                 <small class="text-danger" *ngIf = "formErrors.programming"><b>{{formErrors.programming}}</b></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="adaptibility">Adaptibility</label>
+                <input type="number" class="form-control"  formControlName = "adaptibility"
+                [class.is-invalid] = "cepWeightageForm.get('adaptibility').invalid && cepWeightageForm.get('adaptibility').touched"
+                 placeholder="Enter the weightage for adaptibility">
+                 <small class="text-danger" *ngIf = "formErrors.adaptibility"><b>{{formErrors.adaptibility}}</b></small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="problem">Problem solving</label>
+                <input type="number" class="form-control" formControlName = "problem"
+                [class.is-invalid] = "cepWeightageForm.get('problem').invalid && cepWeightageForm.get('problem').touched"                
+                placeholder="Enter the weightage for problem solving"  >
+                <small class="text-danger" *ngIf = "formErrors.problem"><b>{{formErrors.problem}}</b></small>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-6 form-group">
+                <label for="logical">Logical skills</label>
+                <input type="number" class="form-control" formControlName = "logical"
+                [class.is-invalid] = "cepWeightageForm.get('logical').invalid && cepWeightageForm.get('logical').touched"
+                placeholder="Enter the weightage for logical skills">
+                <small class="text-danger" *ngIf = "formErrors.logical"><b>{{formErrors.logical}}</b></small>
+            </div>
+            <div class="col-md-6 form-group">
+                <label for="interpersonal">Interpersonal skills</label>
+                <input type="number" class="form-control" formControlName = "interpersonal"
+                [class.is-invalid] = "cepWeightageForm.get('interpersonal').invalid && cepWeightageForm.get('interpersonal').touched"
+                 placeholder="Enter weightage for interpersonal skills"  >
+                 <small class="text-danger" *ngIf = "formErrors.interpersonal"><b>{{formErrors.interpersonal}}</b></small>
+            </div>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-md-6 form-group">
+                <label for="cutoff">Cut off marks</label>
+                <input type="number" class="form-control"  formControlName = "cutoff"
+                [class.is-invalid] = "cepWeightageForm.get('cutoff').invalid && cepWeightageForm.get('cutoff').touched"
+                placeholder="Enter the cut off for clearing the interview">
+                <small class="text-danger" *ngIf = "formErrors.cutoff"><b>{{formErrors.cutoff}}</b></small>
+            </div>
+        </div>
+        <div class="row" style="height: 10px;">
+            <div class="col-md-3"></div>
+            <div class="col-md-4" *ngIf = "sucessMesg" [hidden]="cepWeightageForm.dirty">
+                <small class="text-success"><b>{{sucessMesg}}</b></small>
+            </div>
+            <div class="col-md-2"></div>
+        </div>
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 text-center">
+                <button type="submit" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create Weightage</button>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+    </form>
+
+</div>
+
+<div class="card bg-light container-fluid mt-4 mb-2" >
+    <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:700}"><b>Existing weightage</b></h4>
+</div>
+<div *ngIf="existingWeightage" class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" [ngsReveal]="{ duration: 2000,delay:900}">
+    <table class="table">
+        <thead class="thead-dark">
+            <tr>
+              <th scope="col">Created Date</th>
+              <th scope="col">Details</th>
+              <!-- <th scope="col">Modify</th> -->
+            </tr>
+          </thead>
+        <tbody *ngFor="let weight of existingWeightage">
+          <tr>
+            <td>{{weight.created_date}}</td>
+            <td>
+                <div class="row">
+                    Education: {{weight.education_weightage}}
+                    Programming: {{weight.programming_weightage}}
+                </div>
+                <div class="row">
+                    Adaptibility: {{weight.adaptibility_weightage}}
+                    Problem solving: {{weight.problem_weightage}}
+                </div>
+                <div class="row">
+                    Logical skill: {{weight.logical_weightage}}
+                    Interpersonal: {{weight.interpersonal_weightage}}
+                </div>
+                <div class="row">
+                    Cut-off: {{weight.cutoff}}
+                </div>
+            </td>
+            <!-- <td><button class="delete-btn" (click)="deleteuser()"><i class="fa fa-user-times text-danger"></i></button></td> -->
+          </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="container bg-light mb-4 mt-4" [hidden]="existingWeightage">
+    <div class="row align-items-center justify-content-center" style="height: 400px;">
+        <i class="fa fa-times-circle" style="font-size:40px;"></i>
+        <h6 class="text-secondary pl-2"><b> No weightage created yet</b></h6>
+    </div>
+</div>
+<app-footer></app-footer>

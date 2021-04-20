@@ -76,6 +76,8 @@ export class IndexComponent implements OnInit {
     if(this.cepLoginForm.value){
       this.inputData.email = this.cepLoginForm.value.email;
       this.inputData.password = this.cepLoginForm.value.password;
+      this.inputData.firstname = "admin";
+      this.inputData.lastname = "admin";
 
       this.loginService.verifyUser(this.inputData)
       .subscribe(res => {
@@ -89,7 +91,7 @@ export class IndexComponent implements OnInit {
             this.route.navigate(['/admin'])
           }
           else{
-
+            this.route.navigate(['/interviewer',res])
           }
         }
       })
