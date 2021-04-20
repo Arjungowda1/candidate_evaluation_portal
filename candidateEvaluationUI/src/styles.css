@@ -117,9 +117,8 @@
 
 /*  */
 footer{
-    position: fixed;
-    bottom: 0;
-    left: 0;
+    position:absolute;
+    bottom: auto;
     width: 100%;
 }
 
