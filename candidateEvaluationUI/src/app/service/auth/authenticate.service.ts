@@ -17,4 +17,8 @@ export class AuthenticateService {
   verifyUser(login: Login){
     return this.http.post(this.baseURL + 'user',login);
   }
+
+  deleteUser(id:number){
+    return this.http.delete(this.baseURL +'user/delete/'+id);
+  }
 }

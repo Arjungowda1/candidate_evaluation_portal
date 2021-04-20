@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from 'src/app/shared/login';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from '../service/admin/admin.service';
+import { AuthenticateService } from '../service/auth/authenticate.service';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -39,7 +40,8 @@ export class UserComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     public fb: FormBuilder,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private loginService: AuthenticateService
   ) {
 
     this.createInterviewer();
@@ -112,7 +114,14 @@ export class UserComponent implements OnInit {
     }
   }
 
-  deleteuser(){
-    
+  deleteuser(event, data){
+   if(confirm("Are you sure you want to delete?")){
+    this.loginService.deleteUser(data.user_id)
+    .subscribe(res => {
+      if(res != null){
+        this.allUserDisplay();
+      }
+    });
+   } 
   }
 }

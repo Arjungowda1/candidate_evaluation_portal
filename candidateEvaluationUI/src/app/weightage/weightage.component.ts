@@ -138,8 +138,19 @@ export class WeightageComponent implements OnInit {
         else{
           this.exists = true;
         }
-      console.log(res);}
+     }
     );
+  }
+
+
+  deleteWeightage(event, item){
+    if(confirm("Are you sure you want to delete?")){
+      this.adminService.deleteWeightage(item.weightage_id)
+      .subscribe(
+        res => {console.log(res);
+        this.allWeightageDisplay()}
+      );
+    }
   }
 
 }

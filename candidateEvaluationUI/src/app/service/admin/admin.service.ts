@@ -31,4 +31,8 @@ export class AdminService {
   getWeightage(){
     return this.http.get(this.baseURL +'features/weightage');
   }
+
+  deleteWeightage(id:number){
+    return this.http.delete(this.baseURL+'features/weightage/'+id);
+  }
 }

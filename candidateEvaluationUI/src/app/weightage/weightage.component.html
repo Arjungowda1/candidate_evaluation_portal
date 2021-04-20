@@ -82,13 +82,13 @@
 <div class="card bg-light container-fluid mt-4 mb-2" >
     <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:700}"><b>Existing weightage</b></h4>
 </div>
-<div *ngIf="exists" class="container mt-4 mb-4 table-wrapper-scroll-y my-custom-scrollbar" [ngsReveal]="{ duration: 2000,delay:900}">
+<div *ngIf="exists" class="container mt-5 mb-5 " [ngsReveal]="{ duration: 2000,delay:900}">
     <table class="table">
         <thead class="thead-dark">
             <tr>
               <th scope="col">Created Date</th>
               <th scope="col">Details</th>
-              <!-- <th scope="col">Modify</th> -->
+              <th scope="col">Modify</th>
             </tr>
           </thead>
         <tbody *ngFor="let weight of existingWeightage">
@@ -96,22 +96,36 @@
             <td>{{weight.created_date}}</td>
             <td>
                 <div class="row">
-                    Education: {{weight.education_weightage}}
-                    Programming: {{weight.programming_weightage}}
+                    <div class="col-md-4">
+                        Education: {{weight.education_weightage}}
+                    </div>
+                    <div class="col-md-4">
+                        Programming: {{weight.programming_weightage}}
+                    </div>
                 </div>
                 <div class="row">
-                    Adaptibility: {{weight.adaptibility_weightage}}
-                    Problem solving: {{weight.problem_weightage}}
+                    <div class="col-md-4">
+                        Adaptibility: {{weight.adaptibility_weightage}}
+                    </div>
+                    <div class="col-md-4">
+                        Problem solving: {{weight.problem_weightage}}
+                    </div>
                 </div>
                 <div class="row">
-                    Logical skill: {{weight.logical_weightage}}
-                    Interpersonal: {{weight.interpersonal_weightage}}
+                    <div class="col-md-4">
+                        Logical skill: {{weight.logical_weightage}}
+                    </div>
+                    <div class="col-md-4">
+                        Interpersonal: {{weight.interpersonal_weightage}}
+                    </div>
                 </div>
                 <div class="row">
-                    Cut-off: {{weight.cutoff}}
+                    <div class="col-md-12">
+                        Cut-off: {{weight.cutoff}}
+                    </div>
                 </div>
             </td>
-            <!-- <td><button class="delete-btn" (click)="deleteuser()"><i class="fa fa-user-times text-danger"></i></button></td> -->
+            <td><button type="submit" class="delete-btn" (click)="deleteWeightage($event, weight)"><i class="fa fa-user-times text-danger"></i></button></td>
           </tr>
         </tbody>
     </table>
