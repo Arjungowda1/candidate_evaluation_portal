@@ -9,14 +9,14 @@
                 <label for="education">Education</label>
                 <input type="number" class="form-control" formControlName = "education"
                   [class.is-invalid] = "cepWeightageForm.get('education').invalid && cepWeightageForm.get('education').touched"
-                placeholder="Enter the weightage for education">
+                placeholder="Enter the weightage for education" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.education"><b>{{formErrors.education}}</b></small>
             </div>
             <div class="col-md-6 form-group">
                 <label for="programming">Programming skills</label>
                 <input type="number" class="form-control" formControlName = "programming"
                 [class.is-invalid] = "cepWeightageForm.get('programming').invalid && cepWeightageForm.get('programming').touched"
-                 placeholder="Enter the weightage for programming skills"  >
+                 placeholder="Enter the weightage for programming skills" onkeypress="return /[0-9]/i.test(event.key)" >
                  <small class="text-danger" *ngIf = "formErrors.programming"><b>{{formErrors.programming}}</b></small>
             </div>
         </div>
@@ -25,14 +25,14 @@
                 <label for="adaptibility">Adaptibility</label>
                 <input type="number" class="form-control"  formControlName = "adaptibility"
                 [class.is-invalid] = "cepWeightageForm.get('adaptibility').invalid && cepWeightageForm.get('adaptibility').touched"
-                 placeholder="Enter the weightage for adaptibility">
+                 placeholder="Enter the weightage for adaptibility" onkeypress="return /[0-9]/i.test(event.key)">
                  <small class="text-danger" *ngIf = "formErrors.adaptibility"><b>{{formErrors.adaptibility}}</b></small>
             </div>
             <div class="col-md-6 form-group">
                 <label for="problem">Problem solving</label>
                 <input type="number" class="form-control" formControlName = "problem"
                 [class.is-invalid] = "cepWeightageForm.get('problem').invalid && cepWeightageForm.get('problem').touched"                
-                placeholder="Enter the weightage for problem solving"  >
+                placeholder="Enter the weightage for problem solving" onkeypress="return /[0-9]/i.test(event.key)" >
                 <small class="text-danger" *ngIf = "formErrors.problem"><b>{{formErrors.problem}}</b></small>
             </div>
         </div>
@@ -41,14 +41,14 @@
                 <label for="logical">Logical skills</label>
                 <input type="number" class="form-control" formControlName = "logical"
                 [class.is-invalid] = "cepWeightageForm.get('logical').invalid && cepWeightageForm.get('logical').touched"
-                placeholder="Enter the weightage for logical skills">
+                placeholder="Enter the weightage for logical skills" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.logical"><b>{{formErrors.logical}}</b></small>
             </div>
             <div class="col-md-6 form-group">
                 <label for="interpersonal">Interpersonal skills</label>
                 <input type="number" class="form-control" formControlName = "interpersonal"
                 [class.is-invalid] = "cepWeightageForm.get('interpersonal').invalid && cepWeightageForm.get('interpersonal').touched"
-                 placeholder="Enter weightage for interpersonal skills"  >
+                 placeholder="Enter weightage for interpersonal skills" onkeypress="return /[0-9]/i.test(event.key)" >
                  <small class="text-danger" *ngIf = "formErrors.interpersonal"><b>{{formErrors.interpersonal}}</b></small>
             </div>
         </div>
@@ -57,11 +57,11 @@
                 <label for="cutoff">Cut off marks</label>
                 <input type="number" class="form-control"  formControlName = "cutoff"
                 [class.is-invalid] = "cepWeightageForm.get('cutoff').invalid && cepWeightageForm.get('cutoff').touched"
-                placeholder="Enter the cut off for clearing the interview">
+                placeholder="Enter the cut off for clearing the interview" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.cutoff"><b>{{formErrors.cutoff}}</b></small>
             </div>
         </div>
-        <div class="row" style="height: 10px;">
+        <div class="row" style="height: 20px;">
             <div class="col-md-3"></div>
             <div class="col-md-4" *ngIf = "sucessMesg" [hidden]="cepWeightageForm.dirty">
                 <small class="text-success"><b>{{sucessMesg}}</b></small>
@@ -71,7 +71,8 @@
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
-                <button type="submit" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create Weightage</button>
+                <button type="submit" *ngIf="btndisplay" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create Weightage</button>
+                <small [hidden]="btndisplay" class="text-danger mt-4"><b>Weightage already created! Delete to create another.</b></small>
             </div>
             <div class="col-md-4"></div>
         </div>

@@ -13,6 +13,7 @@ export class WeightageComponent implements OnInit {
   newWeightage: Weightage;
   sucessMesg: String;
   exists = true;
+  btndisplay = true;
 
   existingWeightage: Weightage[];
 
@@ -118,7 +119,8 @@ export class WeightageComponent implements OnInit {
         if(res == true){
           this.sucessMesg = "New weightage created sucessfully";
           this.cepWeightageForm.reset();
-          this.allWeightageDisplay()
+          this.allWeightageDisplay();
+          this.btndisplay = false;
         }
       })
     }
@@ -137,6 +139,7 @@ export class WeightageComponent implements OnInit {
         }
         else{
           this.exists = true;
+          this.btndisplay = false;
         }
      }
     );
@@ -148,7 +151,8 @@ export class WeightageComponent implements OnInit {
       this.adminService.deleteWeightage(item.weightage_id)
       .subscribe(
         res => {console.log(res);
-        this.allWeightageDisplay()}
+        this.allWeightageDisplay();
+        this.btndisplay = true;}
       );
     }
   }
