@@ -87,7 +87,7 @@ export class IndexComponent implements OnInit {
         }
 
         else{
-          if(res==1){
+          if(res==10000000){
             this.route.navigate(['/admin'])
           }
           else{

@@ -1,22 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Login } from 'src/app/shared/login';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from '../service/admin/admin.service';
 import { AuthenticateService } from '../service/auth/authenticate.service';
+import { NotificationService } from '../notifier/notifier.service';
+import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
+import { DialogsComponent } from '../dialogs/dialogs.component';
+
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
   styleUrls: ['./user.component.css']
 })
-export class UserComponent implements OnInit {
+export class UserComponent implements OnInit, AfterViewInit {
+
+  @ViewChild(DialogsComponent) dialogComponent;
 
   newUser: Login;
   sucessMess: String;
+  uid: number;
+
+  delete = false;
 
   userexists= true;
 
   allUsers:Login[];
+
+  title = "Alert!";
+  message = "Are you sure you want to delete?";
 
 
   cepSignupUser: FormGroup;
@@ -41,7 +53,8 @@ export class UserComponent implements OnInit {
     private route: ActivatedRoute,
     public fb: FormBuilder,
     private adminService: AdminService,
-    private loginService: AuthenticateService
+    private loginService: AuthenticateService,
+    private _notificationservice:NotificationService,
   ) {
 
     this.createInterviewer();
@@ -106,7 +119,7 @@ export class UserComponent implements OnInit {
       this.adminService.createUser(this.newUser)
       .subscribe( res => {
         if(res == true){
-          this.sucessMess = "User created successfully"
+          this.openSnackBar("User created successfully");
           this.cepSignupUser.reset();
           this.allUserDisplay();
         }
@@ -114,14 +127,30 @@ export class UserComponent implements OnInit {
     }
   }
 
-  deleteuser(event, data){
-   if(confirm("Are you sure you want to delete?")){
-    this.loginService.deleteUser(data.user_id)
-    .subscribe(res => {
-      if(res != null){
-        this.allUserDisplay();
-      }
+  ngAfterViewInit(): void {
+    this.dialogComponent.getSelectedOption().subscribe((value: boolean) => {
+     this.delete = value;
+     if(this.delete){
+      this.loginService.deleteUser(this.uid)
+      .subscribe(res => {
+        if(res != null){
+          this.allUserDisplay();
+          this.delete = false;
+        }
+      });
+      this._notificationservice.info("User deleted successfully")
+    }
     });
-   } 
+  }
+
+  deleteuser(event, data){
+    this.uid = data.user_id;
+    this.dialogComponent.openDialog(
+      "Are you sure to remove the content?"
+    );
+  }
+
+  openSnackBar(data: string) {
+    this._notificationservice.success(data);
   }
 }

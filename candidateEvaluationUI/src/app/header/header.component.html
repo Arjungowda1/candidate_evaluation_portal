@@ -1,12 +1,11 @@
 <header>
     <nav class="navbar navbar-expand-lg navbar-light mt-4 mb-4 " >
         <div class="container-fluid">
-    
             <div class="small-screen-left navbar-brand">
                 <img src="../../assets/img/header.jpg" alt="Clarivate" width="65" height="65" />
             </div>
             <div class="small-screen-right main-logo navbar-brand hide">
-                <a [routerLink]="">
+                <a [routerLink]="['/admin']">
                     <h3 class="index-head">Candidate Evaluation</h3>
                 </a>
             </div>
@@ -23,13 +22,13 @@
                         <a class="nav-link navcolour " [routerLink]="['/weightage']" routerLinkActive='active'>WEIGHTAGE</a>
                     </li>
                     <li class="nav-item  pr-4">
-                        <a class="nav-link navcolour " href="#">STATISTICS</a>
+                        <a class="nav-link navcolour " [routerLink]="['/statistics']" routerLinkActive='active'>STATISTICS</a>
                     </li>
                     <li class="nav-item pr-5">
                         <a class="nav-link navcolour " [routerLink]="['/user']" routerLinkActive='active'>USER</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link navcolour" href="#">WELCOME, <i>admin@clarivate.com</i></a> 
+                        <a class="nav-link navcolour">WELCOME, <i>Admin</i></a> 
                     </li>
                 </ul>
     

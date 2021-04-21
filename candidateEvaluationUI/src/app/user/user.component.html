@@ -1,4 +1,6 @@
 <app-header></app-header>
+<app-notifier></app-notifier>
+<app-dialogs></app-dialogs>
 <div class="card bg-light container-fluid mt-2 mb-2" >
     <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Interviewer</b></h4>
 </div>
@@ -21,13 +23,6 @@
                  placeholder="Enter Last name" onkeypress="return /[a-z]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.lastname"><b>{{formErrors.lastname}}</b></small>
             </div>
-        </div>
-        <div class="row" style="height: 10px;">
-            <div class="col-md-3"></div>
-            <div class="col-md-4" *ngIf = "sucessMess" [hidden]="cepSignupUser.dirty">
-                <small class="text-success"><b>{{sucessMess}}</b></small>
-            </div>
-            <div class="col-md-2"></div>
         </div>
         <div class="row">
             <div class="col-md-4"></div>

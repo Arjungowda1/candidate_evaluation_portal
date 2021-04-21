@@ -1,16 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../service/admin/admin.service';
 import { Weightage } from '../shared/weightage';
+import { NotifierComponent } from '../notifier/notifier.component';
+import { NotificationService } from '../notifier/notifier.service';
+import { DialogsComponent } from '../dialogs/dialogs.component';
 
 @Component({
   selector: 'app-weightage',
   templateUrl: './weightage.component.html',
   styleUrls: ['./weightage.component.css']
 })
-export class WeightageComponent implements OnInit {
+export class WeightageComponent implements OnInit , AfterViewInit {
 
+  @ViewChild(DialogsComponent) dialogComponent;
+  
   newWeightage: Weightage;
+  confirmWeightage: Weightage;
+  durationInSeconds = 5;
+
+  delete = false;
+  weightageId: number;
+
   sucessMesg: String;
   exists = true;
   btndisplay = true;
@@ -61,10 +72,30 @@ export class WeightageComponent implements OnInit {
 
   constructor(
     public fb: FormBuilder,
-    private adminService: AdminService
+    private adminService: AdminService,
+    private _notificationservice:NotificationService
   ) { 
     this.createWeightage();
     this.newWeightage = new Weightage();
+    this.confirmWeightage = new Weightage();
+  }
+
+
+  ngAfterViewInit(): void {
+    this.dialogComponent.getSelectedOption().subscribe((value: boolean) =>{
+      this.delete = value;
+      if(this.delete){
+        this.adminService.deleteWeightage(this.weightageId)
+        .subscribe(
+          res => {console.log(res);
+          this.allWeightageDisplay();
+          this.btndisplay = true;
+          this.delete = false;}
+        );
+        this._notificationservice.info("Weightage removed successfully")
+      }
+    });
+    
   }
 
   createWeightage() {
@@ -117,9 +148,9 @@ export class WeightageComponent implements OnInit {
       this.adminService.createWeightage(this.newWeightage)
       .subscribe( res =>{
         if(res == true){
-          this.sucessMesg = "New weightage created sucessfully";
           this.cepWeightageForm.reset();
           this.allWeightageDisplay();
+          this.openSnackBar('Weightage created Successfully');
           this.btndisplay = false;
         }
       })
@@ -139,7 +170,7 @@ export class WeightageComponent implements OnInit {
         }
         else{
           this.exists = true;
-          this.btndisplay = false;
+          this.btndisplay = false
         }
      }
     );
@@ -147,14 +178,30 @@ export class WeightageComponent implements OnInit {
 
 
   deleteWeightage(event, item){
-    if(confirm("Are you sure you want to delete?")){
-      this.adminService.deleteWeightage(item.weightage_id)
-      .subscribe(
-        res => {console.log(res);
-        this.allWeightageDisplay();
-        this.btndisplay = true;}
-      );
-    }
+    this.weightageId = item.weightage_id;
+    this.dialogComponent.openDialog(
+      "Are you sure to remove the content?"
+    );
+  }
+
+  modalData(){
+    this.confirmWeightage.education_weightage = this.cepWeightageForm.value.education/5;
+    this.confirmWeightage.programming_weightage = this.cepWeightageForm.value.programming/5;
+    this.confirmWeightage.adaptibility_weightage = this.cepWeightageForm.value.adaptibility/5;
+    this.confirmWeightage.problem_weightage = this.cepWeightageForm.value.problem/5;
+    this.confirmWeightage.logical_weightage = this.cepWeightageForm.value.logical/5;
+    this.confirmWeightage.interpersonal_weightage = this.cepWeightageForm.value.interpersonal/5;
+    this.confirmWeightage.cutoff = this.cepWeightageForm.value.cutoff;
+    
+  }
+
+  closeClick(){
+    this.cepWeightageForm.reset();
+  }
+
+
+  openSnackBar(data: string) {
+    this._notificationservice.success(data);
   }
 
 }

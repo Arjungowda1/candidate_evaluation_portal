@@ -1,9 +1,13 @@
 <app-header></app-header>
+<app-notifier></app-notifier>
+<app-dialogs></app-dialogs>
 <div class="card bg-light container-fluid mt-2 mb-2" >
-    <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation form fields</b></h4>
+    <div class="row">
+        <h4 class="col-md-8 p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation form fields</b></h4>
+    </div>
 </div>
 <div class="container mt-4 mb-4" [ngsReveal]="{ duration: 2000,delay:500}">
-    <form novalidate  [formGroup]="cepWeightageForm" (ngSubmit) = "createWeight()">
+    <form novalidate  [formGroup]="cepWeightageForm"  (ngSubmit) = "createWeight()">
         <div class="row">
             <div class="col-md-6 form-group">
                 <label for="education">Education</label>
@@ -13,7 +17,7 @@
                 <small class="text-danger" *ngIf = "formErrors.education"><b>{{formErrors.education}}</b></small>
             </div>
             <div class="col-md-6 form-group">
-                <label for="programming">Programming skills</label>
+                <label for="programming">Programming Skills</label>
                 <input type="number" class="form-control" formControlName = "programming"
                 [class.is-invalid] = "cepWeightageForm.get('programming').invalid && cepWeightageForm.get('programming').touched"
                  placeholder="Enter the weightage for programming skills" onkeypress="return /[0-9]/i.test(event.key)" >
@@ -29,7 +33,7 @@
                  <small class="text-danger" *ngIf = "formErrors.adaptibility"><b>{{formErrors.adaptibility}}</b></small>
             </div>
             <div class="col-md-6 form-group">
-                <label for="problem">Problem solving</label>
+                <label for="problem">Problem Solving</label>
                 <input type="number" class="form-control" formControlName = "problem"
                 [class.is-invalid] = "cepWeightageForm.get('problem').invalid && cepWeightageForm.get('problem').touched"                
                 placeholder="Enter the weightage for problem solving" onkeypress="return /[0-9]/i.test(event.key)" >
@@ -38,14 +42,14 @@
         </div>
         <div class="row">
             <div class="col-md-6 form-group">
-                <label for="logical">Logical skills</label>
+                <label for="logical">Logical Skills</label>
                 <input type="number" class="form-control" formControlName = "logical"
                 [class.is-invalid] = "cepWeightageForm.get('logical').invalid && cepWeightageForm.get('logical').touched"
                 placeholder="Enter the weightage for logical skills" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.logical"><b>{{formErrors.logical}}</b></small>
             </div>
             <div class="col-md-6 form-group">
-                <label for="interpersonal">Interpersonal skills</label>
+                <label for="interpersonal">Interpersonal Skills</label>
                 <input type="number" class="form-control" formControlName = "interpersonal"
                 [class.is-invalid] = "cepWeightageForm.get('interpersonal').invalid && cepWeightageForm.get('interpersonal').touched"
                  placeholder="Enter weightage for interpersonal skills" onkeypress="return /[0-9]/i.test(event.key)" >
@@ -54,24 +58,17 @@
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6 form-group">
-                <label for="cutoff">Cut off marks</label>
+                <label for="cutoff">Cut Off Marks</label>
                 <input type="number" class="form-control"  formControlName = "cutoff"
                 [class.is-invalid] = "cepWeightageForm.get('cutoff').invalid && cepWeightageForm.get('cutoff').touched"
                 placeholder="Enter the cut off for clearing the interview" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger" *ngIf = "formErrors.cutoff"><b>{{formErrors.cutoff}}</b></small>
             </div>
         </div>
-        <div class="row" style="height: 20px;">
-            <div class="col-md-3"></div>
-            <div class="col-md-4" *ngIf = "sucessMesg" [hidden]="cepWeightageForm.dirty">
-                <small class="text-success"><b>{{sucessMesg}}</b></small>
-            </div>
-            <div class="col-md-2"></div>
-        </div>
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
-                <button type="submit" *ngIf="btndisplay" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create Weightage</button>
+                <button type="button" *ngIf="btndisplay" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm" (click)="modalData()" data-toggle="modal" data-target="#myModal" >Click to proceed</button>
                 <small [hidden]="btndisplay" class="text-danger mt-4"><b>Weightage already created! Delete to create another.</b></small>
             </div>
             <div class="col-md-4"></div>
@@ -80,62 +77,119 @@
 
 </div>
 
-<div class="card bg-light container-fluid mt-4 mb-2" >
-    <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:700}"><b>Existing weightage</b></h4>
-</div>
-<div *ngIf="exists" class="container mt-5 mb-5 " [ngsReveal]="{ duration: 2000,delay:900}">
-    <table class="table">
-        <thead class="thead-dark">
-            <tr>
-              <th scope="col">Created Date</th>
-              <th scope="col">Details</th>
-              <th scope="col">Modify</th>
-            </tr>
-          </thead>
-        <tbody *ngFor="let weight of existingWeightage">
-          <tr>
-            <td>{{weight.created_date}}</td>
-            <td>
-                <div class="row">
-                    <div class="col-md-4">
-                        Education: {{weight.education_weightage}}
+<div *ngIf="exists">
+    <div class="card bg-light container-fluid mt-4 mb-2" >
+        <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:500}"><b>Existing weightage</b></h4>
+    </div>
+    <div  class="container mt-5 mb-5 " [ngsReveal]="{ duration: 800,delay:900}">
+        <table class="table">
+            <thead class="thead-dark">
+                <tr>
+                  <th scope="col">Created Date</th>
+                  <th scope="col">Details</th>
+                  <th scope="col">Modify</th>
+                </tr>
+              </thead>
+            <tbody *ngFor="let weight of existingWeightage">
+              <tr>
+                <td>{{weight.created_date}}</td>
+                <td>
+                    <div class="row">
+                        <div class="col-md-4">
+                            Education: {{weight.education_weightage}}
+                        </div>
+                        <div class="col-md-4">
+                            Programming: {{weight.programming_weightage}}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        Programming: {{weight.programming_weightage}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            Adaptibility: {{weight.adaptibility_weightage}}
+                        </div>
+                        <div class="col-md-4">
+                            Problem solving: {{weight.problem_weightage}}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        Adaptibility: {{weight.adaptibility_weightage}}
+                    <div class="row">
+                        <div class="col-md-4">
+                            Logical Skill: {{weight.logical_weightage}}
+                        </div>
+                        <div class="col-md-4">
+                            Interpersonal: {{weight.interpersonal_weightage}}
+                        </div>
                     </div>
-                    <div class="col-md-4">
-                        Problem solving: {{weight.problem_weightage}}
+                    <div class="row">
+                        <div class="col-md-12">
+                            Cut-off: {{weight.cutoff}}
+                        </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-4">
-                        Logical skill: {{weight.logical_weightage}}
-                    </div>
-                    <div class="col-md-4">
-                        Interpersonal: {{weight.interpersonal_weightage}}
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        Cut-off: {{weight.cutoff}}
-                    </div>
-                </div>
-            </td>
-            <td><button type="submit" class="delete-btn" (click)="deleteWeightage($event, weight)"><i class="fa fa-user-times text-danger"></i></button></td>
-          </tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="container bg-light mb-4 mt-4" [hidden]="exists">
-    <div class="row align-items-center justify-content-center" style="height: 400px;">
-        <i class="fa fa-times-circle" style="font-size:40px;"></i>
-        <h6 class="text-secondary pl-2"><b> No weightage created yet</b></h6>
+                </td>
+                <td><button type="submit" class="delete-btn" (click)="deleteWeightage($event, weight)"><i class="fa fa-user-times text-danger"></i></button></td>
+              </tr>
+            </tbody>
+        </table>
     </div>
 </div>
+
 <app-footer></app-footer>
+
+
+
+<div class="modal" id="myModal"> 
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Confirm creation?</h4>
+                <button type="button" class="close" (click)="closeClick()" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <small class="text-danger "><b>Would you like to proceed with the following values for weightage?</b></small>
+                <table class="table mt-3">
+                    <thead class="thead-dark ">
+                        <tr>
+                          <th scope="col">Evaluation Factor</th>
+                          <th scope="col">1 point equivalent</th>
+                        </tr>
+                      </thead>
+                    <tbody>
+                      <tr>
+                        <td>Education</td>
+                        <td>{{ confirmWeightage.education_weightage }}</td>
+                      </tr>
+                      <tr>
+                        <td>Programming</td>
+                        <td>{{ confirmWeightage.programming_weightage }}</td>
+                      </tr>
+                      <tr>
+                        <td>Adaptibility</td>
+                        <td>{{ confirmWeightage.adaptibility_weightage }}</td>
+                      </tr>
+                      <tr>
+                        <td>Problem solving</td>
+                        <td>{{ confirmWeightage.problem_weightage }}</td>
+                      </tr>
+                      <tr>
+                        <td>Logical Skill</td>
+                        <td>{{ confirmWeightage.logical_weightage }}</td>
+                      </tr>
+                      <tr>
+                        <td>Interpersonal</td>
+                        <td>{{ confirmWeightage.interpersonal_weightage }}</td>
+                      </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" (click)="closeClick()" data-dismiss="modal">Cancel</button>
+                <button type="submit" form="WeightageForm"  mat-button (click)="createWeight()" class="btn btn-success" data-dismiss="modal">Confirm</button>
+            </div>
+
+        </div>
+    </div>
+
