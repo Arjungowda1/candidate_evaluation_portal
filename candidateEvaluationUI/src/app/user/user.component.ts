@@ -145,9 +145,15 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   deleteuser(event, data){
     this.uid = data.user_id;
-    this.dialogComponent.openDialog(
-      "Are you sure to remove the content?"
-    );
+    if(data.firstname === "admin"){
+
+      this._notificationservice.error("Cannot delete this!");
+    }
+    else{
+      this.dialogComponent.openDialog(
+        "Are you sure to remove the content?"
+      );
+    }
   }
 
   openSnackBar(data: string) {

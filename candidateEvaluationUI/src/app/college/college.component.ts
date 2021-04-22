@@ -1,4 +1,5 @@
 import { Component, OnInit, Renderer2, ViewChild } from '@angular/core';
+import { DialogsComponent } from '../dialogs/dialogs.component';
 import { NotificationService } from '../notifier/notifier.service';
 import { AdminService } from '../service/admin/admin.service';
 import { College, Colleges } from '../shared/college';
@@ -9,7 +10,7 @@ import { College, Colleges } from '../shared/college';
   styleUrls: ['./college.component.css']
 })
 export class CollegeComponent implements OnInit {
-  @ViewChild("test") container;
+  @ViewChild(DialogsComponent) dialogComponent;
 
   colleges: College[] = Colleges;
   flag = true;
@@ -103,16 +104,24 @@ export class CollegeComponent implements OnInit {
       setTimeout(()=>window.location.reload(),1000);
     }
     else{
-      this.adminService.deleteTier(id)
-    .subscribe(
-      res =>{
-        if(res){
-          this._notificationservice.info("Tier removed successfully")
-          this.ngOnInit();
-          setTimeout(()=>window.location.reload(),1000);
+      this.dialogComponent.openDialog(
+        "Are you sure to remove the content?"
+      );
+      this.dialogComponent.getSelectedOption()
+      .subscribe((value: boolean) =>{
+        if(value){
+          this.adminService.deleteTier(id)
+          .subscribe(
+            res =>{
+              if(res){
+                this._notificationservice.info("Tier removed successfully")
+                this.ngOnInit();
+                setTimeout(()=>window.location.reload(),1000);
+              }
+            }
+          )
         }
-      }
-    )
+      });
     }
   }
 
