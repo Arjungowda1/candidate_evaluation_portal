@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
+import { CollegeComponent } from './college/college.component';
 import { IndexComponent } from './index/index.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
 import { StatisticsComponent } from './statistics/statistics.component';
@@ -14,7 +15,8 @@ const routes: Routes = [
   { path: 'interviewer/:id', component: InterviewerComponent},
   { path: 'user', component:UserComponent},
   { path: 'weightage', component:WeightageComponent},
-  { path: 'statistics', component:StatisticsComponent}
+  { path: 'statistics', component:StatisticsComponent},
+  { path: 'college', component: CollegeComponent}
 ];
 
 @NgModule({

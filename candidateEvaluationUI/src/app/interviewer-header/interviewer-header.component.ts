@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+import { InterviewerService } from '../service/interviewer/interviewer.service';
+import { Login } from '../shared/login';
 
 @Component({
   selector: 'app-interviewer-header',
@@ -7,9 +10,33 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InterviewerHeaderComponent implements OnInit {
 
-  constructor() { }
+  userId: number;
+  data: Login;
+
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute,
+    private interviewerService: InterviewerService
+  ) { 
+    this.data = new Login();
+  }
+
 
   ngOnInit(): void {
+
+    this.route.paramMap.subscribe(
+      params => {
+        this.userId = +params.get('id');
+      }
+    );
+
+    this.interviewerService.getInterviewers(this.userId)
+    .subscribe(
+      res =>{
+        this.data =<any>res;
+      }
+    )
+
   }
 
 }

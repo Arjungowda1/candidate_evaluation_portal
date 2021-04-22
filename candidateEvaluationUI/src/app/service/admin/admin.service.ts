@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Login } from 'src/app/shared/login';
 import { Weightage } from 'src/app/shared/weightage';
+import { College } from 'src/app/shared/college';
 
 
 @Injectable({
@@ -34,5 +35,17 @@ export class AdminService {
 
   deleteWeightage(id:number){
     return this.http.delete(this.baseURL+'features/weightage/'+id);
+  }
+
+  setTier(college:College[]){
+    return this.http.post(this.baseURL+"features/tier/new", college);
+  }
+
+  getTier(){
+    return this.http.get(this.baseURL + "features/tier");
+  }
+
+  deleteTier(id: number){
+    return this.http.delete(this.baseURL + "features/tier/"+id);
   }
 }

@@ -23,6 +23,8 @@ import { WeightageComponent } from './weightage/weightage.component';
 import { StatisticsComponent } from './statistics/statistics.component';
 import { NotifierComponent } from './notifier/notifier.component';
 import { DialogsComponent } from './dialogs/dialogs.component';
+import { EvaluateComponent } from './evaluate/evaluate.component';
+import { CollegeComponent } from './college/college.component';
 
 
 @NgModule({
@@ -39,6 +41,8 @@ import { DialogsComponent } from './dialogs/dialogs.component';
     StatisticsComponent,
     NotifierComponent,
     DialogsComponent,
+    EvaluateComponent,
+    CollegeComponent,
   ],
   imports: [
     BrowserModule,

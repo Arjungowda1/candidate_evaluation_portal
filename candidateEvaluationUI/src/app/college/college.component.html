@@ -1,0 +1,52 @@
+<app-header></app-header>
+<app-notifier></app-notifier>
+<app-dialogs></app-dialogs>
+<div class="card bg-light container-fluid mt-2 mb-2" >
+    <h5 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Assign Tier to Colleges listed below</b></h5>
+</div>
+<div class="container p-4">
+        <div class="row">
+            <div class="col-md">
+                <span class="pr-3">Select a tier</span>
+                <select class="tier-dd" name="my-select" value="Tier" (change)="selectChange($event)">
+                    <option disabled selected value> -- select an option -- </option>
+                    <option value="1">
+                        Tier 1
+                    </option>
+                    <option value="2">
+                        Tier 2
+                    </option>
+                    <option value="3">
+                        Tier 3
+                    </option> 
+                </select>
+            </div>
+            <div class="col-md">
+                <button class="btn btn-success"  [disabled]= "tierclicked || collegepicked" (click)="onLogClick()">Assign Tier For Selected rows</button>
+            </div>            
+        </div>
+</div>
+<div class="container table-wrapper-scroll-y my-custom-scrollbar mt-2 mb-5">
+    <table class="table" >
+        <thead class="thead-dark">
+            <tr>
+                <td scope = "col">Name</td>
+                <td scope = "col">Type</td>
+                <td scope = "col">Tier</td>
+                <td scope = "col"></td>
+            </tr>
+        </thead>
+        <tr *ngFor="let u of colleges" [class.selectedRow]="rowIsSelected(u.college_id) || tierclicked" (click)="onRowClick(u.college_id)" style="cursor: pointer;">
+            <td>{{u.name}}</td>
+            <td>{{u.type}}</td>
+            <td *ngIf="tierExistsBackend">
+                {{ GetTier(u.college_id) }}
+            </td>
+            <td>
+                <button class="delete-btn" style="pointer-events: all;" (click)="deleteTier(u.college_id)"><i class="fa fa-trash text-danger"></i></button>
+            </td>
+        </tr>
+       </table>
+</div>
+
+<app-footer></app-footer>

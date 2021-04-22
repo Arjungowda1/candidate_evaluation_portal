@@ -1,0 +1,12 @@
+.selectedRow {
+    background-color: rgba(128, 128, 128, 0.329);
+    pointer-events: none;
+  }
+.thead{
+  background: red;
+}
+
+.tier-dd{
+  border-radius: 5px;
+  padding: 2px 30px 2px 30px;
+}
