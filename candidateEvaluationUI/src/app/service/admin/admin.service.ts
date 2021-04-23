@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Login } from 'src/app/shared/login';
-import { Weightage } from 'src/app/shared/weightage';
 import { College } from 'src/app/shared/college';
+import { Weightages } from 'src/app/shared/evaluationFactors';
 
 
 @Injectable({
@@ -25,7 +25,7 @@ export class AdminService {
     return this.http.get(this.baseURL + 'users');
   }
 
-  createWeightage(weightage:Weightage){
+  createWeightage(weightage:Weightages[]){
     return this.http.post(this.baseURL +'features/weightage/new', weightage);
   }
 
@@ -33,8 +33,8 @@ export class AdminService {
     return this.http.get(this.baseURL +'features/weightage');
   }
 
-  deleteWeightage(id:number){
-    return this.http.delete(this.baseURL+'features/weightage/'+id);
+  deleteWeightage(){
+    return this.http.delete(this.baseURL+'features/weightage/remove');
   }
 
   setTier(college:College[]){

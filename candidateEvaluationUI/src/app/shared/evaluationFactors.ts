@@ -1,35 +1,67 @@
-export class Evaluation{
-    evaluation_factor: string;
+export class Weightages{
+    weightage_id:number;
+    evaluationFactor: string;
     weightage:number;
+    created_by:string;
+    createdDate:string ;
+    active:boolean;
 }
 
 export const EvaluationFactors=[
     {
-        "evaluation_factor": "Education",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Education",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Programming Skills",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Programming Skills",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Adaptibility",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Adaptibility",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Problem Solving",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Problem Solving",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Logical Skills",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Logical Skills",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Interpersonal Skills",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Interpersonal Skills",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     },
     {
-        "evaluation_factor": "Cut off Marks",
-        "weightage": 0
+        "weightage_id": 0 ,
+        "evaluationFactor": "Cut off Marks",
+        "weightage": 0,
+        "created_by": "",
+        "createdDate": "",
+        "active": true
     }
 ]

@@ -1,10 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../service/admin/admin.service';
-import { Weightage } from '../shared/weightage';
 import { NotifierComponent } from '../notifier/notifier.component';
 import { NotificationService } from '../notifier/notifier.service';
 import { DialogsComponent } from '../dialogs/dialogs.component';
+import { EvaluationFactors, Weightages } from '../shared/evaluationFactors';
 
 @Component({
   selector: 'app-weightage',
@@ -14,61 +14,23 @@ import { DialogsComponent } from '../dialogs/dialogs.component';
 export class WeightageComponent implements OnInit , AfterViewInit {
 
   @ViewChild(DialogsComponent) dialogComponent;
+
+
+  confirmWeightage: Weightages[] =EvaluationFactors;
+  existingWeightage: Weightages[];
+  dataActiveFlag = false;
   
-  newWeightage: Weightage;
-  confirmWeightage: Weightage;
-  durationInSeconds = 5;
+  factors: Weightages[] = EvaluationFactors;
 
   delete = false;
-  weightageId: number;
 
   sucessMesg: String;
   exists = true;
   btndisplay = true;
 
-  existingWeightage: Weightage[];
-
+  weightageDate: string;
   cepWeightageForm: FormGroup;
 
-  formErrors = {
-    'education': '',
-    'programming': '',
-    'adaptibility': '',
-    'problem': '',
-    'logical': '',
-    'interpersonal': '',
-    'cutoff': ''
-  }
-
-  validationMessages = {
-    'education':{
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'programming': {
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'adaptibility': {
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'problem': {
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'logical': {
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'interpersonal': {
-      'required': 'This field is required',
-      'max': 'Enter value less than 100'
-    },
-    'cutoff': {
-      'required': 'This field is required'
-    }
-  }
 
   constructor(
     public fb: FormBuilder,
@@ -76,8 +38,8 @@ export class WeightageComponent implements OnInit , AfterViewInit {
     private _notificationservice:NotificationService
   ) { 
     this.createWeightage();
-    this.newWeightage = new Weightage();
-    this.confirmWeightage = new Weightage();
+    this.existingWeightage = [];
+    this.confirmWeightage = [];
   }
 
 
@@ -85,9 +47,9 @@ export class WeightageComponent implements OnInit , AfterViewInit {
     this.dialogComponent.getSelectedOption().subscribe((value: boolean) =>{
       this.delete = value;
       if(this.delete){
-        this.adminService.deleteWeightage(this.weightageId)
+        this.adminService.deleteWeightage()
         .subscribe(
-          res => {console.log(res);
+          res => {
           this.allWeightageDisplay();
           this.btndisplay = true;
           this.delete = false;}
@@ -100,59 +62,36 @@ export class WeightageComponent implements OnInit , AfterViewInit {
 
   createWeightage() {
     this.cepWeightageForm = this.fb.group({
-      education: ['', [Validators.required, Validators.max(100)]],
-      programming: ['', [Validators.required, Validators.max(100)]],
-      adaptibility: ['', [Validators.required, Validators.max(100)]],
-      problem: ['', [Validators.required, Validators.max(100)]],
-      logical: ['', [Validators.required, Validators.max(100)]],
-      interpersonal: ['', [Validators.required, Validators.max(100)]],
-      cutoff: ['', [Validators.required]],
+      education: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      programming: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      adaptibility: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      problem: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      logical: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      interpersonal: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
+      cutoff: ['', [Validators.required, Validators.min(100)]],
 
     });
+  }
 
-    this.cepWeightageForm.valueChanges.subscribe( data => this.onValueChanged(data));
-    this.onValueChanged();
-  }
-  
-  
-  onValueChanged(data?:any){
-    if (!this.cepWeightageForm) { return; }
-    const form = this.cepWeightageForm;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
-  }
 
   createWeight(){
     if(this.cepWeightageForm.value){
-      this.newWeightage.education_weightage = this.cepWeightageForm.value.education;
-      this.newWeightage.programming_weightage = this.cepWeightageForm.value.programming;
-      this.newWeightage.adaptibility_weightage = this.cepWeightageForm.value.adaptibility;
-      this.newWeightage.problem_weightage = this.cepWeightageForm.value.problem;
-      this.newWeightage.logical_weightage = this.cepWeightageForm.value.logical;
-      this.newWeightage.interpersonal_weightage = this.cepWeightageForm.value.interpersonal;
-      this.newWeightage.cutoff = this.cepWeightageForm.value.cutoff;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal ;
+        this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff ;
 
-      this.adminService.createWeightage(this.newWeightage)
+      this.adminService.createWeightage(this.factors)
       .subscribe( res =>{
         if(res == true){
-          this.cepWeightageForm.reset();
-          this.allWeightageDisplay();
-          this.openSnackBar('Weightage created Successfully');
-          this.btndisplay = false;
-        }
+              this.cepWeightageForm.reset();
+              this.allWeightageDisplay();
+              this.openSnackBar('Weightage created Successfully');
+              this.btndisplay = false;
+            }
       })
     }
   }
@@ -165,12 +104,14 @@ export class WeightageComponent implements OnInit , AfterViewInit {
     .subscribe(
       res => {
         this.existingWeightage = <any> res;
+      
         if(this.existingWeightage.length == 0){
           this.exists = false;
         }
         else{
+          this.weightageDate = this.existingWeightage[0].createdDate;
           this.exists = true;
-          this.btndisplay = false
+          this.btndisplay = false;
         }
      }
     );
@@ -178,21 +119,20 @@ export class WeightageComponent implements OnInit , AfterViewInit {
 
 
   deleteWeightage(event, item){
-    this.weightageId = item.weightage_id;
     this.dialogComponent.openDialog(
       "Are you sure to remove the content?"
     );
   }
 
   modalData(){
-    this.confirmWeightage.education_weightage = this.cepWeightageForm.value.education/5;
-    this.confirmWeightage.programming_weightage = this.cepWeightageForm.value.programming/5;
-    this.confirmWeightage.adaptibility_weightage = this.cepWeightageForm.value.adaptibility/5;
-    this.confirmWeightage.problem_weightage = this.cepWeightageForm.value.problem/5;
-    this.confirmWeightage.logical_weightage = this.cepWeightageForm.value.logical/5;
-    this.confirmWeightage.interpersonal_weightage = this.cepWeightageForm.value.interpersonal/5;
-    this.confirmWeightage.cutoff = this.cepWeightageForm.value.cutoff;
-    
+    this.confirmWeightage = this.factors;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal/5 ;
+    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff/5 ;
   }
 
   closeClick(){
