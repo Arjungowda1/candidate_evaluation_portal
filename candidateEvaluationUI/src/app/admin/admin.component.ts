@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-admin',
@@ -8,7 +7,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class AdminComponent implements OnInit {
 
-  constructor(private _snackBar: MatSnackBar) { }
+  constructor() { }
 
   ngOnInit(): void {
   }

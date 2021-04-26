@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from 'src/app/service/auth/authenticate.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login } from 'src/app/shared/login';
+import { User } from 'src/app/shared/user';
 import { Router } from '@angular/router';
+import { Role } from '../shared/role';
 
 @Component({
   selector: 'app-index',
@@ -10,8 +11,11 @@ import { Router } from '@angular/router';
 })
 export class IndexComponent implements OnInit {
 
-  inputData: Login;
+
+  inputData: User;
   errMess: string;
+
+  response: User;
 
   cepLoginForm: FormGroup;
 
@@ -35,13 +39,13 @@ export class IndexComponent implements OnInit {
     public route:Router) {
 
       this.createLoginForm();
-      this.inputData = new Login;
+      this.inputData = new User;
 
      }
 
   createLoginForm() {
     this.cepLoginForm = this.fb.group({
-      email: ['', [Validators.required, Validators.pattern("^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$") ] ],
+      email: ['', [Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$") ] ],
       password: ['', Validators.required]
     });
 
@@ -70,30 +74,28 @@ export class IndexComponent implements OnInit {
   }
 
   ngOnInit(): void {
+
   }
 
   onSubmit(){
     if(this.cepLoginForm.value){
       this.inputData.email = this.cepLoginForm.value.email;
       this.inputData.password = this.cepLoginForm.value.password;
-      this.inputData.firstname = "admin";
-      this.inputData.lastname = "admin";
-
-      this.loginService.verifyUser(this.inputData)
+      this.loginService.login(this.inputData)
       .subscribe(res => {
-        if(res == 0){
-          this.errMess = "Invalid Credentials or User doesn't exist";
-          this.cepLoginForm.reset();
-        }
+        this.response = res;
 
-        else{
-          if(res==10000000){
-            this.route.navigate(['/admin'])
-          }
-          else{
-            this.route.navigate(['/interviewer',res])
-          }
+        let role = this.response.roles[0];
+        if(role == Role.ADMIN){
+          this.route.navigate(['/admin'])
         }
+        else{
+          this.route.navigate(['/interviewer',this.response.userId]);
+        }
+      },
+      err => {
+        this.errMess = "Invalid Credentials or User doesn't exist";
+        this.cepLoginForm.reset();
       })
     }
   } 

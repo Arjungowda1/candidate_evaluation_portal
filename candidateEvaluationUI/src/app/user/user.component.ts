@@ -1,11 +1,10 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Login } from 'src/app/shared/login';
+import { User } from 'src/app/shared/user';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from '../service/admin/admin.service';
 import { AuthenticateService } from '../service/auth/authenticate.service';
 import { NotificationService } from '../notifier/notifier.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
 import { DialogsComponent } from '../dialogs/dialogs.component';
 
 @Component({
@@ -17,7 +16,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   @ViewChild(DialogsComponent) dialogComponent;
 
-  newUser: Login;
+  newUser: User;
   sucessMess: String;
   uid: number;
 
@@ -25,7 +24,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   userexists= true;
 
-  allUsers:Login[];
+  allUsers:User[];
 
   title = "Alert!";
   message = "Are you sure you want to delete?";
@@ -58,7 +57,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   ) {
 
     this.createInterviewer();
-    this.newUser = new Login();
+    this.newUser = new User();
 
    }
 
@@ -111,18 +110,16 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   Signup(){
     if(this.cepSignupUser.value){
-      this.newUser.firstname = this.cepSignupUser.value.firstname;
-      this.newUser.lastname = this.cepSignupUser.value.lastname;
+      this.newUser.firstName = this.cepSignupUser.value.firstname;
+      this.newUser.lastName = this.cepSignupUser.value.lastname;
       this.newUser.email = this.cepSignupUser.value.firstname + this.cepSignupUser.value.lastname +"@clarivate.com";
       this.newUser.password = this.cepSignupUser.value.firstname + "123";
-
-      this.adminService.createUser(this.newUser)
+      
+      this.loginService.register(this.newUser)
       .subscribe( res => {
-        if(res == true){
           this.openSnackBar("User created successfully");
           this.cepSignupUser.reset();
           this.allUserDisplay();
-        }
       })
     }
   }
@@ -131,7 +128,7 @@ export class UserComponent implements OnInit, AfterViewInit {
     this.dialogComponent.getSelectedOption().subscribe((value: boolean) => {
      this.delete = value;
      if(this.delete){
-      this.loginService.deleteUser(this.uid)
+      this.adminService.deleteUser(this.uid)
       .subscribe(res => {
         if(res != null){
           this.allUserDisplay();
@@ -144,10 +141,10 @@ export class UserComponent implements OnInit, AfterViewInit {
   }
 
   deleteuser(event, data){
-    this.uid = data.user_id;
-    if(data.firstname === "admin"){
+    this.uid = data.userId;
+    if(data.roles[0].name === "ROLE_ADMIN"){
 
-      this._notificationservice.error("Cannot delete this!");
+      this._notificationservice.error("Cannot delete Administrator!");
     }
     else{
       this.dialogComponent.openDialog(

@@ -6,23 +6,7 @@
         <h4 class="col-md-8 p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation form fields</b></h4>
     </div>
 </div>
-<div class="container mt-5 mb-5" [ngsReveal]="{ duration: 2000,delay:500}">
-    <div class="row align-items-center">
-        <div class="col=md-4 mr-4 p-4">Want to create a new Evaluation Criteria?</div>
-        <div class="col=md-8 p-4">
-            <form>
-                <div class="row align-items-center">
-                    <div class="col-md-10">
-                        <input type="email" class="form-control" aria-describedby="emailHelp" placeholder="Enter Criteria Name">
-                    </div>
-                    <div class="col-md-2">
-                        <button class="btn add-btn" value="button"><i class="fa fa-plus" aria-hidden="true"></i><h6>Add</h6></button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>   
+
 <hr style="width: 70%;">
 <div class="container mt-4 mb-4" [ngsReveal]="{ duration: 2000,delay:500}">
     <form novalidate  [formGroup]="cepWeightageForm"  (ngSubmit) = "createWeight()">
@@ -98,6 +82,7 @@
                 
             </div>
         </div>
+        <hr style="width: 70%;">
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
@@ -168,8 +153,9 @@
                         </tr>
                       </thead>
                     <tbody>
-                      <tr *ngFor = "let c of confirmWeightage">
-                        <td>{{c.evaluationFactor}}</td>
+                      <tr *ngFor = "let c of _confirmWeightage">
+
+                        <td>{{c.evaluationFactor }}</td>
                         <td>{{ c.weightage }}</td>
                       </tr>
                     </tbody>

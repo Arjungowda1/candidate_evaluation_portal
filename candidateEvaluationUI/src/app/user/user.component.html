@@ -49,8 +49,8 @@
           </thead>
         <tbody *ngFor="let user of allUsers" >
           <tr>
-            <td>{{ user.firstname }}</td>
-            <td>{{ user.lastname }}</td>
+            <td>{{ user.firstName }}</td>
+            <td>{{ user.lastName }}</td>
             <td>{{ user.email }}</td>
             <td><button class="delete-btn" (click)="deleteuser($event, user)"><i class="fa fa-user-times text-danger"></i></button></td>
           </tr>

@@ -4,19 +4,40 @@ import { AdminComponent } from './admin/admin.component';
 import { CollegeComponent } from './college/college.component';
 import { IndexComponent } from './index/index.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
-import { StatisticsComponent } from './statistics/statistics.component';
+import { AuthGuard } from './service/guards/auth.guard';
+import { Role } from './shared/role';
 import { UserComponent } from './user/user.component';
 import { WeightageComponent } from './weightage/weightage.component';
 
 const routes: Routes = [
   { path: 'index', component: IndexComponent },
   { path: '', redirectTo:'/index', pathMatch: 'full' },
-  { path: 'admin', component: AdminComponent},
+  { path: 'admin',
+    component: AdminComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.ADMIN]}
+  },
   { path: 'interviewer/:id', component: InterviewerComponent},
-  { path: 'user', component:UserComponent},
-  { path: 'weightage', component:WeightageComponent},
-  { path: 'statistics', component:StatisticsComponent},
-  { path: 'college', component: CollegeComponent}
+  { 
+    path: 'user', 
+    component:UserComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.ADMIN]}
+  },
+  { 
+    path: 'weightage', 
+    component:WeightageComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.ADMIN]}
+  },
+  { 
+    path: 'college',
+    component: CollegeComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.ADMIN]}
+  },
+
+  { path: '**', redirectTo: 'index' }
 ];
 
 @NgModule({

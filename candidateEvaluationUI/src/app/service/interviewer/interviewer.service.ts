@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Login } from 'src/app/shared/login';
+import { User } from 'src/app/shared/user';
 
 @Injectable({
   providedIn: 'root'

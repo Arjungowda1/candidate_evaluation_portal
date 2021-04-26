@@ -5,7 +5,13 @@ export class Weightages{
     created_by:string;
     createdDate:string ;
     active:boolean;
+
+    constructor(evaluationFactor:string, weightage:number){
+        this.evaluationFactor = evaluationFactor;
+        this.weightage = weightage;
+    }
 }
+
 
 export const EvaluationFactors=[
     {

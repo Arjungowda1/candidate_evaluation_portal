@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup,FormArray, Validators } from '@angular/forms';
 import { AdminService } from '../service/admin/admin.service';
 import { NotifierComponent } from '../notifier/notifier.component';
 import { NotificationService } from '../notifier/notifier.service';
@@ -15,10 +15,8 @@ export class WeightageComponent implements OnInit , AfterViewInit {
 
   @ViewChild(DialogsComponent) dialogComponent;
 
-
-  confirmWeightage: Weightages[] =EvaluationFactors;
+  _confirmWeightage: Weightages[] =EvaluationFactors;
   existingWeightage: Weightages[];
-  dataActiveFlag = false;
   
   factors: Weightages[] = EvaluationFactors;
 
@@ -39,7 +37,7 @@ export class WeightageComponent implements OnInit , AfterViewInit {
   ) { 
     this.createWeightage();
     this.existingWeightage = [];
-    this.confirmWeightage = [];
+    this._confirmWeightage = new Array;
   }
 
 
@@ -69,12 +67,13 @@ export class WeightageComponent implements OnInit , AfterViewInit {
       logical: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
       interpersonal: ['', [Validators.required, Validators.max(100), Validators.pattern('0*[1-9][0-9]*')]],
       cutoff: ['', [Validators.required, Validators.min(100)]],
-
+      criteria: this.fb.array([]),
     });
   }
 
 
   createWeight(){
+    
     if(this.cepWeightageForm.value){
         this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education ;
         this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming ;
@@ -83,7 +82,7 @@ export class WeightageComponent implements OnInit , AfterViewInit {
         this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical ;
         this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal ;
         this.factors[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff ;
-
+        
       this.adminService.createWeightage(this.factors)
       .subscribe( res =>{
         if(res == true){
@@ -97,6 +96,7 @@ export class WeightageComponent implements OnInit , AfterViewInit {
   }
   
   ngOnInit(): void {
+    this.createWeightage();
     this.allWeightageDisplay();
   }
   allWeightageDisplay() {
@@ -125,14 +125,14 @@ export class WeightageComponent implements OnInit , AfterViewInit {
   }
 
   modalData(){
-    this.confirmWeightage = this.factors;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal/5 ;
-    this.confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff/5 ;
+    this._confirmWeightage = this.factors;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff ;
   }
 
   closeClick(){
