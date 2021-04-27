@@ -1,9 +1,13 @@
 <app-header></app-header>
-<div class="container bg-light mb-4 mt-4" >
+<div class="container mb-4 mt-4" style="height: 700px;" >
 
-    <ag-grid-angular
-        style="width:auto;height: 700px;"
-        class="ag-theme-balham"
+    <button (click)="onBtnExport()" class="text-success export-btn p-2 m-3"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Export to csv</button>
+    
+    <ag-grid-angular #agGrid
+        style="width:auto;height: 80%;"
+        class="ag-theme-material"
+        [animateRows]= "true"
+        [rowHeight]="50"
         [rowData]="rowData"
         [columnDefs]= "columnDefs"
     ></ag-grid-angular>

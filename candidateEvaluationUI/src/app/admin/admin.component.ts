@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-admin',
@@ -7,12 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminComponent implements OnInit {
 
+  @ViewChild('agGrid') agGrid: any;
+  
   columnDefs = [
-    { headerName: "Candidate Name", field: "Name", sortable: true, filter: true},
-    { headerName: "Email", field: "Email" , sortable: true, filter: true},
-    { headerName: "Score", field: "Score", sortable: true, filter: true},
-    { headerName: "College", field: "College", sortable: true, filter: true},
-    { headerName: "Tier", field: "Tier", sortable: true, filter: true},
+    { headerName: "Candidate Name",width:200, field: "Name", sortable: true, filter: true, floatingFilter:true ,wrapText: true, reset:true},
+    { headerName: "Email", field: "Email" ,width:290, sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
+    { headerName: "Score", field: "Score", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
+    { headerName: "College", field: "College", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
+    { headerName: "Tier", field: "Tier", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
   ];
 
   rowData = [
@@ -71,6 +73,20 @@ export class AdminComponent implements OnInit {
       Score: 201,
       College:'SJBIT',
       Tier:3,
+    },
+    {
+      Name: 'world',
+      Email: 'world@gmail.com',
+      Score: 201,
+      College:'SJBIT',
+      Tier:3,
+    },
+    {
+      Name: 'world',
+      Email: 'world@gmail.com',
+      Score: 201,
+      College:'SJBIT',
+      Tier:3,
     }
   ];
 
@@ -78,5 +94,10 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
   }
-  
+ 
+  onBtnExport(){
+    this.agGrid.api.exportDataAsCsv({
+      fileName:"final-selects"
+    });
+  }
 }

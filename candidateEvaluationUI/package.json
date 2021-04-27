@@ -11,6 +11,7 @@
   },
   "private": true,
   "dependencies": {
+    "@ag-grid-enterprise/excel-export": "^25.1.0",
     "@angular/animations": "~11.2.6",
     "@angular/cdk": "^11.2.9",
     "@angular/common": "~11.2.6",
@@ -29,6 +30,7 @@
     "angular-confirmation-popover": "^6.0.0",
     "bootstrap": "^4.6.0",
     "flx-ui-datatable": "^1.1.5",
+    "mat-table-exporter": "^10.2.3",
     "ng2-opd-popup": "^1.1.21",
     "ngx-scrollreveal": "^3.0.0",
     "rxjs": "~6.6.0",

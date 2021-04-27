@@ -2,7 +2,14 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;1,300&display=swap');
 @import "~ag-grid-community/dist/styles/ag-grid.css";
-@import "~ag-grid-community/dist/styles/ag-theme-balham.css";
+@import "~ag-grid-community/dist/styles/ag-theme-material.css";
+
+.ag-header-cell-label .ag-header-cell-text {
+    
+    color: black;
+    font-size: 12px;
+    
+}
 
 *{
     font-family: 'Poppins', sans-serif;

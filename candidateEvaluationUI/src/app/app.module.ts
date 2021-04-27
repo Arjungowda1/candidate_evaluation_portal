@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridModule } from 'ag-grid-angular';
+import { ExcelExportModule } from "@ag-grid-enterprise/excel-export";
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
