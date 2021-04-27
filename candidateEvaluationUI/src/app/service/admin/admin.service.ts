@@ -56,4 +56,6 @@ export class AdminService {
   deleteTier(id: number){
     return this.http.delete(this.baseURL + "features/tier/"+id,{headers: this.headers});
   }
+
+
 }

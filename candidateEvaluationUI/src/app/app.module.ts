@@ -6,6 +6,8 @@ import { NgsRevealModule } from 'ngx-scrollreveal';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { CommonModule } from '@angular/common';
+import {AgGridModule} from 'ag-grid-angular'
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -20,6 +22,7 @@ import { NotifierComponent } from './notifier/notifier.component';
 import { DialogsComponent } from './dialogs/dialogs.component';
 import { EvaluateComponent } from './evaluate/evaluate.component';
 import { CollegeComponent } from './college/college.component';
+import { EvaluateService } from './service/evaluate/evaluate.service';
 
 
 @NgModule({
@@ -45,9 +48,11 @@ import { CollegeComponent } from './college/college.component';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    NgbModule
+    CommonModule,
+    NgbModule,
+    AgGridModule.withComponents([])
   ],
-  providers: [],
+  providers: [EvaluateService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

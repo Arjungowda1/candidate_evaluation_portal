@@ -1,1 +1,413 @@
-<p>evaluate works!</p>
+<app-interviewer-header></app-interviewer-header>
+<div class="card bg-light container-fluid mt-2 mb-2">
+  <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Create Evaluation</b></h4>
+</div>
+<div class="container">
+
+
+  <div class="card bg-light pl-2 ">
+    <form class="pt-4 pl-3 pr-3 pb-3;" [formGroup]="evaluate" (ngSubmit)="onSubmit()" novalidate>
+      <div class="form-group pl-2 pr-2 ">
+        <label for="candidatename" class=" col-form-label">1.Candidate's Name
+          <span class="error"
+            *ngIf="evaluate.get('candidatename').errors && evaluate.get('candidatename').hasError('required')">*</span>
+        </label>
+        <div class="col pt-2">
+          <input type="text" class="form-control" required placeholder="Name" formControlName="candidatename"
+            minlength="2" maxlength="51"
+            [class.is-invalid]="evaluate.get('candidatename').invalid && evaluate.get('candidatename').touched">
+          <span class="error"
+            *ngIf=" evaluate.get('candidatename').touched &&evaluate.get('candidatename').errors && evaluate.get('candidatename').hasError('required')">Candidate
+            Name is required</span>
+          <span class="error" *ngIf=" evaluate.get('candidatename').hasError('maxlength')">Maximum Length Is 50.</span>
+          <span class="error" *ngIf=" evaluate.get('candidatename').hasError('minlength')">Minimum length Is 2.</span>
+        </div>
+      </div>
+      <div class="form-group pl-2 pr-2 pt-2">
+        <label for="email" class=" col-form-label">2.Candidate's Email Id
+          <span class="error"
+            *ngIf="evaluate.get('email').errors && evaluate.get('email').hasError('required')">*</span>
+        </label>
+        <div class="col pt-2">
+          <input type="email" class="form-control" required placeholder="Email" formControlName="email"
+            [class.is-invalid]="evaluate.get('email').invalid && evaluate.get('email').touched">
+
+          <span class="error" *ngIf=" evaluate.get('email').hasError('email')">Enter Valid Email address.</span>
+          <span class="error" *ngIf="evaluate.get('email').touched && evaluate.get('email').hasError('required')">Email
+            Id Required</span>
+
+        </div>
+      </div>
+      <div class="form-group pl-2 pr-2 pt-2">
+        <div class="row">
+          <div class="col-md-8">
+            <label for="candidatecollegename" class=" col-form-label">3.Candidate's College Name/Source
+              <span class="error"
+              *ngIf="evaluate.get('candidatecollegename').errors && evaluate.get('candidatecollegename').hasError('required')">*</span>
+            </label>
+         
+          </div>
+          
+          <div class="col-md-4 pl-5 pt-2 ">
+            <p><span>Selected College Is Of Tier :</span><b>{{selectedTier}}</b></p>
+          </div>
+        </div>
+
+        
+          <!-- <input type="text" class="form-control" required placeholder="CollegeName"
+            formControlName="candidatecollegename"
+            [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched"> -->
+
+          
+          <select  class="form-control" name="candidatecollegename" id="candidatecollegename"  (change)="selectChangeHandler($event)"   formControlName="candidatecollegename"  [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched">
+            <!-- <option value="Tier1">IIT Dharwad </option>
+            <option value="Tier1">NIT Surathkal</option>
+
+            <option value="Tier2">RV College</option>
+            <option value="Tier2">PESIT</option>
+
+            <option value="Tier3">DBIT</option>
+            <option value="Tier3">ACS</option>
+            
+            <span class="error"
+            *ngIf="evaluate.get('candidatecollegename').touched && evaluate.get('candidatecollegename').hasError('required')">
+            CollegeName is required.</span> -->
+            <!-- <option *ngFor="let cl of listItems" [value]="cl">
+              {{cl}}
+            </option> -->
+
+            <option *ngFor="let clg of colleges" [value]="clg.name">
+              {{clg.name}}, {{clg.type}}
+            </option>
+          </select>
+          
+          <span class="error"
+          *ngIf="evaluate.get('candidatecollegename').touched && evaluate.get('candidatecollegename').hasError('required')">
+          CollegeName is required.</span>
+        
+      </div>
+
+
+
+      <div class="form-group pl-2 pr-2 pt-2">
+        <label for="date" class=" col-form-label">4.Date<span class="error"
+            *ngIf=" evaluate.get('date').hasError('required')">*</span></label>
+        <div class="col pt-2">
+          <input type="date" placeholder="DD/MM/YYYY" formControlName="date" required>
+          <span class="error" *ngIf="evaluate.get('date').touched && evaluate.get('date').hasError('required')">Date is
+            required.</span>
+        </div>
+      </div>
+
+
+
+
+      <div class="form-group pl-2 pr-2 pt-2">
+        <label for="hackerrankscore" class=" col-form-label">5.Hackerrank Score<span class="error"
+            *ngIf="evaluate.get('hackerrankscore').hasError('required')">*</span></label>
+        <div class="col pt-2">
+          <input type="text" class="form-control" placeholder="Enter Hackerrank Score" required
+            formControlName="hackerrankscore" maxlength="11"
+            [class.is-invalid]="evaluate.get('hackerrankscore').invalid && evaluate.get('hackerrankscore').touched">
+          <span class="error"
+            *ngIf="evaluate.get('hackerrankscore').touched && evaluate.get('hackerrankscore').hasError('required')">Hackerrank
+            Score is required.</span>
+          <span class="error" *ngIf="evaluate.get('hackerrankscore').hasError('maxlength')">Maximum Length is 10.</span>
+          <span class="error" *ngIf="  evaluate.get('hackerrankscore').hasError('pattern')">This field can contain only
+            numeric values.</span>
+        </div>
+      </div>
+      <div class="form-group pl-2 pr-2 pt-2">
+        <label for="interviewers" class=" col-form-label">6.Interviewer(s)<span class="error"
+            *ngIf="evaluate.get('interviewers').hasError('required')">*</span></label>
+        <div class="col pt-2">
+          <input type="text" class="form-control" placeholder="Enter Hackerrank Score" formControlName="interviewers">
+          <span class="error"
+            *ngIf="evaluate.get('interviewers').touched && evaluate.get('interviewers').hasError('required')">Interviewer's
+            Name is required.</span>
+        </div>
+      </div>
+
+
+      <div fromGroupName="training" >
+        <div class="form-group pl-2 pr-2 pt-2">
+          <div class="row">
+            <div class="col-md-8">
+              <label for="training" class=" col-form-label">7.Education/Training<span class="error"
+                *ngIf="evaluate.get('training').hasError('required') ">*</span></label>
+            </div>
+            
+              
+
+              <div  class="col-md-4 pl-5 pt-2"  >
+                <p><span>Score After Adding Weightage :</span><b>{{selectedWeight}}</b></p>
+              </div>
+          </div>
+      
+          <div class="col "(change)="radioChangeHandler($event)">
+            <pre><i>Does the candidate have the necessary education or Training required for this role?</i></pre>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="1" formControlName="training" >
+              <label class="form-check-label" for="training">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="2" formControlName="training">
+              <label class="form-check-label" for="training">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="3" formControlName="training" checked>
+              <label class="form-check-label" for="training">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="4" formControlName="training">
+              <label class="form-check-label" for="training">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="5" formControlName="training">
+              <label class="form-check-label" for="training">5 </label>
+            </div>
+            <span class="error"
+              *ngIf="evaluate.get('training').touched && evaluate.get('training').hasError('required')">Training is
+              required.</span>
+          </div>
+        </div>
+      </div>
+
+
+      <div fromGroupName="knowledge">
+        <div class="form-group pl-2 pr-2 pt-2">
+          <label for="knowledge" class=" col-form-label">8.Programming Knowledge<span class="error"
+              *ngIf="evaluate.get('knowledge').hasError('required')">*</span></label>
+  
+          <div class="col ">
+            <pre><i>Does the candidate have the necessary programming skills?</i></pre>
+            <div class="form-check form-check-inline pl-2">
+              <input class="form-check-input" type="radio" value="1" name="knowledge" id="knowledge1"
+                formControlName="knowledge">
+              <label class="form-check-label" for="knowledge1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="2" name="knowledge" id="knowledge2"
+                formControlName="knowledge">
+              <label class="form-check-label" for="knowledge2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="3" name="knowledge" id="knowledge3"
+                formControlName="knowledge">
+              <label class="form-check-label" for="knowledge3">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="4" name="knowledge" id="knowledge4"
+                formControlName="knowledge" checked>
+              <label class="form-check-label" for="knowledge4">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" value="5" name="knowledge" id="knowledge5"
+                formControlName="knowledge">
+              <label class="form-check-label" for="knowledge5">5 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div fromGroupName="adaptabality">
+        <div class="form-group pl-2 pr-2 pt-2">
+          <label for="adaptabality" class=" col-form-label">9.Adaptabality & Flexibility<span class="error"
+              *ngIf="evaluate.get('adaptabality').hasError('required')">*</span></label>
+  
+          <div class="col ">
+            <pre><i>How does the candidate respond to chnage?</i></pre>
+            <div class="form-check form-check-inline pl-2">
+              <input class="form-check-input" type="radio" id="adaptabality1" value="1" formControlName="adaptabality">
+              <label class="form-check-label" for="adaptabality1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="adaptabality2" value="2" formControlName="adaptabality">
+              <label class="form-check-label" for="adaptabality2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="adaptabality3" value="3" formControlName="adaptabality">
+              <label class="form-check-label" for="adaptabality3">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="adaptabality4" value="4" formControlName="adaptabality"
+                checked>
+              <label class="form-check-label" for="adaptabality4">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="adaptabality5" value="5" formControlName="adaptabality">
+              <label class="form-check-label" for="adaptabality5">5 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div fromGroupName="problem_Solving">
+        <div class="form-group pl-2 pr-2 pt-2">
+          <label for="problem_Solving" class=" col-form-label">10.Problem Solving<span class="error"
+              *ngIf="evaluate.get('problem_Solving').hasError('required')">*</span></label>
+  
+          <div class="col ">
+            <pre><i>How does the candidate respond to problems?</i></pre>
+            <div class="form-check form-check-inline pl-2">
+              <input class="form-check-input" type="radio" id="problem_Solving1" value="1"
+                formControlName="problem_Solving">
+              <label class="form-check-label" for="problem_solving1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="problem_Solving2" value="2"
+                formControlName="problem_Solving">
+              <label class="form-check-label" for="problem_solving2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="problem_Solving3" value="3"
+                formControlName="problem_Solving">
+              <label class="form-check-label" for="problem_Solving3">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="problem_Solving4" value="4"
+                formControlName="problem_Solving" checked>
+              <label class="form-check-label" for="problem_Solving4">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="problem_Solving5" value="5"
+                formControlName="problem_Solving">
+              <label class="form-check-label" for="problem_Solving5">5 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <div fromGroupName="logical">
+        <div class="form-group pl-2 pr-2 pt-2">
+          <label for="logical" class=" col-form-label">11.Logical Reasoning<span class="error"
+              *ngIf="evaluate.get('logical').hasError('required')">*</span></label>
+  
+          <div class="col">
+            <pre><i>How does the candidate interpret information provided and then resolve problems?</i></pre>
+            <div class="form-check form-check-inline pl-2">
+              <input class="form-check-input" type="radio" id="logical1" value="1" formControlName="logical">
+              <label class="form-check-label" for="logical1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="logical2" value="2" formControlName="logical">
+              <label class="form-check-label" for="logical2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="logical3" value="3" formControlName="logical">
+              <label class="form-check-label" for="logical3">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="logical4" value="4" formControlName="logical" checked>
+              <label class="form-check-label" for="logical4">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="logical5" value="5" formControlName="logical">
+              <label class="form-check-label" for="logical5">5 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div fromGroupName="Interpersonal">
+        <div class="form-group pl-2 pr-2 pt-2">
+          <label for="interpersonal" class="col-form-label">12.Interpersonal & Communication Skills<span class="error"
+              *ngIf="evaluate.get('interpersonal').hasError('required')">*</span></label>
+  
+          <div class="col ">
+            <pre><i> Is the candidate able to communicate effectively?</i></pre>
+            <div class="form-check form-check-inline pl-2">
+              <input class="form-check-input" type="radio" id="interpersonal1" value="1" formControlName="interpersonal">
+              <label class="form-check-label" for="interpersonal1">1</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="interpersonal2" value="2" formControlName="interpersonal">
+              <label class="form-check-label" for="interpersonal2">2</label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="interpersonal3" value="3" formControlName="interpersonal">
+              <label class="form-check-label" for="interpersonal3">3 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="interpersonal4" value="4" formControlName="interpersonal"
+                checked>
+              <label class="form-check-label" for="interpersonal4">4 </label>
+            </div>
+            <div class="form-check form-check-inline">
+              <input class="form-check-input" type="radio" id="interpersonal5" value="5" formControlName="interpersonal">
+              <label class="form-check-label" for="interpersonal5">5 </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+      <div fromGroupName="recommend_to_hire">
+        <div class="form-group  pl-2 pr-2 pt-2">
+          <label for="recommend_to_hire" class=" col-form-label">13.Recommend To Hire?<span class="error"
+              *ngIf="evaluate.get('recommend_to_hire').hasError('required')">*</span></label>
+  
+          <div class="col ">
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="recommend_to_hire1" value="1" checked
+                formControlName="recommend_to_hire">
+              <label class="form-check-label" for="recommend_to_hire1">
+                Hire-Exceptional Candidate
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="recommend_to_hire2" value="2"
+                formControlName="recommend_to_hire">
+              <label class="form-check-label" for="recommend_to_hire2">
+                Hire
+              </label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="3"
+                formControlName="recommend_to_hire">
+              <label class="form-check-label" for="recommend_to_hire3">
+                Do not hire
+              </label>
+            </div>
+  
+            <div class="form-check">
+              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="4"
+                formControlName="recommend_to_hire">
+              <label class="form-check-label" for="recommend_to_hire4">
+                Additional interviews required
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+
+
+      <div class="form-group pt-2">
+        <label for="comments" class="col col-form-label">14.Additional Comments
+          <span class="error"
+            *ngIf="evaluate.get('comments').errors && evaluate.get('comments').hasError('required')">*</span>
+        </label>
+        <div class="col">
+          <textarea class="form-control" rows="5" placeholder="Enter Comments" formControlName="comments"
+            [class.is-invalid]="evaluate.get('comments').invalid && evaluate.get('comments').touched"></textarea>
+          <span class="error" *ngIf="evaluate.get('comments').touched && evaluate.get('comments').hasError('required')">
+            Please add your comment.</span>
+        </div>
+      </div>
+
+
+      <div class="row pb-5 pt-2">
+        <div class="col ml-4">
+          <button type="button" (click)="onSubmit()" [disabled]="evaluate.invalid"
+            class="btn btn-outline-primary justify-content-md-center">Submit</button>
+        </div>
+      </div>
+
+
+      </form>
+  </div>
+
+</div>

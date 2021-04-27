@@ -1,0 +1,10 @@
+.my-custom-scrollbar {
+    position: relative;
+    height: 470px;
+    overflow: auto;
+    }
+
+     th ,.date {
+        white-space: nowrap;
+        overflow: hidden;
+      }
