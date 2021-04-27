@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { User } from 'src/app/shared/user';
 import { Router } from '@angular/router';
 import { Role } from '../shared/role';
+import { PasswordService } from '../service/password.service';
+import { NotificationService } from '../notifier/notifier.service';
 
 @Component({
   selector: 'app-index',
@@ -12,10 +14,28 @@ import { Role } from '../shared/role';
 export class IndexComponent implements OnInit {
 
 
+  keyReceived = true;
+  result = "";
+  responsePassword = "";
+  key = "";
+  Mess = "";
+  errMessEmail = "";
+  errEmail = true;
+
+  newPasswordUser: User = new User();
+
+  resetEmail = "";
+
+  validKey= true;
+  errKey = true;
+  errKeyMesg = "";
+
   inputData: User;
   errMess: string;
 
   response: User;
+
+  resetPasswordForm: FormGroup;
 
   cepLoginForm: FormGroup;
 
@@ -36,7 +56,9 @@ export class IndexComponent implements OnInit {
 
   constructor(private loginService: AuthenticateService,
     public fb:FormBuilder,
-    public route:Router) {
+    public route:Router,
+    private passwordService: PasswordService,
+    private _notificationservice:NotificationService,) {
 
       this.createLoginForm();
       this.inputData = new User;
@@ -90,7 +112,7 @@ export class IndexComponent implements OnInit {
           this.route.navigate(['/admin'])
         }
         else{
-          this.route.navigate(['/interviewer',this.response.userId]);
+          this.route.navigate(['/interviewer',this.response.id]);
         }
       },
       err => {
@@ -100,4 +122,47 @@ export class IndexComponent implements OnInit {
     }
   } 
 
+  sendKey(email: string){
+    this.resetEmail = email;
+    this.passwordService.getKey(email)
+    .subscribe( res=>{
+      this.result = <any>res;
+      if(this.result === "Invalid Email! User doesn't exist"){
+        this.errEmail = false;
+        this.errMessEmail = this.result;
+      }
+      else{
+        this.responsePassword = "Sent! Please check your email for a key";
+        this.keyReceived = false;
+        this.errEmail = true;
+        this.key = this.result;
+      }
+    })
+  }
+
+  verifyKey(input: string){
+    if(input === this.key){
+      this.Mess = "Verified! Please enter your new password";
+      this.validKey = false;
+      this.errKey = true;
+    }
+    else{
+      this.errKey = false;
+      this.errKeyMesg = "Invalid Key! Please try again";
+    }
+  }
+
+
+  resetPassword(newPassword:string){
+    console.log(this.resetEmail);
+    this.newPasswordUser.email = this.resetEmail;
+    this.newPasswordUser.password = newPassword;
+    this.passwordService.resetPassword(this.newPasswordUser)
+      .subscribe(
+        res =>{
+          this._notificationservice.success("Successfully reset the password");
+          setTimeout(()=>window.location.reload(),1000);
+        }
+      )
+  }
 }

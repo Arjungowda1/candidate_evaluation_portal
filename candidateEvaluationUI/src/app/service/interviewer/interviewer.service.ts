@@ -7,15 +7,21 @@ import { User } from 'src/app/shared/user';
 })
 export class InterviewerService {
 
+  currentUser: User;
+  headers: HttpHeaders;
   constructor(
     private http:HttpClient
-  ) { }
+  ) {
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    this.headers = new HttpHeaders({
+      authorization:'Bearer ' + this.currentUser.token,
+      "Content-Type":"application/json; charset=UTF-8"
+    });
+   }
   baseUrl = "http://localhost:8080/cep/interviewer/";
 
 
   getInterviewers(id: number){
-    return this.http.get(this.baseUrl+'user/'+id);
+    return this.http.get(this.baseUrl+'user/'+id,{headers: this.headers});
   }
-
-
 }

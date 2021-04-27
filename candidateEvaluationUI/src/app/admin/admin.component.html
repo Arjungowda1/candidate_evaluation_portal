@@ -1,8 +1,16 @@
 <app-header></app-header>
-<div class="container-fluid bg-light mb-4 mt-4" >
-    <div class="row align-items-center justify-content-center" style="height: 600px;" [ngsReveal]="{ duration: 2000,delay:500}">
+<div class="container bg-light mb-4 mt-4" >
+
+    <ag-grid-angular
+        style="width:auto;height: 700px;"
+        class="ag-theme-balham"
+        [rowData]="rowData"
+        [columnDefs]= "columnDefs"
+    ></ag-grid-angular>
+
+    <!-- <div class="row align-items-center justify-content-center" style="height: 600px;" [ngsReveal]="{ duration: 2000,delay:500}">
         <i class="fa fa-times-circle" style="font-size:40px;"></i>
         <h6 class="text-secondary pl-2" ><b> No Interview Data Entered yet</b></h6>
-    </div>
+    </div> -->
 </div>
 <app-footer></app-footer>

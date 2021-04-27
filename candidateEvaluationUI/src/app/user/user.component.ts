@@ -113,7 +113,7 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.newUser.firstName = this.cepSignupUser.value.firstname;
       this.newUser.lastName = this.cepSignupUser.value.lastname;
       this.newUser.email = this.cepSignupUser.value.firstname + this.cepSignupUser.value.lastname +"@clarivate.com";
-      this.newUser.password = this.cepSignupUser.value.firstname + "123";
+      this.newUser.password = this.newUser.firstName.toLowerCase() + "123";
       
       this.loginService.register(this.newUser)
       .subscribe( res => {

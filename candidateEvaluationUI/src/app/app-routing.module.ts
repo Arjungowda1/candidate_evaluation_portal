@@ -17,7 +17,11 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {roles: [Role.ADMIN]}
   },
-  { path: 'interviewer/:id', component: InterviewerComponent},
+  { path: 'interviewer/:id',
+    component: InterviewerComponent,
+    canActivate: [AuthGuard],
+    data: {roles: [Role.USER]}
+  },
   { 
     path: 'user', 
     component:UserComponent,

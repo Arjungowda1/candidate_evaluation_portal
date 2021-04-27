@@ -8,7 +8,7 @@ import { AuthenticateService } from '../service/auth/authenticate.service';
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-
+  
   constructor(private userService: AuthenticateService, private router: Router) { }
 
   ngOnInit(): void {
@@ -18,5 +18,4 @@ export class HeaderComponent implements OnInit {
     this.userService.logOut();
     this.router.navigate([""]);
   }
-
 }
