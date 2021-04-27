@@ -10,11 +10,11 @@ export class AdminComponent implements OnInit {
   @ViewChild('agGrid') agGrid: any;
   
   columnDefs = [
-    { headerName: "Candidate Name",width:200, field: "Name", sortable: true, filter: true, floatingFilter:true ,wrapText: true, reset:true},
-    { headerName: "Email", field: "Email" ,width:290, sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
-    { headerName: "Score", field: "Score", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
-    { headerName: "College", field: "College", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
-    { headerName: "Tier", field: "Tier", sortable: true, filter: true, floatingFilter:true, wrapText: true, reset:true},
+    { headerName: "Candidate Name",width:200, field: "Name", sortable: true, filter: true, floatingFilter:true ,wrapText: true},
+    { headerName: "Email", field: "Email" ,width:290, sortable: true, filter: true, floatingFilter:true, wrapText: true},
+    { headerName: "Score", field: "Score", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+    { headerName: "College", field: "College", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+    { headerName: "Tier", field: "Tier", sortable: true, filter: true, floatingFilter:true, wrapText: true},
   ];
 
   rowData = [

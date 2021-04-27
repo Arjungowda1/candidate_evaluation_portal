@@ -1,9 +1,10 @@
 <app-header></app-header>
 <app-notifier></app-notifier>
 <app-dialogs></app-dialogs>
+<div class="container" style="height: 140px;"></div>
 <div class="card bg-light container-fluid mt-2 mb-2" >
     <div class="row">
-        <h4 class="col-md-8 p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation form fields</b></h4>
+        <h4 class="col-md-8 p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Weightage for Evaluation</b></h4>
     </div>
 </div>
 
@@ -97,7 +98,7 @@
 
 <div *ngIf="exists">
     <div class="card bg-light container-fluid mt-4 mb-2" >
-        <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:500}"><b>Existing weightage</b></h4>
+        <h4 class="p-4" [ngsReveal]="{ duration: 1000,delay:500}"><b>Existing Weightage</b></h4>
     </div>
     <div  class="container mt-5 mb-5 " [ngsReveal]="{ duration: 800,delay:900}">
         <table class="table table-hover">
@@ -132,13 +133,13 @@
 
 
 
-<div class="modal" id="myModal"> 
+<div class="modal" id="myModal" data-backdrop="static" data-keyboard="false"> 
     <div class="modal-dialog">
         <div class="modal-content">
 
             <!-- Modal Header -->
             <div class="modal-header">
-                <h4 class="modal-title">Confirm creation?</h4>
+                <h4 class="modal-title">Confirm Creation?</h4>
                 <button type="button" class="close" (click)="closeClick()" data-dismiss="modal">&times;</button>
             </div>
 

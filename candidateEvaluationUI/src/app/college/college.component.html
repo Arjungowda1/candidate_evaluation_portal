@@ -1,13 +1,14 @@
 <app-header></app-header>
 <app-notifier></app-notifier>
 <app-dialogs></app-dialogs>
+<div class="container" style="height: 140px;"></div>
 <div class="card bg-light container-fluid mt-2 mb-2" >
-    <h5 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Assign Tier to Colleges listed below</b></h5>
+    <h5 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Assign Tier To Colleges Listed Below</b></h5>
 </div>
 <div class="container p-4">
         <div class="row">
             <div class="col-md">
-                <span class="pr-3">Select a tier</span>
+                <span class="pr-3">Select a Tier</span>
                 <select class="tier-dd" name="my-select" value="Tier" (change)="selectChange($event)">
                     <option disabled selected value> -- select an option -- </option>
                     <option value="1">
@@ -22,7 +23,7 @@
                 </select>
             </div>
             <div class="col-md">
-                <button class="btn btn-success"  [disabled]= "tierclicked || collegepicked" (click)="onLogClick()">Assign Tier For Selected rows</button>
+                <button class="btn btn-success"  [disabled]= "tierclicked || collegepicked" (click)="onLogClick()">Assign Tier For Selected Row(s)</button>
             </div>            
         </div>
 </div>

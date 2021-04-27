@@ -7,7 +7,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridModule } from 'ag-grid-angular';
-import { ExcelExportModule } from "@ag-grid-enterprise/excel-export";
+import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -48,7 +49,8 @@ import { CollegeComponent } from './college/college.component';
     FormsModule,
     ReactiveFormsModule,
     NgbModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    ShowHidePasswordModule
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -13,6 +13,7 @@ import { NotificationService } from '../notifier/notifier.service';
 })
 export class IndexComponent implements OnInit {
 
+  hidePass = true;
 
   keyReceived = true;
   result = "";
