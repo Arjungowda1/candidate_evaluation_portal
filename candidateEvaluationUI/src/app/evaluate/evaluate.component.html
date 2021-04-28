@@ -1,6 +1,9 @@
 <app-interviewer-header></app-interviewer-header>
 <div class="card bg-light container-fluid mt-2 mb-2">
-  <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Create Evaluation</b></h4>
+  <div>
+    <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Create Evaluation</b></h4>
+  </div>
+  
 </div>
 <div class="container">
 
@@ -76,7 +79,7 @@
               {{cl}}
             </option> -->
 
-            <option *ngFor="let clg of colleges" [value]="clg.name">
+            <option *ngFor="let clg of colleges" [value]="clg.tier" >
               {{clg.name}}, {{clg.type}}
             </option>
           </select>
@@ -118,10 +121,10 @@
         </div>
       </div>
       <div class="form-group pl-2 pr-2 pt-2">
-        <label for="interviewers" class=" col-form-label">6.Interviewer(s)<span class="error"
+        <label for="interviewers" class=" col-form-label">6.Interviewer<span class="error"
             *ngIf="evaluate.get('interviewers').hasError('required')">*</span></label>
         <div class="col pt-2">
-          <input type="text" class="form-control" placeholder="Enter Hackerrank Score" formControlName="interviewers">
+          <input type="text" class="form-control" placeholder="Enter Hackerrank Score" formControlName="interviewers" >
           <span class="error"
             *ngIf="evaluate.get('interviewers').touched && evaluate.get('interviewers').hasError('required')">Interviewer's
             Name is required.</span>
@@ -140,11 +143,11 @@
               
 
               <div  class="col-md-4 pl-5 pt-2"  >
-                <p><span>Score After Adding Weightage :</span><b>{{selectedWeight}}</b></p>
+                <p><span>Score After Adding Weightage :</span><b>{{trainingWeightage}}</b></p>
               </div>
           </div>
       
-          <div class="col "(change)="radioChangeHandler($event)">
+          <div class="col "(change)="radioChangeHandler($event,'training')">
             <pre><i>Does the candidate have the necessary education or Training required for this role?</i></pre>
             <div class="form-check form-check-inline">
               <input class="form-check-input" type="radio" value="1" formControlName="training" >
@@ -176,10 +179,18 @@
 
       <div fromGroupName="knowledge">
         <div class="form-group pl-2 pr-2 pt-2">
-          <label for="knowledge" class=" col-form-label">8.Programming Knowledge<span class="error"
-              *ngIf="evaluate.get('knowledge').hasError('required')">*</span></label>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="knowledge" class=" col-form-label">8.Programming Knowledge<span class="error"
+                *ngIf="evaluate.get('knowledge').hasError('required')">*</span></label>
+            </div>
+            <div  class="col-md-4 pl-5 pt-2"  >
+              <p><span>Score After Adding Weightage :</span><b>{{knowledgeWeightage}}</b></p>
+            </div>
+          </div>
+          
   
-          <div class="col ">
+          <div class="col "(change)="radioChangeHandler($event,'knowledge')">
             <pre><i>Does the candidate have the necessary programming skills?</i></pre>
             <div class="form-check form-check-inline pl-2">
               <input class="form-check-input" type="radio" value="1" name="knowledge" id="knowledge1"
@@ -212,10 +223,18 @@
       
       <div fromGroupName="adaptabality">
         <div class="form-group pl-2 pr-2 pt-2">
-          <label for="adaptabality" class=" col-form-label">9.Adaptabality & Flexibility<span class="error"
-              *ngIf="evaluate.get('adaptabality').hasError('required')">*</span></label>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="adaptabality" class=" col-form-label">9.Adaptabality & Flexibility<span class="error"
+                *ngIf="evaluate.get('adaptabality').hasError('required')">*</span></label>
+            </div>
+            <div  class="col-md-4 pl-5 pt-2"  >
+              <p><span>Score After Adding Weightage :</span><b>{{adaptabalityWeightage}}</b></p>
+            </div>
+          </div>
+
   
-          <div class="col ">
+          <div class="col "(change)="radioChangeHandler($event,'adaptabality')">
             <pre><i>How does the candidate respond to chnage?</i></pre>
             <div class="form-check form-check-inline pl-2">
               <input class="form-check-input" type="radio" id="adaptabality1" value="1" formControlName="adaptabality">
@@ -244,10 +263,18 @@
       
       <div fromGroupName="problem_Solving">
         <div class="form-group pl-2 pr-2 pt-2">
-          <label for="problem_Solving" class=" col-form-label">10.Problem Solving<span class="error"
-              *ngIf="evaluate.get('problem_Solving').hasError('required')">*</span></label>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="problem_Solving" class=" col-form-label">10.Problem Solving<span class="error"
+                *ngIf="evaluate.get('problem_Solving').hasError('required')">*</span></label>
+            </div>
+            <div  class="col-md-4 pl-5 pt-2"  >
+              <p><span>Score After Adding Weightage :</span><b>{{problem_SolvingWeightage}}</b></p>
+            </div>
+          </div>
+
   
-          <div class="col ">
+          <div class="col "(change)="radioChangeHandler($event,'problem_Solving')">
             <pre><i>How does the candidate respond to problems?</i></pre>
             <div class="form-check form-check-inline pl-2">
               <input class="form-check-input" type="radio" id="problem_Solving1" value="1"
@@ -281,10 +308,18 @@
 
       <div fromGroupName="logical">
         <div class="form-group pl-2 pr-2 pt-2">
-          <label for="logical" class=" col-form-label">11.Logical Reasoning<span class="error"
-              *ngIf="evaluate.get('logical').hasError('required')">*</span></label>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="logical" class=" col-form-label">11.Logical Reasoning<span class="error"
+                *ngIf="evaluate.get('logical').hasError('required')">*</span></label>
+            </div>
+            <div  class="col-md-4 pl-5 pt-2"  >
+              <p><span>Score After Adding Weightage :</span><b>{{logicalWeightage}}</b></p>
+            </div>
+          </div>
+
   
-          <div class="col">
+          <div class="col"(change)="radioChangeHandler($event,'logical')">
             <pre><i>How does the candidate interpret information provided and then resolve problems?</i></pre>
             <div class="form-check form-check-inline pl-2">
               <input class="form-check-input" type="radio" id="logical1" value="1" formControlName="logical">
@@ -313,10 +348,18 @@
 
       <div fromGroupName="Interpersonal">
         <div class="form-group pl-2 pr-2 pt-2">
-          <label for="interpersonal" class="col-form-label">12.Interpersonal & Communication Skills<span class="error"
-              *ngIf="evaluate.get('interpersonal').hasError('required')">*</span></label>
+          <div class="row">
+            <div class="col-md-8">
+              <label for="interpersonal" class="col-form-label">12.Interpersonal & Communication Skills<span class="error"
+                *ngIf="evaluate.get('interpersonal').hasError('required')">*</span></label>
+            </div>
+            <div  class="col-md-4 pl-5 pt-2"  >
+              <p><span>Score After Adding Weightage :</span><b>{{interpersonalWeightage}}</b></p>
+            </div>
+          </div>
+
   
-          <div class="col ">
+          <div class="col "(change)="radioChangeHandler($event,'interpersonal')">
             <pre><i> Is the candidate able to communicate effectively?</i></pre>
             <div class="form-check form-check-inline pl-2">
               <input class="form-check-input" type="radio" id="interpersonal1" value="1" formControlName="interpersonal">
@@ -349,34 +392,34 @@
           <label for="recommend_to_hire" class=" col-form-label">13.Recommend To Hire?<span class="error"
               *ngIf="evaluate.get('recommend_to_hire').hasError('required')">*</span></label>
   
-          <div class="col ">
+          <div class="col "(change)="radioChangeHandler($event,'recommend_to_hire')">
             <div class="form-check">
-              <input class="form-check-input" type="radio" id="recommend_to_hire1" value="1" checked
+              <input class="form-check-input" type="radio" id="recommend_to_hire1" value="Hire-Exceptional" checked
                 formControlName="recommend_to_hire">
               <label class="form-check-label" for="recommend_to_hire1">
                 Hire-Exceptional Candidate
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" id="recommend_to_hire2" value="2"
+              <input class="form-check-input" type="radio" id="recommend_to_hire2" value="Hire"
                 formControlName="recommend_to_hire">
               <label class="form-check-label" for="recommend_to_hire2">
                 Hire
               </label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="3"
+              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="Do Not Hire "
                 formControlName="recommend_to_hire">
               <label class="form-check-label" for="recommend_to_hire3">
-                Do not hire
+                Do Not Hire
               </label>
             </div>
   
             <div class="form-check">
-              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="4"
+              <input class="form-check-input" type="radio" id="recommend_to_hire3" value="Additional interviews required"
                 formControlName="recommend_to_hire">
               <label class="form-check-label" for="recommend_to_hire4">
-                Additional interviews required
+                Additional Interviews Required
               </label>
             </div>
           </div>

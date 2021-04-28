@@ -11,8 +11,9 @@ export class Evaluate{
     problem_Solving:number;
     logical:number;
     interpersonal:number;
-    recommend_to_hire:number;
+    recommend_to_hire:string;
     comments:string;
+    interviewerId:number;
 
 
 }

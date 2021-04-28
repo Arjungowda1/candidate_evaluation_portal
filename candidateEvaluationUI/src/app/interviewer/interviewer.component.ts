@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { AuthenticateService } from 'src/app/service/auth/authenticate.service';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Evaluate } from '../shared/evaluation-form';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { EvaluateService } from '../service/evaluate/evaluate.service';
 import { HttpClient } from '@angular/common/http';
 
@@ -18,13 +18,15 @@ export class InterviewerComponent implements OnInit {
   private gridColumnApi;
   public columnDefs;
   private sortingOrder;
+  userId: number;
 
   evaluationForm:Evaluate|any;
   
 
 
    
-  constructor(private service:EvaluateService, private http:HttpClient) {
+  constructor(private service:EvaluateService, private http:HttpClient,private router: Router,
+    private route: ActivatedRoute,) {
 
     // this.service.extractAllForm().subscribe(data=>{
     //   console.log(data);
@@ -115,8 +117,16 @@ export class InterviewerComponent implements OnInit {
 
 // }
    ngOnInit(): void {
-     this.service.extractAllForm().subscribe((response)=>{
-       this.evaluationForm=response;
+    this.route.paramMap.subscribe(
+      params => {
+        this.userId = +params.get('id');
+        console.log(this.userId)
+      }
+    );
+
+     this.service.extractAllForm(this.userId).subscribe((response)=>{
+       this.evaluationForm=response['body'];
+       console.log(response['body']);
      })
    }
 

@@ -1,7 +1,9 @@
 import { NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators,FormControl } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AdminService } from '../service/admin/admin.service';
+import { AuthenticateService } from '../service/auth/authenticate.service';
 import { EvaluateService } from '../service/evaluate/evaluate.service';
 import { College } from '../shared/college';
 import { Evaluate } from '../shared/evaluation-form';
@@ -19,135 +21,27 @@ export class EvaluateComponent implements OnInit {
   selectedTier:string='';
   selectedWeight:number=0;
   colleges:College|any;
-  weightage:Weightages|any;
-//   colleges:College[]=[
-//     {   
-//       "college_id":1,
-//       "name": "SJBIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":2,
-//       "name": "RNSIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":3,
-//       "name": "RVCE",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":4,
-//       "name": "PESU",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":5,
-//       "name": "BNMIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":6,
-//       "name": "BIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":7,
-//       "name": "AIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":8,
-//       "name": "DSCE",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":9,
-//       "name": "NMIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":10,
-//       "name": "CMRIT",
-//       "type": "Engineering",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":11,
-//       "name": "IIMB",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":12,
-//       "name": "BMSCE",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":13,
-//       "name": "SJBIT",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":14,
-//       "name": "REVA",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":15,
-//       "name": "DBIT",
-//       "type": "MBA",
-//       "tier": 1
-//   },
-//   {
-//       "college_id":16,
-//       "name": "CMRIT",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":17,
-//       "name": "Acharya Institute",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":18,
-//       "name": "VIT",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":19,
-//       "name": "BNMIT",
-//       "type": "MBA",
-//       "tier": 0
-//   },
-//   {
-//       "college_id":20,
-//       "name": "DSU",
-//       "type": "MBA",
-//       "tier": 0
-//   }
-//   ];
-  
-  
+  weightage:Weightages;
+  trainingWeightage=0;
+  knowledgeWeightage=0;
+  adaptabalityWeightage=0;
+  problem_SolvingWeightage=0;
+  logicalWeightage=0;
+  interpersonalWeightage=0;
+  sum=0;
+  interviewerId=0;
 
-  constructor(private service:EvaluateService,private fb:FormBuilder,private adminService: AdminService, ){
+  userId: number;
+
+
+  constructor(private service:EvaluateService,private fb:FormBuilder, private auth: AuthenticateService,
+    private router: Router,
+    private route: ActivatedRoute,){
     this.createForm();
     this.evaluationData=new Evaluate();
+    this.weightage=new Weightages();
+    this.colleges=new College();
+    
   }
 
 
@@ -157,7 +51,7 @@ export class EvaluateComponent implements OnInit {
       email:['', [Validators.required , Validators.email]],
       candidatecollegename:['', [Validators.required]],
       date:['', [Validators.required]],
-      hackerrankscore:['', [Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9]*$")]],
+      hackerrankscore:['', [Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9]$")]],
       interviewers:['', [Validators.required]],
       training:['', [Validators.required]],
       knowledge:['', [Validators.required]],
@@ -166,7 +60,8 @@ export class EvaluateComponent implements OnInit {
       logical:['', [Validators.required]],
       interpersonal:['', [Validators.required]],
       recommend_to_hire:['', [Validators.required]],
-      comments:['', [Validators.required]]
+      comments:['', [Validators.required]],
+      
     });
 
   }
@@ -188,6 +83,7 @@ export class EvaluateComponent implements OnInit {
     this.evaluationData.interpersonal=this.evaluate.value.interpersonal;
     this.evaluationData.recommend_to_hire=this.evaluate.value.recommend_to_hire;
     this.evaluationData.comments=this.evaluate.value.comments;
+    this.evaluationData.interviewerId=this.interviewerId;
     this.service.createForm(this.evaluationData).subscribe(data=>console.log(data));
     this.evaluate.reset();
   }
@@ -197,26 +93,70 @@ export class EvaluateComponent implements OnInit {
     this.selectedTier=event.target.value;
   }
 
-  radioChangeHandler(event:any){
-    //   let a:number=event.target.value;
+  radioChangeHandler(event:any,factor :string){
+    if(factor==="training"){
+        this.trainingWeightage=(this.weightage[0].weightage/5)*event.target.value;
+    }
+    if(factor==="knowledge"){
+        this.knowledgeWeightage=(this.weightage[1].weightage/5)*event.target.value;
+    }
+    if(factor==="adaptabality"){
+        this.adaptabalityWeightage=(this.weightage[2].weightage/5)*event.target.value;
+    }
+    if(factor==="problem_Solving"){
+        this.problem_SolvingWeightage=(this.weightage[3].weightage/5)*event.target.value;
+    }
+    if(factor==="logical"){
+        this.logicalWeightage=(this.weightage[4].weightage/5)*event.target.value;
+    }
+    if(factor==="interpersonal"){
+        this.interpersonalWeightage=(this.weightage[5].weightage/5)*event.target.value;
+    }
 
-    //   let wei=this.weightage/5;
-    //   this.selectedWeight=this.wei*a;
-    let a:number=event.target.value;
-    let weigtage:number=40/5;
-    this.selectedWeight=weigtage*a;
+    this.sum=this.trainingWeightage+this.knowledgeWeightage+this.adaptabalityWeightage+this.problem_SolvingWeightage+this.logicalWeightage
+    +this.interpersonalWeightage;
+    console.log(this.sum);
+
   }  
 
 
 ngOnInit(){
-    this.adminService.getTier().subscribe((response)=>{
+    this.service.getTier().subscribe((response)=>{
         this.colleges=response;
+        console.log(this.colleges)
       })
 
-    this.adminService.getWeightage().subscribe((response)=>{
-        this.weightage=response;
+    this.service.getWeightage().subscribe((response)=>{
+        this.weightage=<any>response;
+        console.log(this.weightage)
+        
     })
 
+    this.auth.currentUser.subscribe((response)=>{
+        // console.log(response);
+        this.interviewerId=response.id;
+
+
+        this.route.paramMap.subscribe(
+          params => {
+            this.userId = +params.get('id');
+          }
+        );
+    
+        this.service.extractUser(this.userId)
+        .subscribe(
+          res =>{
+            this.evaluationData =<any>res;
+          }
+        )
+
+        
+    
+    })
+
+
+
+    
 }
 
 submitHandler(){}

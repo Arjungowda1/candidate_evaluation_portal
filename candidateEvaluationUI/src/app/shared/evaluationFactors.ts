@@ -1,72 +1,69 @@
 export class Weightages{
-    weightage_id:number;
+    weightageId:number;
     evaluationFactor: string;
     weightage:number;
-    created_by:string;
+    createdBy:string;
     createdDate:string ;
     active:boolean;
 
-    constructor(evaluationFactor:string, weightage:number){
-        this.evaluationFactor = evaluationFactor;
-        this.weightage = weightage;
-    }
+
 }
 
 
 export const EvaluationFactors=[
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Education",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Programming Skills",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Adaptibility",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Problem Solving",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Logical Skills",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Interpersonal Skills",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     },
     {
-        "weightage_id": 0 ,
+        "weightageId": 0 ,
         "evaluationFactor": "Cut off Marks",
         "weightage": 0,
-        "created_by": "",
+        "createdBy": "",
         "createdDate": "",
         "active": true
     }

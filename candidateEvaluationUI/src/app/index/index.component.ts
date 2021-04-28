@@ -15,6 +15,7 @@ export class IndexComponent implements OnInit {
   inputData: User;
   errMess: string;
 
+
   response: User;
 
   cepLoginForm: FormGroup;
@@ -90,7 +91,7 @@ export class IndexComponent implements OnInit {
           this.route.navigate(['/admin'])
         }
         else{
-          this.route.navigate(['/interviewer',this.response.userId]);
+          this.route.navigate(['/interviewer',this.response.id]);
         }
       },
       err => {

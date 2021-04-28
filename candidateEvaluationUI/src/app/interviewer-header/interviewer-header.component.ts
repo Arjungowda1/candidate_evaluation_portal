@@ -12,7 +12,7 @@ export class InterviewerHeaderComponent implements OnInit {
 
   userId: number;
   data: User;
-
+  
   constructor(
     private router: Router,
     private route: ActivatedRoute,
@@ -27,6 +27,7 @@ export class InterviewerHeaderComponent implements OnInit {
     this.route.paramMap.subscribe(
       params => {
         this.userId = +params.get('id');
+        
       }
     );
 
@@ -34,8 +35,10 @@ export class InterviewerHeaderComponent implements OnInit {
     .subscribe(
       res =>{
         this.data =<any>res;
+        
       }
     )
+    
 
   }
 

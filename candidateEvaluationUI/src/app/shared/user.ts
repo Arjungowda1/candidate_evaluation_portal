@@ -1,7 +1,7 @@
 import { Role } from "./role";
 
 export class User {
-  userId: number;
+  id: number;
   email: string="";
   password: string="";
   firstName: string="";

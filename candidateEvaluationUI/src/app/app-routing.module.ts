@@ -18,8 +18,16 @@ const routes: Routes = [
     canActivate: [AuthGuard],
     data: {roles: [Role.ADMIN]}
   },
-  { path: 'interviewer', component: InterviewerComponent},
-  { path: 'evaluate', component:EvaluateComponent},
+  { path: 'interviewer/:id', 
+  component: InterviewerComponent,
+  // canActivate:[AuthGuard],
+  // data:{roles:[Role.USER]}
+},
+  { path: 'evaluate/:id', 
+  component:EvaluateComponent,
+  // canActivate:[AuthGuard],
+  // data:{roles:[Role.USER]}
+},
   { 
     path: 'user', 
     component:UserComponent,
