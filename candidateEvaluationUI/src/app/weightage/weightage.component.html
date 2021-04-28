@@ -9,15 +9,15 @@
 </div>
 
 <hr style="width: 70%;">
-<div class="container mt-4 mb-4" [ngsReveal]="{ duration: 2000,delay:500}">
+<div class="container mt-4 mb-4" [ngsReveal]="{ duration: 2000,delay:500}" >
     <form novalidate  [formGroup]="cepWeightageForm"  (ngSubmit) = "createWeight()">
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-6 form-group">
                 <label for="education">Education</label>
                 <span class="text-danger" *ngIf="cepWeightageForm.get('education').errors && cepWeightageForm.get('education').hasError('required')">*</span>
                 <input type="number" class="form-control" formControlName = "education"
                   [class.is-invalid] = "cepWeightageForm.get('education').invalid && cepWeightageForm.get('education').touched"
-                placeholder="Enter the weightage for education" onkeypress="return /[0-9]/i.test(event.key)">
+                placeholder="Enter the score for education" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('education').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('education').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>
@@ -26,18 +26,26 @@
                 <span class="text-danger" *ngIf="cepWeightageForm.get('programming').errors && cepWeightageForm.get('programming').hasError('required')">*</span>
                 <input type="number" class="form-control" formControlName = "programming"
                 [class.is-invalid] = "cepWeightageForm.get('programming').invalid && cepWeightageForm.get('programming').touched"
-                 placeholder="Enter the weightage for programming skills" onkeypress="return /[0-9]/i.test(event.key)" >
+                 placeholder="Enter the score for programming skills" onkeypress="return /[0-9]/i.test(event.key)" >
                  <small class="text-danger"  *ngIf="cepWeightageForm.get('programming').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                  <small class="text-danger"  *ngIf="cepWeightageForm.get('programming').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                    <ng5-slider [(value)]="valueEducation" [options]="optionsEducation" (valueChange)="valueChangeSlider()"></ng5-slider>
+                </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                    <ng5-slider [(value)]="valueProgramming" [options]="optionsProgramming" (valueChange)="valueChangeSlider()"></ng5-slider>
+            </div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-6 form-group">
                 <label for="adaptibility">Adaptibility</label>
                 <span class="text-danger" *ngIf="cepWeightageForm.get('adaptibility').errors && cepWeightageForm.get('adaptibility').hasError('required')">*</span>
                 <input type="number" class="form-control"  formControlName = "adaptibility"
                 [class.is-invalid] = "cepWeightageForm.get('adaptibility').invalid && cepWeightageForm.get('adaptibility').touched"
-                 placeholder="Enter the weightage for adaptibility" onkeypress="return /[0-9]/i.test(event.key)">
+                 placeholder="Enter the score for adaptibility" onkeypress="return /[0-9]/i.test(event.key)">
                  <small class="text-danger"  *ngIf="cepWeightageForm.get('adaptibility').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                  <small class="text-danger"  *ngIf="cepWeightageForm.get('adaptibility').hasError('pattern')"><b>Invalid Weightage.</b></small>
 
@@ -47,18 +55,26 @@
                 <span class="text-danger" *ngIf="cepWeightageForm.get('problem').errors && cepWeightageForm.get('problem').hasError('required')">*</span>
                 <input type="number" class="form-control" formControlName = "problem"
                 [class.is-invalid] = "cepWeightageForm.get('problem').invalid && cepWeightageForm.get('problem').touched"                
-                placeholder="Enter the weightage for problem solving" onkeypress="return /[0-9]/i.test(event.key)" >
+                placeholder="Enter the score for problem solving" onkeypress="return /[0-9]/i.test(event.key)" >
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('problem').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('problem').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                <ng5-slider [(value)]="valueAdaptibility" [options]="optionsAdaptibility" (valueChange)="valueChangeSlider()"></ng5-slider>
+            </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                <ng5-slider [(value)]="valueProblem" [options]="optionsProblem" (valueChange)="valueChangeSlider()"></ng5-slider>
+            </div>
         </div>
-        <div class="row">
+        <div class="row mb-5">
             <div class="col-md-6 form-group">
                 <label for="logical">Logical Skills</label>
                 <span class="text-danger" *ngIf="cepWeightageForm.get('logical').errors && cepWeightageForm.get('logical').hasError('required')">*</span>
                 <input type="number" class="form-control" formControlName = "logical"
                 [class.is-invalid] = "cepWeightageForm.get('logical').invalid && cepWeightageForm.get('logical').touched"
-                placeholder="Enter the weightage for logical skills" onkeypress="return /[0-9]/i.test(event.key)">
+                placeholder="Enter the score for logical skills" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('logical').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('logical').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>
@@ -71,6 +87,14 @@
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('interpersonal').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('interpersonal').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                <ng5-slider [(value)]="valueLogical"  [options]="optionsLogical" (valueChange)="valueChangeSlider()"></ng5-slider>
+            </div>
+            <div class="col-md-6 form-group">
+                <label>Weightage</label>
+                <ng5-slider [(value)]="valueInterpersonal" [options]="optionsInterpersonal" (valueChange)="valueChangeSlider()"></ng5-slider>
+            </div>
         </div>
         <div class="row justify-content-center">
             <div class="col-md-6 form-group">
@@ -79,15 +103,16 @@
                 <input type="number" class="form-control"  formControlName = "cutoff"
                 [class.is-invalid] = "cepWeightageForm.get('cutoff').invalid && cepWeightageForm.get('cutoff').touched"
                 placeholder="Enter the cut off for clearing the interview" onkeypress="return /[0-9]/i.test(event.key)">
-                <small class="text-danger"  *ngIf="cepWeightageForm.get('cutoff').hasError('min')"><b>The minimum value for this field is 100.</b></small>
-                
+                <small class="text-danger"  *ngIf="cepWeightageForm.get('cutoff').hasError('min')"><b>The minimum value for this field is 50.</b></small>
+        
             </div>
         </div>
         <hr style="width: 70%;">
         <div class="row">
             <div class="col-md-4"></div>
             <div class="col-md-4 text-center">
-                <button type="button" *ngIf="btndisplay" [disabled]="cepWeightageForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm" (click)="modalData()" data-toggle="modal" data-target="#myModal" >Click to proceed</button>
+                <small [hidden]="!btndisplay || errMessSlider" class="text-danger mt-4"><b>The total assigned weightage should be 1</b></small>
+                <button type="button" *ngIf="btndisplay" [disabled]="cepWeightageForm.invalid || violating" class="mt-5 btn btn-block mybtn btn-success tx-tfm" (click)="modalData()" data-toggle="modal" data-target="#myModal" >Click to proceed</button>
                 <small [hidden]="btndisplay" class="text-danger mt-4"><b>Weightage already created! Delete to create another.</b></small>
             </div>
             <div class="col-md-4"></div>
@@ -105,7 +130,8 @@
             <thead class="thead-dark">
                 <tr>
                   <th scope="col">Created Date</th>
-                  <th scope="col">Details</th>
+                  <th scope="col">Evaluation Factors and Weightages</th>
+                  <th scope="col">Weightage in (%) * 100</th>
                   <th scope="col">Modify</th>
                 </tr>
               </thead>
@@ -120,6 +146,11 @@
                         <div class="col-md-6">
                             {{w.weightage}}
                         </div>
+                    </div>
+                </td>
+                <td>
+                    <div *ngFor="let w of existingWeightage">
+                        {{w.factorContribution}}
                     </div>
                 </td>
                 <td><button type="submit" class="delete-btn" (click)="deleteWeightage($event, weight)"><i class="fa fa-trash text-danger"></i></button></td>
@@ -151,6 +182,7 @@
                         <tr>
                           <th scope="col">Evaluation Factor</th>
                           <th scope="col">1 point equivalent</th>
+                          <th scope="col">Weightage in (%)</th>
                         </tr>
                       </thead>
                     <tbody>
@@ -158,6 +190,7 @@
 
                         <td>{{c.evaluationFactor }}</td>
                         <td>{{ c.weightage }}</td>
+                        <td>{{c.factorContribution}}</td>
                       </tr>
                     </tbody>
                 </table>

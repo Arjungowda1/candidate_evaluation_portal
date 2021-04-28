@@ -5,11 +5,7 @@ export class Weightages{
     created_by:string;
     createdDate:string ;
     active:boolean;
-
-    constructor(evaluationFactor:string, weightage:number){
-        this.evaluationFactor = evaluationFactor;
-        this.weightage = weightage;
-    }
+    factorContribution: number;
 }
 
 
@@ -20,7 +16,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -28,7 +25,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -36,7 +34,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -44,7 +43,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -52,7 +52,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -60,7 +61,8 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
         "weightage_id": 0 ,
@@ -68,6 +70,7 @@ export const EvaluationFactors=[
         "weightage": 0,
         "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     }
 ]

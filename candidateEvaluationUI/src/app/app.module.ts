@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AgGridModule } from 'ag-grid-angular';
 import { ShowHidePasswordModule } from 'ngx-show-hide-password';
+import { Ng5SliderModule } from 'ng5-slider';
 
 
 import { AppComponent } from './app.component';
@@ -50,7 +51,8 @@ import { CollegeComponent } from './college/college.component';
     ReactiveFormsModule,
     NgbModule,
     AgGridModule.withComponents([]),
-    ShowHidePasswordModule
+    ShowHidePasswordModule,
+    Ng5SliderModule
   ],
   providers: [],
   bootstrap: [AppComponent]
