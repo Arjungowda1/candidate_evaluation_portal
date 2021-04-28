@@ -6,6 +6,8 @@ import { Router } from '@angular/router';
 import { Role } from '../shared/role';
 import { PasswordService } from '../service/password.service';
 import { NotificationService } from '../notifier/notifier.service';
+import { InterviewerService } from '../service/interviewer/interviewer.service';
+import { SignUpApproval } from '../shared/login';
 
 @Component({
   selector: 'app-index',
@@ -22,6 +24,8 @@ export class IndexComponent implements OnInit {
   Mess = "";
   errMessEmail = "";
   errEmail = true;
+
+  signUpUser:SignUpApproval;
 
   newPasswordUser: User = new User();
 
@@ -55,16 +59,30 @@ export class IndexComponent implements OnInit {
     }
   }
 
+
+  cepSignUpForm: FormGroup;
+
   constructor(private loginService: AuthenticateService,
     public fb:FormBuilder,
     public route:Router,
     private passwordService: PasswordService,
-    private _notificationservice:NotificationService,) {
+    private _notificationservice:NotificationService,
+    ) {
 
       this.createLoginForm();
+      this.createSignUpForm();
       this.inputData = new User;
+      this.signUpUser = new SignUpApproval;
 
      }
+  createSignUpForm() {
+    this.cepSignUpForm = this.fb.group({
+      signupFirstName:['',[Validators.required]],
+      signupLastName:['',[Validators.required]],
+      signupEmail:['',[Validators.required, Validators.pattern("^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-z]{2,4}$") ] ],
+      signupPassword: ['', Validators.required]
+    });
+  }
 
   createLoginForm() {
     this.cepLoginForm = this.fb.group({
@@ -166,4 +184,49 @@ export class IndexComponent implements OnInit {
         }
       )
   }
+
+
+SignupUser(){
+
+  if(this.cepSignUpForm.value){
+    this.signUpUser.firstName = this.cepSignUpForm.value.signupFirstName;
+    this.signUpUser.lastName = this.cepSignUpForm.value.signupLastName;
+    this.signUpUser.email = this.cepSignUpForm.value.signupEmail;
+    this.signUpUser.password = this.cepSignUpForm.value.signupPassword;
+
+    this.passwordService.checkUserExist(this.signUpUser.email)
+    .subscribe(
+      res =>{
+        console.log(res);
+        if(res){
+          this.passwordService.checkEmail(this.signUpUser.email)
+          .subscribe( resp =>{
+            if(resp){
+              console.log(res);
+              this._notificationservice.error("User Exists! Please Log in");
+              this.cepSignUpForm.reset();
+            }
+            else{
+              this._notificationservice.error("Your request is yet to be reviewed by admin");
+              this.cepSignUpForm.reset();
+            }
+          });
+        }
+        else{
+          this.passwordService.createInterviewer(this.signUpUser)
+                .subscribe(
+                  res => {
+                  this._notificationservice.info("Your sign up request has been sent to admin! you will be mailed when signup is approved");
+                this.cepSignUpForm.reset();
+      }
+    );
+        }
+      }
+    )
+  }
+  
+}
+
+
+
 }

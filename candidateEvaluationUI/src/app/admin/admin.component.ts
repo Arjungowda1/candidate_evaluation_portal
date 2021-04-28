@@ -1,4 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { NotificationService } from '../notifier/notifier.service';
+import { PasswordService } from '../service/password.service';
+import { SignUpApproval } from '../shared/login';
 
 @Component({
   selector: 'app-admin',
@@ -9,6 +12,8 @@ export class AdminComponent implements OnInit {
 
   @ViewChild('agGrid') agGrid: any;
   
+  resp:SignUpApproval[];
+
   columnDefs = [
     { headerName: "Candidate Name",width:200, field: "Name", sortable: true, filter: true, floatingFilter:true ,wrapText: true},
     { headerName: "Email", field: "Email" ,width:290, sortable: true, filter: true, floatingFilter:true, wrapText: true},
@@ -90,9 +95,19 @@ export class AdminComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private userService: PasswordService,
+    private _notificationservice:NotificationService,) { }
 
   ngOnInit(): void {
+    this.userService.requestSignupUsers()
+      .subscribe(
+        res =>{
+          this.resp = <any>res;
+          if(this.resp.length!=0){
+            this._notificationservice.info("New SignUp Request! Please check")
+          }
+        }
+      )
   }
  
   onBtnExport(){

@@ -44,8 +44,15 @@
                                 </show-hide-password>
                                     <small class="text-danger" *ngIf = "formErrors.email"><b>{{formErrors.password}}</b></small>
                             </div>
+
                             <div *ngIf = "errMess" [hidden]="cepLoginForm.dirty">
                                 <small class="text-danger"><b>{{errMess}}</b></small>
+                            </div>
+                            <div class="form-group">
+                                <p>New User?
+                                    <button type="button" class="modal-btn" data-toggle="modal"
+                                        data-target="#signUpModal">Click Here</button>
+                                </p>
                             </div>
                             <div class="col-md-12 text-center">
                                 <button type="submit" [disabled]="cepLoginForm.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Login</button>
@@ -72,7 +79,7 @@
 </div>
 
 <div class="modal" id="myModal" data-backdrop="static" data-keyboard="false"> 
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
 
             <!-- Modal Header -->
@@ -156,4 +163,67 @@
     </div>
 </div>
 
+<div class="modal" id="signUpModal" data-backdrop="static" data-keyboard="false"> 
+    <div class="modal-dialog modal-dialog-centered ">
+        <div class="modal-content ">
+
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Sign Up</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Modal body -->
+            <div class="modal-body">
+                <form novalidate [formGroup]="cepSignUpForm" (ngSubmit) = "SignupUser()" >
+                   
+                        <div class="form-group">
+                            <label for="firstname">First Name</label>
+                            <span class="text-danger" *ngIf="cepSignUpForm.get('signupFirstName').errors && cepSignUpForm.get('signupFirstName').hasError('required')">*</span>
+                            <input type="text" class="form-control" formControlName="signupFirstName" 
+                            placeholder="Enter First Name" [class.is-invalid] = "cepSignUpForm.get('signupFirstName').invalid && cepSignUpForm.get('signupFirstName').touched"
+                            onkeypress="return /[a-z]/i.test(event.key)" >
+                            
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="lastname">Last Name</label>
+                            <span class="text-danger" *ngIf="cepSignUpForm.get('signupLastName').errors && cepSignUpForm.get('signupLastName').hasError('required')">*</span>
+                            <input type="text" class="form-control" formControlName="signupLastName"
+                            [class.is-invalid] = "cepSignUpForm.get('signupLastName').invalid && cepSignUpForm.get('signupLastName').touched"
+                            placeholder="Enter Last name" onkeypress="return /[a-z]/i.test(event.key)">
+                        
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <span class="text-danger" *ngIf="cepSignUpForm.get('signupEmail').errors && cepSignUpForm.get('signupEmail').hasError('required')">*</span>
+                            <input type="email" class="form-control" formControlName="signupEmail" 
+                            [class.is-invalid] = "cepSignUpForm.get('signupEmail').invalid && cepSignUpForm.get('signupEmail').touched"
+                            placeholder="Enter your Email Id">
+                            <small class="text-danger"  *ngIf="cepSignUpForm.get('signupEmail').hasError('pattern')"><b>Invalid Email.</b></small>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="password">Password</label>
+                            <span class="text-danger" *ngIf="cepSignUpForm.get('signupPassword').errors && cepSignUpForm.get('signupPassword').hasError('required')">*</span>
+                            <show-hide-password  btnStyle="light" [btnOutline]="false">
+                                <input type="password" name="password" formControlName="signupPassword" 
+                                [class.is-invalid] = "cepSignUpForm.get('signupPassword').invalid && cepSignUpForm.get('signupPassword').touched"
+                                class="form-control" placeholder="Enter new password">
+                            </show-hide-password>
+                            
+                        </div>
+                </form>
+            </div>
+
+            <!-- Modal footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-success" (click)="SignupUser()" data-dismiss="modal" [disabled]="cepSignUpForm.invalid">SignUp</button>
+             </div>
+
+        </div>
+    </div>
+</div>
 <app-footer></app-footer>

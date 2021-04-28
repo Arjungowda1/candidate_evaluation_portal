@@ -2,38 +2,32 @@
 <app-notifier></app-notifier>
 <app-dialogs></app-dialogs>
 <div class="container" style="height: 140px;"></div>
-<div class="card bg-light container-fluid mt-2 mb-2" >
-    <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Add Interviewer</b></h4>
+<div *ngIf="pendingUserDisp">
+
+    <div class="card bg-light container-fluid mt-2 mb-2" >
+        <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Pending SignUp Requests</b></h4>
+    </div>
+    <div class="container mt-4 mb-2 table-wrapper-scroll-y my-custom-scrollbar" style="height: auto;" [ngsReveal]="{ duration: 2000,delay:500}">
+        <table class="table table-hover">
+            <thead class="thead-dark ">
+                <tr>
+                  <th scope="col">Email Id</th>
+                  <th scope="col"></th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+            <tbody *ngFor="let user of pendingUsers" >
+              <tr>
+                <td>{{ user.email }}</td>
+                <td><button class="delete-btn text-success" (click)="approve($event, user)">Approve</button></td>
+                <td><button class="delete-btn text-danger" (click)="reject($event, user)">Reject</button></td>
+              </tr>
+            </tbody>
+        </table>
+    </div>
+
 </div>
-<div class="container mt-4 mb-2" [ngsReveal]="{ duration: 2000,delay:500}">
-    <form novalidate [formGroup]="cepSignupUser" (ngSubmit) = "Signup()" >
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 form-group">
-                <label for="firstname">First Name</label>
-                <input type="text" formControlName="firstname" class="form-control" [class.is-invalid] = "cepSignupUser.get('firstname').invalid && cepSignupUser.get('firstname').touched"
-                 placeholder="Enter First Name" onkeypress="return /[a-z]/i.test(event.key)" >
-                <small class="text-danger" *ngIf = "formErrors.firstname"><b>{{formErrors.firstname}}</b></small>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-3"></div>
-            <div class="col-md-6 form-group">
-                <label for="lastname">Last Name</label>
-                <input type="text" formControlName="lastname" class="form-control" [class.is-invalid] = "cepSignupUser.get('lastname').invalid && cepSignupUser.get('lastname').touched"
-                 placeholder="Enter Last name" onkeypress="return /[a-z]/i.test(event.key)">
-                <small class="text-danger" *ngIf = "formErrors.lastname"><b>{{formErrors.lastname}}</b></small>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-4"></div>
-            <div class="col-md-4 text-center">
-                <button type="submit" [disabled]="cepSignupUser.invalid" class="mt-5 btn btn-block mybtn btn-success tx-tfm">Create User</button>
-            </div>
-            <div class="col-md-4"></div>
-        </div>
-    </form>
-</div>
+
 
 <div class="card bg-light container-fluid mt-4 mb-2" >
     <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:900}"><b>Existing Users</b></h4>

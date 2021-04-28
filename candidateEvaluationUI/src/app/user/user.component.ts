@@ -6,6 +6,8 @@ import { AdminService } from '../service/admin/admin.service';
 import { AuthenticateService } from '../service/auth/authenticate.service';
 import { NotificationService } from '../notifier/notifier.service';
 import { DialogsComponent } from '../dialogs/dialogs.component';
+import { PasswordService } from '../service/password.service';
+import { SignUpApproval } from '../shared/login';
 
 @Component({
   selector: 'app-user',
@@ -16,6 +18,7 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   @ViewChild(DialogsComponent) dialogComponent;
 
+  pendingUserDisp = false;
   newUser: User;
   sucessMess: String;
   uid: number;
@@ -29,24 +32,7 @@ export class UserComponent implements OnInit, AfterViewInit {
   title = "Alert!";
   message = "Are you sure you want to delete?";
 
-
-  cepSignupUser: FormGroup;
-
-  formErrors = {
-    'firstname': '',
-    'lastname':''
-  }
-
-  validationMessages = {
-    'firstname':{
-      'required': 'First Name is required',
-      'minlength': 'First Name must me atleast 1 characters'
-    },
-    'lastname':{
-      'required': 'Last Name is required',
-      'minlength': 'Last Name must me atleast 1 characters'
-    }
-  }
+  pendingUsers: SignUpApproval[];
 
   constructor(
     private route: ActivatedRoute,
@@ -54,46 +40,33 @@ export class UserComponent implements OnInit, AfterViewInit {
     private adminService: AdminService,
     private loginService: AuthenticateService,
     private _notificationservice:NotificationService,
+    private userService:PasswordService
   ) {
-
-    this.createInterviewer();
     this.newUser = new User();
-
+    this.pendingUsers = [];
    }
 
-
-  createInterviewer() {
-    this.cepSignupUser = this.fb.group({
-      firstname: ['', [Validators.required, Validators.minLength(1)]],
-      lastname: ['', [Validators.required, Validators.minLength(1)]]
-    });
-
-    this.cepSignupUser.valueChanges.subscribe( data => this.onValueChanged(data));
-    this.onValueChanged();
-  }
-
-  onValueChanged(data?:any){
-    if (!this.cepSignupUser) { return; }
-    const form = this.cepSignupUser;
-    for (const field in this.formErrors) {
-      if (this.formErrors.hasOwnProperty(field)) {
-        // clear previous error message (if any)
-        this.formErrors[field] = '';
-        const control = form.get(field);
-        if (control && control.dirty && !control.valid) {
-          const messages = this.validationMessages[field];
-          for (const key in control.errors) {
-            if (control.errors.hasOwnProperty(key)) {
-              this.formErrors[field] += messages[key] + ' ';
-            }
-          }
-        }
-      }
-    }
-  }
   ngOnInit(): void {
+
+    this.pendingUsersDb();
     this.allUserDisplay();
   }
+
+  pendingUsersDb(){
+    this.userService.requestSignupUsers()
+    .subscribe(
+      res =>{
+        this.pendingUsers = <any>res;
+        if(this.pendingUsers.length == 0){
+          this.pendingUserDisp = false;
+        }
+        else{
+          this.pendingUserDisp = true;
+        }
+      }
+    );
+  }
+
 
   allUserDisplay(){
     this.adminService.extractAllUsers()
@@ -106,22 +79,6 @@ export class UserComponent implements OnInit, AfterViewInit {
         this.userexists = true;
       }
     })
-  }
-
-  Signup(){
-    if(this.cepSignupUser.value){
-      this.newUser.firstName = this.cepSignupUser.value.firstname;
-      this.newUser.lastName = this.cepSignupUser.value.lastname;
-      this.newUser.email = this.cepSignupUser.value.firstname + this.cepSignupUser.value.lastname +"@clarivate.com";
-      this.newUser.password = this.newUser.firstName.toLowerCase() + "123";
-      
-      this.loginService.register(this.newUser)
-      .subscribe( res => {
-          this.openSnackBar("User created successfully");
-          this.cepSignupUser.reset();
-          this.allUserDisplay();
-      })
-    }
   }
 
   ngAfterViewInit(): void {
@@ -155,5 +112,33 @@ export class UserComponent implements OnInit, AfterViewInit {
 
   openSnackBar(data: string) {
     this._notificationservice.success(data);
+  }
+
+
+  approve(event:any, user){
+   console.log(user);
+   this.newUser.firstName = user.firstName;
+   this.newUser.lastName = user.lastName;
+   this.newUser.email = user.email;
+   this.newUser.password = user.password;
+   this.newUser.id = user.userId;
+
+   this.loginService.register(this.newUser)
+   .subscribe( res => {
+      this.openSnackBar("User Approved");
+      this.allUserDisplay();
+      this.userService.rejectUsers(this.newUser.id)
+      .subscribe( res =>{
+        this.pendingUsersDb();
+      })
+   })
+  }
+
+  reject(event:any, user){
+    this.userService.rejectUsers(user.userId)
+    .subscribe( res =>{
+      this._notificationservice.info("User Rejected");
+      this.pendingUsersDb();
+    })
   }
 }

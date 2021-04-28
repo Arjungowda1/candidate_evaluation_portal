@@ -8,3 +8,12 @@ export class Login {
   role: Role;
   token: string="";
 }
+
+export class SignUpApproval{
+  userId: number;
+  email: string="";
+  password: string="";
+  firstName: string="";
+  lastName: string="";
+  isApproved: boolean;
+}
