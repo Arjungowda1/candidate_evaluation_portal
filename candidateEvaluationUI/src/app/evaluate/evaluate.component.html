@@ -16,7 +16,7 @@
             *ngIf="evaluate.get('candidatename').errors && evaluate.get('candidatename').hasError('required')">*</span>
         </label>
         <div class="col pt-2">
-          <input type="text" class="form-control" required placeholder="Name" formControlName="candidatename"
+          <input type="text" class="form-control" required placeholder="Enter Candidate's Name " formControlName="candidatename"
             minlength="2" maxlength="51"
             [class.is-invalid]="evaluate.get('candidatename').invalid && evaluate.get('candidatename').touched">
           <span class="error"
@@ -32,7 +32,7 @@
             *ngIf="evaluate.get('email').errors && evaluate.get('email').hasError('required')">*</span>
         </label>
         <div class="col pt-2">
-          <input type="email" class="form-control" required placeholder="Email" formControlName="email"
+          <input type="email" class="form-control" required placeholder="Enter Candidate's Email" formControlName="email"
             [class.is-invalid]="evaluate.get('email').invalid && evaluate.get('email').touched">
 
           <span class="error" *ngIf=" evaluate.get('email').hasError('email')">Enter Valid Email address.</span>
@@ -62,7 +62,7 @@
             [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched"> -->
 
           
-          <select  class="form-control" name="candidatecollegename" id="candidatecollegename"  (change)="selectChangeHandler($event)"   formControlName="candidatecollegename"  [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched">
+          <select  class="form-control" name="candidatecollegename"  id="candidatecollegename"  (change)="selectChangeHandler($event)"   formControlName="candidatecollegename"  [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched">
             <!-- <option value="Tier1">IIT Dharwad </option>
             <option value="Tier1">NIT Surathkal</option>
 
@@ -121,10 +121,10 @@
         </div>
       </div>
       <div class="form-group pl-2 pr-2 pt-2">
-        <label for="interviewers" class=" col-form-label">6.Interviewer<span class="error"
+        <label for="interviewers" class=" col-form-label">6.Interviewer(s) Name<span class="error"
             *ngIf="evaluate.get('interviewers').hasError('required')">*</span></label>
         <div class="col pt-2">
-          <input type="text" class="form-control" placeholder="Enter Hackerrank Score" formControlName="interviewers" >
+          <input type="text" class="form-control" placeholder="Enter Your Name" formControlName="interviewers">
           <span class="error"
             *ngIf="evaluate.get('interviewers').touched && evaluate.get('interviewers').hasError('required')">Interviewer's
             Name is required.</span>

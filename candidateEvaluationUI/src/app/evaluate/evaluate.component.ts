@@ -51,7 +51,7 @@ export class EvaluateComponent implements OnInit {
       email:['', [Validators.required , Validators.email]],
       candidatecollegename:['', [Validators.required]],
       date:['', [Validators.required]],
-      hackerrankscore:['', [Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9]$")]],
+      hackerrankscore:['', [Validators.required,Validators.maxLength(10),Validators.pattern("^[0-9]*$")]],
       interviewers:['', [Validators.required]],
       training:['', [Validators.required]],
       knowledge:['', [Validators.required]],
@@ -123,12 +123,12 @@ export class EvaluateComponent implements OnInit {
 ngOnInit(){
     this.service.getTier().subscribe((response)=>{
         this.colleges=response;
-        console.log(this.colleges)
+        // console.log(this.colleges)
       })
 
     this.service.getWeightage().subscribe((response)=>{
         this.weightage=<any>response;
-        console.log(this.weightage)
+        // console.log(this.weightage)
         
     })
 
