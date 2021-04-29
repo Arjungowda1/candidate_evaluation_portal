@@ -1,4 +1,19 @@
 <app-interviewer-header></app-interviewer-header>
+
 <div class="container" style="height: 140px;"></div>
+
+<div class="container card" style="height: 600px;">
+<ag-grid-angular #agGrid
+style="width: auto;height: 80%;"
+class="ag-theme-material"
+[animateRows]= "true"
+[rowHeight]="50"
+(gridReady)="onGridReady($event)"
+[columnDefs]= "columnDefs"
+>
+</ag-grid-angular>
+</div>
+
+
 
 <app-footer></app-footer>

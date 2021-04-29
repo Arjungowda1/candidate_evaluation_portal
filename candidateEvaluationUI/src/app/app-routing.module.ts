@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { CollegeComponent } from './college/college.component';
+import { EvaluateComponent } from './evaluate/evaluate.component';
 import { IndexComponent } from './index/index.component';
 import { InterviewerComponent } from './interviewer/interviewer.component';
 import { AuthGuard } from './service/guards/auth.guard';
@@ -10,18 +11,25 @@ import { UserComponent } from './user/user.component';
 import { WeightageComponent } from './weightage/weightage.component';
 
 const routes: Routes = [
-  { path: 'index', component: IndexComponent },
+  { 
+    path: 'index', 
+    component: IndexComponent },
   { path: '', redirectTo:'/index', pathMatch: 'full' },
   { path: 'admin',
     component: AdminComponent,
     canActivate: [AuthGuard],
     data: {roles: [Role.ADMIN]}
   },
-  { path: 'interviewer/:id',
-    component: InterviewerComponent,
-    canActivate: [AuthGuard],
-    data: {roles: [Role.USER]}
-  },
+  { path: 'interviewer', 
+  component: InterviewerComponent,
+  canActivate:[AuthGuard],
+  data:{roles:[Role.USER]}
+},
+  { path: 'evaluate', 
+  component:EvaluateComponent,
+  canActivate:[AuthGuard],
+  data:{roles:[Role.USER]}
+},
   { 
     path: 'user', 
     component:UserComponent,

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from 'src/app/shared/user';
 import { SignUpApproval } from 'src/app/shared/login';
+import { Result } from 'src/app/shared/result';
 
 @Injectable({
   providedIn: 'root'
@@ -24,5 +25,9 @@ export class InterviewerService {
 
   getInterviewers(id: number){
     return this.http.get(this.baseUrl+'user/'+id,{headers: this.headers});
+  }
+
+  saveResult(result:Result){
+    return this.http.post(this.baseUrl+'saveresult',result,{headers:this.headers});
   }
 }

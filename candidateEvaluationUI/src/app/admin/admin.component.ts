@@ -103,8 +103,8 @@ export class AdminComponent implements OnInit {
       .subscribe(
         res =>{
           this.resp = <any>res;
-          if(this.resp.length!=0){
-            this._notificationservice.info("New SignUp Request! Please check")
+          if(this.resp.length>0){
+            this._notificationservice.info("New SignUp Request! Please check");
           }
         }
       )

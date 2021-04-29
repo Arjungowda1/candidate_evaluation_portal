@@ -189,22 +189,22 @@ export class WeightageComponent implements OnInit , AfterViewInit, OnChanges {
 
   modalData(){
     this._confirmWeightage = this.factors;
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].weightage = this.cepWeightageForm.value.education ;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Education")].factorContribution = this.valueEducation*100;
     
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].weightage = this.cepWeightageForm.value.programming ;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Programming Skills")].factorContribution = this.valueProblem*100;
     
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].weightage = this.cepWeightageForm.value.adaptibility ;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Adaptibility")].factorContribution = this.valueAdaptibility*100;
     
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].weightage = this.cepWeightageForm.value.problem;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Problem Solving")].factorContribution = this.valueProblem*100;
     
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].weightage = this.cepWeightageForm.value.logical ;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Logical Skills")].factorContribution = this.valueLogical*100;
     
-    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal/5 ;
+    this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].weightage = this.cepWeightageForm.value.interpersonal ;
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Interpersonal Skills")].factorContribution = this.valueInterpersonal*100;
     
     this._confirmWeightage[this.factors.findIndex(x =>x.evaluationFactor === "Cut off Marks")].weightage = this.cepWeightageForm.value.cutoff ;
@@ -222,7 +222,6 @@ export class WeightageComponent implements OnInit , AfterViewInit, OnChanges {
 
   valueChangeSlider(){
     this.finalValue = Number((this.valueEducation + this.valueInterpersonal +this.valueLogical+ this.valueProgramming +this.valueAdaptibility +this.valueProblem).toFixed(1));
-    console.log(this.finalValue)
     if(this.finalValue!=1){
       this.errMessSlider = false;
       this.violating = true;
@@ -231,6 +230,7 @@ export class WeightageComponent implements OnInit , AfterViewInit, OnChanges {
     if(this.finalValue == 1){
       this.errMessSlider = true;
       this.violating = false;
+      this.finalValue = 0;
     }
   }
 }
