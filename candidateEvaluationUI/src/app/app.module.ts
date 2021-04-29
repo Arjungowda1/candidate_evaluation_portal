@@ -7,7 +7,9 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
-import {AgGridModule} from 'ag-grid-angular'
+import {AgGridModule} from 'ag-grid-angular';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+
 
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
@@ -50,7 +52,8 @@ import { EvaluateService } from './service/evaluate/evaluate.service';
     ReactiveFormsModule,
     CommonModule,
     NgbModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    MatDatepickerModule
   ],
   providers: [EvaluateService],
   bootstrap: [AppComponent]

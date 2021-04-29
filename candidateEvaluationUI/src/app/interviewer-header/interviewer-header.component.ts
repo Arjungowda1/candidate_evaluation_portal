@@ -12,6 +12,7 @@ export class InterviewerHeaderComponent implements OnInit {
 
   userId: number;
   data: User;
+  currentUser: any;
   
   constructor(
     private router: Router,
@@ -24,14 +25,10 @@ export class InterviewerHeaderComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.route.paramMap.subscribe(
-      params => {
-        this.userId = +params.get('id');
-        
-      }
-    );
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
 
-    this.interviewerService.getInterviewers(this.userId)
+
+    this.interviewerService.getInterviewers(this.currentUser.id)
     .subscribe(
       res =>{
         this.data =<any>res;

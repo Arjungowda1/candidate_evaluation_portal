@@ -5,6 +5,8 @@ import { Evaluate } from '../shared/evaluation-form';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EvaluateService } from '../service/evaluate/evaluate.service';
 import { HttpClient } from '@angular/common/http';
+  
+
 
 
 
@@ -14,120 +16,54 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./interviewer.component.css']
 })
 export class InterviewerComponent implements OnInit {
-  private gridApi;
-  private gridColumnApi;
-  public columnDefs;
-  private sortingOrder;
+  
+ 
   userId: number;
 
-  evaluationForm:Evaluate|any;
-  
-
+  evaluationForm:Evaluate[];
+  currentUser: any;
+  columnDefs: { headerName: string; field: string; width:number; sortable: boolean; filter:boolean;floatingFilter:boolean;wrapText:boolean}[];
+  gridApi: any;
+  gridColumnApi: any;
+ 
 
    
   constructor(private service:EvaluateService, private http:HttpClient,private router: Router,
     private route: ActivatedRoute,) {
+      
 
-    // this.service.extractAllForm().subscribe(data=>{
-    //   console.log(data);
-    // })
+    this.columnDefs = [
+      { headerName: "Candidate's Name",width:200, field: "candidatename", sortable: true, filter: true, floatingFilter:true ,wrapText: true},
+      { headerName: " Email",width:200,  field: "email" , sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: "Interview Date",width:200,  field: "date", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: "Recommend To Hire",width:200,  field: "recommend_to_hire", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: "Additional Comments",width:400,  field: "comments", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+    ];
 
- 
-
-    // this.columnDefs=[
-    //   {
-    //     headerName:"Candidate's Name",
-    //     field:"candidatename",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Candidate's College Tier",
-    //     field:"candidatecollegename",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Date",
-    //     field:"date",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Hackerrank Score",
-    //     field:"hackerrankscore",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Interviewer(s)",
-    //     field:"interviewer",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Education/Training",
-    //     field:"training",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Programming Knowledge",
-    //     field:"knowledge",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Logical Reasoning",
-    //     field:"logical",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Interpersonal & Communication Skills",
-    //     field:"interpersonal",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Recommend To Hire",
-    //     field:"recommend_to_hire",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   },
-    //   {
-    //     headerName:"Additional Comments",
-    //     field:"comments",
-    //     width:150,
-    //     sortingOrder:["asc","desc"]
-    //   }
-    // ];
 
 
 
     }
 
-// onGridReady(params){
-//   this.gridApi=params.api;
-//   this.gridColumnApi=params.gridColumnApi;
-//   this.http.get("http://localhost:8080/cep/interviewer/evaluate").subscribe(data=>{
-//     params.api.setRowData(data)
-//   })
-//   params.api.setRowData(this.evaluationForm);
+onGridReady(params){
+  this.gridApi=params.api;
+  this.gridColumnApi=params.gridColumnApi;
+  this.http.get("http://localhost:8080/cep/interviewer/evaluate/"+this.currentUser.id).subscribe(data=>{
+    this.evaluationForm=<any>data['body'];
+    // console.log(this.evaluationForm);
+    params.api.setRowData(this.evaluationForm);
+  })
+  
 
-// }
+}
    ngOnInit(): void {
-    this.route.paramMap.subscribe(
-      params => {
-        this.userId = +params.get('id');
-        console.log(this.userId)
-      }
-    );
 
-     this.service.extractAllForm(this.userId).subscribe((response)=>{
+    this.currentUser = JSON.parse(localStorage.getItem('currentUser'));
+     this.service.extractAllForm(this.currentUser.id).subscribe((response)=>{
        this.evaluationForm=response['body'];
-       console.log(response['body']);
+     
      })
+    
    }
 
 

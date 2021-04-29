@@ -41,11 +41,11 @@ export class EvaluateService {
   }
 
   extractUser(id:number){
-    return this.http.get(this.baseUrl + 'users',{headers: this.headers});
+    return this.http.get(this.baseURL + 'user/'+id,{headers: this.headers});
   }
   
   extractAllUsers(){
-    return this.http.get(this.baseUrl + 'users',{headers: this.headers});
+    return this.http.get(this.baseURL + 'users',{headers: this.headers});
   }
 
   getTier(){

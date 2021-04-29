@@ -91,7 +91,7 @@ export class IndexComponent implements OnInit {
           this.route.navigate(['/admin'])
         }
         else{
-          this.route.navigate(['/interviewer',this.response.id]);
+          this.route.navigate(['/interviewer']);
         }
       },
       err => {

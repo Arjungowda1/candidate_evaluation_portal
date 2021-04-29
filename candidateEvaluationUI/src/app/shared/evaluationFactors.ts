@@ -1,70 +1,76 @@
 export class Weightages{
-    weightageId:number;
+    weightage_id:number;
     evaluationFactor: string;
     weightage:number;
-    createdBy:string;
+    created_by:string;
     createdDate:string ;
     active:boolean;
-
-
+    factorContribution: number;
 }
 
 
 export const EvaluationFactors=[
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Education",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Programming Skills",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Adaptibility",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Problem Solving",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Logical Skills",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Interpersonal Skills",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     },
     {
-        "weightageId": 0 ,
+        "weightage_id": 0 ,
         "evaluationFactor": "Cut off Marks",
         "weightage": 0,
-        "createdBy": "",
+        "created_by": "",
         "createdDate": "",
-        "active": true
+        "active": true,
+        "factorContribution": 0
     }
 ]

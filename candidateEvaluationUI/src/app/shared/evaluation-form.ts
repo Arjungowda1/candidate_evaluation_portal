@@ -1,4 +1,5 @@
 export class Evaluate{
+    cid:number;
     candidatename:string;
     email:string;
     candidatecollegename:string;
