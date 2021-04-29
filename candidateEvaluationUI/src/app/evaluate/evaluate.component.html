@@ -66,12 +66,9 @@
             </div>
 
             <div class="col-md-4 pl-5 pt-2 ">
-              <p><span>Selected College Is Of Tier :</span><b>{{selectedTier}}</b></p>
+              <p ><span *ngIf ="evaluate.get('candidatecollegename').valid">Selected College Is Of Tier :</span><b>{{selectedTier}}</b></p>
             </div>
           </div>
-
-
-
 
 
           <select class="form-control" name="candidatecollegename" id="candidatecollegename"
@@ -86,7 +83,7 @@
 
           <span class="error"
             *ngIf="evaluate.get('candidatecollegename').touched && evaluate.get('candidatecollegename').hasError('required')">
-            CollegeName is required.</span>
+            College Name is required.</span>
 
         </div>
 
