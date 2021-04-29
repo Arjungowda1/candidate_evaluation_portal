@@ -31,10 +31,10 @@
               [class.is-invalid]="evaluate.get('candidatename').invalid && evaluate.get('candidatename').touched">
             <span class="error"
               *ngIf=" evaluate.get('candidatename').touched &&evaluate.get('candidatename').errors && evaluate.get('candidatename').hasError('required')">Candidate
-              Name is required</span>
+              Name Is Required</span>
             <span class="error" *ngIf=" evaluate.get('candidatename').hasError('maxlength')">Maximum Length Is
-              50.</span>
-            <span class="error" *ngIf=" evaluate.get('candidatename').hasError('minlength')">Minimum length Is 2.</span>
+              50</span>
+            <span class="error" *ngIf=" evaluate.get('candidatename').hasError('minlength')">Minimum Length Is 2</span>
           </div>
         </div>
 
@@ -48,7 +48,7 @@
               formControlName="email"
               [class.is-invalid]="evaluate.get('email').invalid && evaluate.get('email').touched">
 
-            <span class="error" *ngIf=" evaluate.get('email').hasError('email')">Enter Valid Email address.</span>
+            <span class="error" *ngIf=" evaluate.get('email').hasError('email')">Enter Valid Email Address</span>
             <span class="error"
               *ngIf="evaluate.get('email').touched && evaluate.get('email').hasError('required')">Email
               Id Required</span>
@@ -83,7 +83,7 @@
 
           <span class="error"
             *ngIf="evaluate.get('candidatecollegename').touched && evaluate.get('candidatecollegename').hasError('required')">
-            College Name is required.</span>
+            College Name Is Required</span>
 
         </div>
 
@@ -94,8 +94,8 @@
           <div class="col pt-2">
             <input type="date" placeholder="DD/MM/YYYY" formControlName="date" required>
             <span class="error" *ngIf="evaluate.get('date').touched && evaluate.get('date').hasError('required')">Date
-              is
-              required.</span>
+              Is
+              Required</span>
           </div>
         </div>
 
@@ -111,12 +111,12 @@
               [class.is-invalid]="evaluate.get('hackerrankscore').invalid && evaluate.get('hackerrankscore').touched">
             <span class="error"
               *ngIf="evaluate.get('hackerrankscore').touched && evaluate.get('hackerrankscore').hasError('required')">Hackerrank
-              Score is required.</span>
-            <span class="error" *ngIf="evaluate.get('hackerrankscore').hasError('maxlength')">Maximum Length is
-              10.</span>
-            <span class="error" *ngIf="  evaluate.get('hackerrankscore').hasError('pattern')">This field can contain
-              only
-              numeric values.</span>
+              Score is required</span>
+            <span class="error" *ngIf="evaluate.get('hackerrankscore').hasError('maxlength')">Maximum Length Is
+              10</span>
+            <span class="error" *ngIf="  evaluate.get('hackerrankscore').hasError('pattern')">This Field Can Contain
+              Only
+              Numeric Values</span>
           </div>
         </div>
         <div class="form-group m-5" ngsReveal>
@@ -126,7 +126,7 @@
             <input type="text" class="form-control" placeholder="Enter Your Name" formControlName="interviewers">
             <span class="error"
               *ngIf="evaluate.get('interviewers').touched && evaluate.get('interviewers').hasError('required')">Interviewer's
-              Name is required.</span>
+              Name Is Required</span>
           </div>
         </div>
 
@@ -168,7 +168,7 @@
               </div>
               <span class="error"
                 *ngIf="evaluate.get('training').touched && evaluate.get('training').hasError('required')">Training is
-                required.</span>
+                required</span>
             </div>
           </div>
         </div>
@@ -433,14 +433,14 @@
               [class.is-invalid]="evaluate.get('comments').invalid && evaluate.get('comments').touched"></textarea>
             <span class="error"
               *ngIf="evaluate.get('comments').touched && evaluate.get('comments').hasError('required')">
-              Please add your comment.</span>
+              Please Add Your Comment</span>
           </div>
         </div>
 
 
         <div class="row m-5">
           <div class="col ">
-            <p class="text-danger"><b>Please Review Before Submitting. </b></p>
+            <p class="text-danger"><b>Please Review Before Submitting </b></p>
             <button type="button" (click)="onSubmit()" [disabled]="evaluate.invalid"
               class="btn btn-success justify-content-md-center">Submit</button>
           </div>
