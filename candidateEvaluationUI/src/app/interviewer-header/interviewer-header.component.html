@@ -59,7 +59,9 @@
                                     placeholder="Enter email">
                             </div>
                             <div class="col-md-4 justify-content-center">
-                                <button type="submit" (click)="sendKey(email.value)" class="btn btn-warning">Send key</button>
+                                <button type="submit" (click)="sendKey(email.value)" class="btn btn-warning">
+                                    <img *ngIf="isLoading" style="width : 24px" src="../../assets/img/spinner.gif" />
+                                    Send key</button>
                             </div>
                             <small class="text-success ml-3" [hidden] = "keyReceived"><b>{{responsePassword}}</b></small>
                             <small class="text-danger ml-3" [hidden] = "errEmail"><b>{{errMessEmail}}</b></small>

@@ -32,10 +32,10 @@ export class InterviewerComponent implements OnInit {
 
     this.columnDefs = [
       { headerName: "Candidate's Name",width:200, field: "candidatename", sortable: true, filter: true, floatingFilter:true ,wrapText: true},
-      { headerName: " Email",width:200,  field: "email" , sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: " Email",width:290,  field: "email" , sortable: true, filter: true, floatingFilter:true, wrapText: true},
       { headerName: "Interview Date",width:200,  field: "date", sortable: true, filter: true, floatingFilter:true, wrapText: true},
-      { headerName: "Recommend To Hire",width:200,  field: "recommend_to_hire", sortable: true, filter: true, floatingFilter:true, wrapText: true},
-      { headerName: "Additional Comments",width:400,  field: "comments", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: "Recommend To Hire",width:270,  field: "recommend_to_hire", sortable: true, filter: true, floatingFilter:true, wrapText: true},
+      { headerName: "Additional Comments",width:520,  field: "comments", sortable: true, filter: true, floatingFilter:true, wrapText: true},
     ];
 
 

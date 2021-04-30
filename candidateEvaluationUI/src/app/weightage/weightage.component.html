@@ -15,7 +15,7 @@
             <div class="col-md-6 form-group">
                 <label for="education">Education</label>
                 <span class="text-danger" *ngIf="cepWeightageForm.get('education').errors && cepWeightageForm.get('education').hasError('required')">*</span>
-                <input type="number" class="form-control" formControlName = "education"
+                <input type="number" class="form-control" formControlName = "education" 
                   [class.is-invalid] = "cepWeightageForm.get('education').invalid && cepWeightageForm.get('education').touched"
                 placeholder="Enter the score for education" onkeypress="return /[0-9]/i.test(event.key)">
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('education').hasError('max')"><b>The maximum range for this field is 100.</b></small>
@@ -83,7 +83,7 @@
                 <span class="text-danger" *ngIf="cepWeightageForm.get('interpersonal').errors && cepWeightageForm.get('interpersonal').hasError('required')">*</span>
                 <input type="number" class="form-control" formControlName = "interpersonal"
                 [class.is-invalid] = "cepWeightageForm.get('interpersonal').invalid && cepWeightageForm.get('interpersonal').touched"
-                 placeholder="Enter weightage for interpersonal skills" onkeypress="return /[0-9]/i.test(event.key)" >
+                 placeholder="Enter the score for interpersonal skills" onkeypress="return /[0-9]/i.test(event.key)" >
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('interpersonal').hasError('max')"><b>The maximum range for this field is 100.</b></small>
                 <small class="text-danger"  *ngIf="cepWeightageForm.get('interpersonal').hasError('pattern')"><b>Invalid Weightage.</b></small>
             </div>

@@ -15,6 +15,8 @@ import { SignUpApproval } from '../shared/login';
 })
 export class IndexComponent implements OnInit {
 
+  isLoading = false;
+
   hidePass = true;
 
   keyReceived = true;
@@ -142,6 +144,7 @@ export class IndexComponent implements OnInit {
   }
 
   sendKey(email: string) {
+    this.isLoading = true;
     this.resetEmail = email;
     this.passwordService.getKey(email)
       .subscribe(res => {
@@ -149,12 +152,15 @@ export class IndexComponent implements OnInit {
         if (this.result === "Invalid Email! User doesn't exist") {
           this.errEmail = false;
           this.errMessEmail = this.result;
+          this.isLoading = false;
+          this.keyReceived = true;
         }
         else {
           this.responsePassword = "Sent! Please check your email for a key";
           this.keyReceived = false;
           this.errEmail = true;
           this.key = this.result;
+          this.isLoading = false;
         }
       })
   }

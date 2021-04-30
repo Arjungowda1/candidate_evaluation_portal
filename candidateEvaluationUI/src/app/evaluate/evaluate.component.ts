@@ -170,4 +170,10 @@ export class EvaluateComponent implements OnInit {
 
 
 }
+
+
+
+test(params:any){
+  console.log(params);
+}
 }

@@ -2,12 +2,19 @@
 
 <div class="container" style="height: 140px;"></div>
 
-<div class="container card" style="height: 600px;">
+<div class="card bg-light container-fluid mt-2 mb-2">
+    <div>
+      <h4 class="p-4" [ngsReveal]="{ duration: 2000,delay:500}"><b>Your Evaluations</b></h4>
+    </div>
+
+  </div>
+
+<div class="container-fluid card" style="height: 600px;" [ngsReveal]="{ duration: 2000,delay:500}">
 <ag-grid-angular #agGrid
 style="width: auto;height: 80%;"
 class="ag-theme-material"
 [animateRows]= "true"
-[rowHeight]="50"
+[rowHeight]="70"
 (gridReady)="onGridReady($event)"
 [columnDefs]= "columnDefs"
 >

@@ -19,8 +19,9 @@
             <tbody *ngFor="let user of pendingUsers" >
               <tr>
                 <td>{{ user.email }}</td>
-                <td><button class="delete-btn text-success" (click)="approve($event, user)">Approve</button></td>
-                <td><button class="delete-btn text-danger" (click)="reject($event, user)">Reject</button></td>
+                <td><button [disabled]="approveBtn" class="btn btn-success" (click)="approve($event, user)">
+                  <img  *ngIf="isLoading" style="width : 24px;" src="../../assets/img/spinner.gif" /> Approve</button></td>
+                <td><button [disabled]="approveBtn" class="btn btn-danger" (click)="reject($event, user)">Reject</button></td>
               </tr>
             </tbody>
         </table>

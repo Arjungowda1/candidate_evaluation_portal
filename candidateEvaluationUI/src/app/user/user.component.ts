@@ -16,6 +16,10 @@ import { SignUpApproval } from '../shared/login';
 })
 export class UserComponent implements OnInit, AfterViewInit {
 
+  isLoading = false;
+
+  approveBtn = false;
+
   @ViewChild(DialogsComponent) dialogComponent;
 
   pendingUserDisp = false;
@@ -116,7 +120,8 @@ export class UserComponent implements OnInit, AfterViewInit {
 
 
   approve(event:any, user){
-   console.log(user);
+   this.isLoading = true;
+   this.approveBtn = true;
    this.newUser.firstName = user.firstName;
    this.newUser.lastName = user.lastName;
    this.newUser.email = user.email;
@@ -129,6 +134,8 @@ export class UserComponent implements OnInit, AfterViewInit {
       this.allUserDisplay();
       this.userService.rejectUsers(this.newUser.id)
       .subscribe( res =>{
+        this.isLoading = false;
+        this.approveBtn = false;
         this.pendingUsersDb();
       })
    })
