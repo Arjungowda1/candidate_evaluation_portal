@@ -2,6 +2,8 @@ export class Evaluate{
     cid:number;
     candidatename:string;
     email:string;
+    collegeType: string;
+    tier: number;
     candidatecollegename:string;
     date:number;
     hackerrankscore:number;
@@ -15,4 +17,5 @@ export class Evaluate{
     recommend_to_hire:string;
     comments:string;
     interviewerId:number;
+    score:number;
 }

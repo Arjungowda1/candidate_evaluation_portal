@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NotificationService } from '../notifier/notifier.service';
+import { AdminService } from '../service/admin/admin.service';
 import { PasswordService } from '../service/password.service';
+import { Evaluate } from '../shared/evaluation-form';
 import { SignUpApproval } from '../shared/login';
 
 @Component({
@@ -11,93 +13,49 @@ import { SignUpApproval } from '../shared/login';
 export class AdminComponent implements OnInit {
 
   @ViewChild('agGrid') agGrid: any;
+
+  finalSelects:Evaluate[];
   
   resp:SignUpApproval[];
+  columnDefs: { headerName: string; field: string; width: number; sortable: boolean; filter: boolean; floatingFilter: boolean; wrapText: boolean }[];
+  gridApi: any;
+  gridColumnApi: any;
+  formDisplay = false;
 
-  columnDefs = [
-    { headerName: "Candidate Name",width:200, field: "Name", sortable: true, filter: true, floatingFilter:true ,wrapText: true},
-    { headerName: "Email", field: "Email" ,width:290, sortable: true, filter: true, floatingFilter:true, wrapText: true},
-    { headerName: "Score", field: "Score", sortable: true, filter: true, floatingFilter:true, wrapText: true},
-    { headerName: "College", field: "College", sortable: true, filter: true, floatingFilter:true, wrapText: true},
-    { headerName: "Tier", field: "Tier", sortable: true, filter: true, floatingFilter:true, wrapText: true},
-  ];
 
-  rowData = [
-    {
-      Name: 'Arjun',
-      Email: 'arjunce@gmail.com',
-      Score: 20,
-      College:'SJBIT',
-      Tier:3,
-    },
-    {
-      Name: 'demo',
-      Email: 'demo@gmail.com',
-      Score: 214,
-      College:'AJBIT',
-      Tier:2,
-    },
-    {
-      Name: 'new',
-      Email: 'new@gmail.com',
-      Score: 201,
-      College:'BJBIT',
-      Tier:2,
-    },
-    {
-      Name: 'old',
-      Email: 'old@gmail.com',
-      Score: 30,
-      College:'CJBIT',
-      Tier:2,
-    },
-    {
-      Name: 'hello',
-      Email: 'hello@gmail.com',
-      Score: 10,
-      College:'DJBIT',
-      Tier:1,
-    },
-    {
-      Name: 'bye',
-      Email: 'bye@gmail.com',
-      Score: 200,
-      College:'EJBIT',
-      Tier:1,
-    },
-    {
-      Name: 'welcome',
-      Email: 'welcome@gmail.com',
-      Score: 230,
-      College:'SJBIT',
-      Tier:1,
-    },
-    {
-      Name: 'world',
-      Email: 'world@gmail.com',
-      Score: 201,
-      College:'SJBIT',
-      Tier:3,
-    },
-    {
-      Name: 'world',
-      Email: 'world@gmail.com',
-      Score: 201,
-      College:'SJBIT',
-      Tier:3,
-    },
-    {
-      Name: 'world',
-      Email: 'world@gmail.com',
-      Score: 201,
-      College:'SJBIT',
-      Tier:3,
-    }
-  ];
 
   constructor(private userService: PasswordService,
-    private _notificationservice:NotificationService,) { }
+    private _notificationservice:NotificationService,
+    private adminService: AdminService) {
+      this.finalSelects = [];
 
+      this.columnDefs = [
+        { headerName: "Name", width: 200, field: "candidatename", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Email", width: 200, field: "email", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "College", width: 130, field: "candidatecollegename", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Tier", width: 120, field: "tier", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Type", width: 130, field: "collegeType", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Interview Date", width: 200, field: "date", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Score", width: 120, field: "score", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Comments", width: 380, field: "comments", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+      ];
+     }
+
+     onGridReady(params) {
+      this.gridApi = params.api;
+      this.gridColumnApi = params.gridColumnApi;
+      this.adminService.getAllSelects()
+      .subscribe(res =>{
+        this.finalSelects = <any> res;
+        if (this.finalSelects.length == 0) {
+          this.formDisplay = true;
+        }
+        else {
+          params.api.setRowData(this.finalSelects);
+          this.formDisplay = false;
+        } 
+      });
+    }
   ngOnInit(): void {
     this.userService.requestSignupUsers()
       .subscribe(
@@ -107,7 +65,7 @@ export class AdminComponent implements OnInit {
             this._notificationservice.info("New SignUp Request! Please check");
           }
         }
-      )
+      );
   }
  
   onBtnExport(){

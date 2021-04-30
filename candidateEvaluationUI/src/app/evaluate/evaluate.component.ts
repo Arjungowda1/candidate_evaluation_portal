@@ -9,7 +9,6 @@ import { InterviewerService } from '../service/interviewer/interviewer.service';
 import { College } from '../shared/college';
 import { Evaluate } from '../shared/evaluation-form';
 import { EvaluationFactors, Weightages } from '../shared/evaluationFactors';
-import { Result } from '../shared/result';
 
 
 @Component({
@@ -21,7 +20,7 @@ export class EvaluateComponent implements OnInit {
   evaluate: FormGroup;
   evaluationData: Evaluate;
   finalEvaluationData:Evaluate;
-  selectedTier: string = '';
+  selectedTier: number = 0;
   selectedWeight: number = 0;
   colleges: College[] ;
   weightage: Weightages[]=EvaluationFactors;
@@ -33,12 +32,15 @@ export class EvaluateComponent implements OnInit {
   interpersonalWeightage = 0;
   sum = 0;
   interviewerId = 0;
-  finalresult:Result;
 
   userId: number;
   currentUser: any;
   formDisplay=false;
 
+  
+  selectedId:number = 0;
+  selectedCollege:College;
+  selectedTierFlag= false;
 
   constructor(private service: EvaluateService, private fb: FormBuilder, private auth: AuthenticateService,
     private router: Router,
@@ -48,7 +50,8 @@ export class EvaluateComponent implements OnInit {
     this.createForm();
     this.evaluationData = new Evaluate();
     this.colleges=[];
-    this.finalresult=new Result();
+    this.selectedId = 0;
+    this.selectedCollege = new College();
     this.finalEvaluationData=new Evaluate();
 
   }
@@ -80,7 +83,9 @@ export class EvaluateComponent implements OnInit {
   onSubmit() {
     this.evaluationData.candidatename = this.evaluate.value.candidatename;
     this.evaluationData.email = this.evaluate.value.email;
-    this.evaluationData.candidatecollegename = this.evaluate.value.candidatecollegename;
+    this.evaluationData.candidatecollegename = this.selectedCollege.name;
+    this.evaluationData.tier = this.selectedTier;
+    this.evaluationData.collegeType = this.selectedCollege.type;
     this.evaluationData.date = this.evaluate.value.date;
     this.evaluationData.hackerrankscore = this.evaluate.value.hackerrankscore;
     this.evaluationData.interviewers = this.evaluate.value.interviewers;
@@ -94,29 +99,24 @@ export class EvaluateComponent implements OnInit {
     this.evaluationData.comments = this.evaluate.value.comments;
     this.evaluationData.interviewerId = this.currentUser.id;
     this.sum=Number(this.sum)+Number(this.evaluate.value.hackerrankscore);
-
-    
+    if (this.sum > this.weightage[this.weightage.findIndex(x => x.evaluationFactor === "Cut off Marks")].weightage) {
+      this.evaluationData.score = this.sum;
+    }
+    else{
+      this.evaluationData.score = 0;
+    }
     this.service.createForm(this.evaluationData).subscribe(data => {
       this.finalEvaluationData=<any>data;
+      this.notificationservice.success("Form Submitted Successfully")
       this.evaluate.reset();
-      if (this.sum > this.weightage[this.weightage.findIndex(x => x.evaluationFactor === "Cut off Marks")].weightage) {
-        this.finalresult.candidateId = this.finalEvaluationData.cid;
-        this.finalresult.score = this.sum;
-        this.intservice.saveResult(this.finalresult)
-          .subscribe((data) =>{this.sum=0;
-            this.notificationservice.success("Form Submitted Successfully")
-          
-          });
-      }});
-    
-
-    
-
+      });
   }
 
-
   selectChangeHandler(event: any) {
-    this.selectedTier = event.target.value;
+    this.selectedId = event.target.value;
+    this.selectedCollege = this.colleges[this.colleges.findIndex(x =>x.college_id == this.selectedId)];
+    this.selectedTier = this.selectedCollege.tier;
+    this.selectedTierFlag = true;
   }
 
   radioChangeHandler(event: any, factor: string) {
@@ -171,9 +171,4 @@ export class EvaluateComponent implements OnInit {
 
 }
 
-
-
-test(params:any){
-  console.log(params);
-}
 }

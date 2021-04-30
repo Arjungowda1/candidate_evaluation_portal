@@ -66,8 +66,8 @@
 
             </div>
 
-            <div class="col-md-4 pl-5 pt-2 ">
-              <p ><span *ngIf ="evaluate.get('candidatecollegename').valid">Selected College Is Of Tier :</span><b>{{selectedTier}}</b></p>
+            <div class="col-md-4 pl-5 pt-2 " *ngIf ="selectedTierFlag">
+              <p ><span >Selected College Is Of Tier :</span><b>{{selectedTier}}</b></p>
             </div>
           </div>
 
@@ -76,8 +76,8 @@
             (change)="selectChangeHandler($event)" formControlName="candidatecollegename"
             [class.is-invalid]="evaluate.get('candidatecollegename').invalid && evaluate.get('candidatecollegename').touched">
 
-
-            <option *ngFor="let clg of colleges" [value]="clg.tier">
+            <option disabled selected value> -- select an option -- </option>
+            <option *ngFor="let clg of colleges" [value]="clg.college_id">
               {{clg.name}}, {{clg.type}}
             </option>
           </select>

@@ -56,4 +56,8 @@ export class AdminService {
   deleteTier(id: number){
     return this.http.delete(this.baseURL + "features/tier/"+id,{headers: this.headers});
   }
+
+  getAllSelects(){
+    return this.http.get(this.baseURL+"features/finalselects",{headers: this.headers});
+  }
 }
