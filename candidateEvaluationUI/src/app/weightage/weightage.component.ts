@@ -1,7 +1,6 @@
-import { AfterViewInit, Component, OnInit, ViewChild, OnChanges, SimpleChanges, ChangeDetectorRef } from '@angular/core';
-import { FormBuilder, FormGroup,FormArray, Validators } from '@angular/forms';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AdminService } from '../service/admin/admin.service';
-import { NotifierComponent } from '../notifier/notifier.component';
 import { NotificationService } from '../notifier/notifier.service';
 import { DialogsComponent } from '../dialogs/dialogs.component';
 import { EvaluationFactors, Weightages } from '../shared/evaluationFactors';
@@ -12,7 +11,7 @@ import { Options } from 'ng5-slider';
   templateUrl: './weightage.component.html',
   styleUrls: ['./weightage.component.css']
 })
-export class WeightageComponent implements OnInit , AfterViewInit, OnChanges {
+export class WeightageComponent implements OnInit , AfterViewInit{
 
   @ViewChild(DialogsComponent) dialogComponent;
 
@@ -80,15 +79,10 @@ export class WeightageComponent implements OnInit , AfterViewInit, OnChanges {
     public fb: FormBuilder,
     private adminService: AdminService,
     private _notificationservice:NotificationService,
-    private cd: ChangeDetectorRef
   ) { 
     this.createWeightage();
     this.existingWeightage = [];
     this._confirmWeightage = new Array;
-  }
-
-  ngOnChanges(changes: SimpleChanges){
-    console.log(changes)
   }
 
 

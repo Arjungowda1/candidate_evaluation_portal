@@ -6,7 +6,6 @@ import { Router } from '@angular/router';
 import { Role } from '../shared/role';
 import { PasswordService } from '../service/password.service';
 import { NotificationService } from '../notifier/notifier.service';
-import { InterviewerService } from '../service/interviewer/interviewer.service';
 import { SignUpApproval } from '../shared/login';
 
 @Component({
@@ -179,7 +178,6 @@ export class IndexComponent implements OnInit {
 
 
   resetPassword(newPassword: string) {
-    console.log(this.resetEmail);
     this.newPasswordUser.email = this.resetEmail;
     this.newPasswordUser.password = newPassword;
     this.passwordService.resetPassword(this.newPasswordUser)
@@ -203,7 +201,6 @@ export class IndexComponent implements OnInit {
       this.passwordService.checkEmail(this.signUpUser.email)
         .subscribe(res => {
           if (res) {
-            console.log(res);
             this._notificationservice.error("User Exists! Please Log in");
             this.cepSignUpForm.reset();
           }

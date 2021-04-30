@@ -34,10 +34,10 @@ export class AdminComponent implements OnInit {
         { headerName: "Email", width: 200, field: "email", sortable: true, filter: true, floatingFilter: true, wrapText: true },
         { headerName: "College", width: 130, field: "candidatecollegename", sortable: true, filter: true, floatingFilter: true, wrapText: true },
         { headerName: "Tier", width: 120, field: "tier", sortable: true, filter: true, floatingFilter: true, wrapText: true },
-        { headerName: "Type", width: 130, field: "collegeType", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Type", width: 140, field: "collegeType", sortable: true, filter: true, floatingFilter: true, wrapText: true },
         { headerName: "Interview Date", width: 200, field: "date", sortable: true, filter: true, floatingFilter: true, wrapText: true },
         { headerName: "Score", width: 120, field: "score", sortable: true, filter: true, floatingFilter: true, wrapText: true },
-        { headerName: "Comments", width: 380, field: "comments", sortable: true, filter: true, floatingFilter: true, wrapText: true },
+        { headerName: "Comments", width: 370, field: "comments", sortable: true, filter: true, floatingFilter: true, wrapText: true },
       ];
      }
 

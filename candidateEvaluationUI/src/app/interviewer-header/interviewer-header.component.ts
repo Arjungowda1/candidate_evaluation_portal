@@ -104,7 +104,6 @@ export class InterviewerHeaderComponent implements OnInit {
 
 
   resetPassword(newPassword:string){
-    console.log(this.resetEmail);
     this.newPasswordUser.email = this.resetEmail;
     this.newPasswordUser.password = newPassword;
     this.passwordService.resetPassword(this.newPasswordUser)

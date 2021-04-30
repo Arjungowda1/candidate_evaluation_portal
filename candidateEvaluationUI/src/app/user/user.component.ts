@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder } from '@angular/forms';
 import { User } from 'src/app/shared/user';
 import { ActivatedRoute, Params } from '@angular/router';
 import { AdminService } from '../service/admin/admin.service';
