@@ -3,3 +3,9 @@
     border: 2px solid green;
     border-radius: 7px;
 }
+
+.delete-btn{
+    background: none;
+    border: 2px solid red;
+    border-radius: 7px;
+}

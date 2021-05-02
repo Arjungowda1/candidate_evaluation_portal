@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { DialogsComponent } from '../dialogs/dialogs.component';
 import { NotificationService } from '../notifier/notifier.service';
 import { AdminService } from '../service/admin/admin.service';
 import { PasswordService } from '../service/password.service';
@@ -10,8 +11,9 @@ import { SignUpApproval } from '../shared/login';
   templateUrl: './admin.component.html',
   styleUrls: ['./admin.component.css']
 })
-export class AdminComponent implements OnInit {
+export class AdminComponent implements OnInit, AfterViewInit {
 
+  @ViewChild(DialogsComponent) dialogComponent;
   @ViewChild('agGrid') agGrid: any;
 
   finalSelects:Evaluate[];
@@ -21,6 +23,7 @@ export class AdminComponent implements OnInit {
   gridApi: any;
   gridColumnApi: any;
   formDisplay = false;
+  delete: boolean = false;
 
 
 
@@ -40,6 +43,22 @@ export class AdminComponent implements OnInit {
         { headerName: "Comments", width: 370, field: "comments", sortable: true, filter: true, floatingFilter: true, wrapText: true },
       ];
      }
+  ngAfterViewInit(): void {
+
+    this.dialogComponent.getSelectedOption().subscribe((value: boolean) =>{
+      this.delete = value;
+      if(this.delete){
+        this.adminService.deleteAllForms()
+          .subscribe(
+             res=>{
+              this.delete = false;
+              this.formDisplay = true;
+              }
+          );
+        this._notificationservice.info("Data removed successfully");
+      }
+    });
+  }
 
      onGridReady(params) {
       this.gridApi = params.api;
@@ -73,4 +92,14 @@ export class AdminComponent implements OnInit {
       fileName:"final-selects"
     });
   }
+
+
+  onDeleteForms(){
+    this.dialogComponent.openDialog(
+      "Are you sure you want to continue?"
+    );
+  }
+
+
+
 }

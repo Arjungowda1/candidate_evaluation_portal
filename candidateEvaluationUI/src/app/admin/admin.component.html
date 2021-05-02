@@ -1,5 +1,6 @@
 <app-header></app-header>
 <app-notifier></app-notifier>
+<app-dialogs></app-dialogs>
 <div class="container" style="height: 140px;"></div>
 
 <div [hidden]="formDisplay">
@@ -11,12 +12,13 @@
     <div class="container-fluid  mb-4 mt-4" style="height: 700px;" [ngsReveal]="{ duration: 2000,delay:500}">
         <button (click)="onBtnExport()" class="text-success export-btn p-2 m-3"><i class="fa fa-file-excel-o"
                 aria-hidden="true"></i> Export to .csv</button>
+        <button (click)="onDeleteForms()" class="text-danger delete-btn p-2 m-3"><i class="fa fa-close" style="color:red"></i>Delete all Data</button>       
         <ag-grid-angular #agGrid style="width:auto;height: 80%;" class="ag-theme-material" [animateRows]="true"
             [rowHeight]="70" (gridReady)="onGridReady($event)" [columnDefs]="columnDefs"></ag-grid-angular>
     </div>
 </div>
 
-<div *ngIf="formDisplay" class="row align-items-center justify-content-center" style="height: 600px;"
+<div *ngIf="formDisplay" class="row align-items-center justify-content-center" style="height: 600px; width: 100%;"
     [ngsReveal]="{ duration: 2000,delay:500}">
     <i class="fa fa-times-circle" style="font-size:40px;"></i>
     <h6 class="text-secondary pl-2"><b> No Interview Data Entered yet</b></h6>

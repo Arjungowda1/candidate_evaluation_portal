@@ -60,4 +60,8 @@ export class AdminService {
   getAllSelects(){
     return this.http.get(this.baseURL+"features/finalselects",{headers: this.headers});
   }
+
+  deleteAllForms(){
+    return this.http.delete(this.baseURL+"features/deleteall",{headers: this.headers})
+  }
 }
